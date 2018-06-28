@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
@@ -10,18 +10,18 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
     public constructor(private user: UserService, private youtube: YoutubeService) {
         //
     }
 
-    public ngOnInit(): void {
+    public signIn(): void {
         this.user.signIn();
     }
 
-    public fetchLiked(): void {
-        this.youtube.request('/videos?myRating=like&part=snippet').subscribe((res) => {
+    public printLiked(): void {
+        this.youtube.fetchLiked().subscribe((res) => {
             window.console.log(res);
         });
     }

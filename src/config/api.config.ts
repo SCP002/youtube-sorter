@@ -1,23 +1,17 @@
 import {NgGapiClientConfig} from 'ng-gapi';
 
-export class GApiClientConfig implements NgGapiClientConfig {
+export class GApiConfig implements NgGapiClientConfig {
 
-    public client_id = '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com';
+    public static readonly INSTANCE = new GApiConfig();
 
-    public cookie_policy: string;
+    private constructor() {
+        //
+    }
 
-    public discoveryDocs: string[] = ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'];
+    private readonly client_id = '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com';
 
-    public fetch_basic_profile: boolean;
+    private readonly discoveryDocs: string[] = ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'];
 
-    public hosted_domain: string;
-
-    public openid_realm: string;
-
-    public redirect_uri: string;
-
-    public scope: string = ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ');
-
-    public ux_mode: 'popup' | 'redirect';
+    private readonly scope: string = ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ');
 
 }

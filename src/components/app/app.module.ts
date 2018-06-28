@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
-import {GApiClientConfig} from '../../config/api.config';
+import {GApiConfig} from '../../config/api.config';
 import {AppComponent} from './app.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import {AppComponent} from './app.component';
         BrowserModule,
         GoogleApiModule.forRoot({
             provide: NG_GAPI_CONFIG,
-            useValue: new GApiClientConfig()
+            useValue: GApiConfig.INSTANCE
         })
     ],
     providers: [],

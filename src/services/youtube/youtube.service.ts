@@ -14,7 +14,11 @@ export class YoutubeService {
         //
     }
 
-    public request(params: string): Observable<Object> {
+    public fetchLiked(): Observable<Object> {
+        return this.request('/videos?myRating=like&part=snippet');
+    }
+
+    private request(params: string): Observable<Object> {
         return this.httpClient.get(this.apiUrl + params, {
             headers: new HttpHeaders({
                 Authorization: `Bearer ${this.user.getToken()}`
