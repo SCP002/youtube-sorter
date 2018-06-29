@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GoogleAuthService} from 'ng-gapi';
+import {Subject} from 'rxjs';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
@@ -8,11 +9,24 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
-    private token: string;
-    private user: GoogleUser;
+    public readonly signInSub: Subject<boolean> = new Subject<boolean>();
+
+    private readonly token: string;
 
     private constructor(private googleAuth: GoogleAuthService) {
         //
+    }
+
+    public signIn(): Subject<boolean> {
+        this.googleAuth.getAuth().subscribe((auth: GoogleAuth) => {
+            auth.signIn().then((user: GoogleUser) => {
+                sessionStorage.setItem(this.token, user.getAuthResponse().access_token);
+
+                this.signInSub.next(true);
+            });
+        });
+
+        return this.signInSub;
     }
 
     public getToken(): string {
@@ -23,18 +37,6 @@ export class UserService {
         }
 
         return sessionStorage.getItem(this.token);
-    }
-
-    public signIn(): void {
-        this.googleAuth.getAuth().subscribe((auth: GoogleAuth) => {
-            auth.signIn().then(res => this.signInSuccessHandler(res));
-        });
-    }
-
-    private signInSuccessHandler(res: GoogleUser): void {
-        this.user = res;
-
-        sessionStorage.setItem(this.token, res.getAuthResponse().access_token);
     }
 
 }
