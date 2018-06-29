@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
+import {Video} from '../../services/youtube/video';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
@@ -19,9 +20,8 @@ export class LikedComponent implements OnInit {
         });
     }
 
-    // TODO: Parse 'res' using JSON type and special methods?
     public printLikedList(): void {
-        this.youtube.fetchLiked().subscribe((videos) => {
+        this.youtube.fetchLiked().subscribe((videos: Array<Video>) => {
             for (const video of videos) {
                 window.console.log(video.getTitle());
             }

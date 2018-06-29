@@ -19,9 +19,8 @@ export class YoutubeService {
         //
     }
 
-    // TODO: Parse 'res' using JSON type and special methods?
     public fetchLiked(): Subject<Array<Video>> {
-        this.request('/videos?myRating=like&part=snippet').subscribe((res) => {
+        this.request('/videos?myRating=like&part=snippet').subscribe((res: Object) => {
             const likedVideos: Array<Video> = [];
 
             for (const item of res['items']) {
