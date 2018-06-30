@@ -11,7 +11,7 @@ import {Video} from './video';
 })
 export class YoutubeService {
 
-    public readonly likedVideosSub: Subject<Array<Video>> = new Subject<Array<Video>>();
+    private readonly likedSub: Subject<Array<Video>> = new Subject<Array<Video>>();
 
     private readonly apiUrl: string = 'https://www.googleapis.com/youtube/v3';
 
@@ -21,7 +21,7 @@ export class YoutubeService {
 
     public fetchLiked(): Subject<Array<Video>> {
         this.request('/videos?myRating=like&part=snippet').subscribe((res: Object) => {
-            const likedVideos: Array<Video> = [];
+            const liked: Array<Video> = [];
 
             for (const item of res['items']) {
                 const id: string = item['id'];
@@ -29,13 +29,13 @@ export class YoutubeService {
 
                 const video: Video = new Video(id, title);
 
-                likedVideos.push(video);
+                liked.push(video);
             }
 
-            this.likedVideosSub.next(likedVideos);
+            this.likedSub.next(liked);
         });
 
-        return this.likedVideosSub;
+        return this.likedSub;
     }
 
     private request(params: string): Observable<Object> {

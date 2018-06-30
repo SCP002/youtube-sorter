@@ -10,22 +10,24 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class LikedComponent implements OnInit {
 
+    private liked: Array<Video> = [];
+
     public constructor(private user: UserService, private youtube: YoutubeService) {
         //
     }
 
+    // TODO: Any way to simplify call stack?
     public ngOnInit() {
-        this.user.signInSub.subscribe(() => {
-            this.printLikedList();
+        this.user.getSignInSub().subscribe(() => {
+            this.youtube.fetchLiked().subscribe((liked: Array<Video>) => {
+                this.liked = liked;
+            });
         });
     }
 
-    public printLikedList(): void {
-        this.youtube.fetchLiked().subscribe((videos: Array<Video>) => {
-            for (const video of videos) {
-                window.console.log(video.getTitle());
-            }
-        });
+    // TODO: Move this into YoutubeService?
+    public getLiked(): Array<Video> {
+        return this.liked;
     }
 
 }
