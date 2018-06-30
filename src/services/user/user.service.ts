@@ -28,7 +28,7 @@ export class UserService {
             throw new Error('No token set, authentication required');
         }
 
-        return sessionStorage.getItem(this.token);
+        return token;
     }
 
     public signIn(): Subject<boolean> {

@@ -16,7 +16,6 @@ export class LikedComponent implements OnInit {
         //
     }
 
-    // TODO: Any way to simplify call stack?
     public ngOnInit() {
         this.user.getSignInSub().subscribe(() => {
             this.youtube.fetchLiked().subscribe((liked: Array<Video>) => {
@@ -25,7 +24,6 @@ export class LikedComponent implements OnInit {
         });
     }
 
-    // TODO: Move this into YoutubeService?
     public getLiked(): Array<Video> {
         return this.liked;
     }

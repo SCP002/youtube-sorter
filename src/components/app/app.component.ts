@@ -12,8 +12,8 @@ export class AppComponent {
         //
     }
 
-    public getUser(): UserService {
-        return this.user;
+    public signIn(): void {
+        this.user.signIn();
     }
 
 }
