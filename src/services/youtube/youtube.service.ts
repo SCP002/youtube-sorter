@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {UserService} from '../user/user.service';
+import {Playlist} from './playlist';
 import {Video} from './video';
 
 // TODO: See https://developers.google.com/youtube/v3/getting-started
@@ -12,6 +13,7 @@ import {Video} from './video';
 export class YoutubeService {
 
     private readonly likedSub: Subject<Array<Video>> = new Subject<Array<Video>>();
+    private readonly playlistsSub: Subject<Array<Playlist>> = new Subject<Array<Playlist>>();
 
     private readonly apiUrl: string = 'https://www.googleapis.com/youtube/v3';
 
@@ -36,6 +38,25 @@ export class YoutubeService {
         });
 
         return this.likedSub;
+    }
+
+    public fetchPlaylists(): Subject<Array<Playlist>> {
+        this.request('/playlists?mine=true&part=snippet').subscribe((res: Object) => {
+            const playlists: Array<Playlist> = [];
+
+            for (const item of res['items']) {
+                const id: string = item['id'];
+                const title: string = item['snippet']['title'];
+
+                const playlist: Playlist = new Playlist(id, title);
+
+                playlists.push(playlist);
+            }
+
+            this.playlistsSub.next(playlists);
+        });
+
+        return this.playlistsSub;
     }
 
     private request(params: string): Observable<Object> {
