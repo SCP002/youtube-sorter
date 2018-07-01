@@ -5,19 +5,19 @@ import {MatButtonModule, MatCardModule, MatGridListModule, MatListModule} from '
 import {BrowserModule} from '@angular/platform-browser';
 import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 import {GApiConfig} from '../../config/api.config';
-import {InfoBarComponent} from '../info-bar/info-bar.component';
+import {FooterComponent} from '../footer/footer.component';
+import {HeaderComponent} from '../header/header.component';
 import {LikedComponent} from '../liked/liked.component';
 import {PlaylistsComponent} from '../playlists/playlists.component';
-import {SignInComponent} from '../sign-in/sign-in.component';
 import {AppComponent} from './app.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        InfoBarComponent,
+        FooterComponent,
+        HeaderComponent,
         LikedComponent,
-        PlaylistsComponent,
-        SignInComponent
+        PlaylistsComponent
     ],
     imports: [
         BrowserModule,

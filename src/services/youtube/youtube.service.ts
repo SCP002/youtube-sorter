@@ -21,8 +21,11 @@ export class YoutubeService {
         //
     }
 
+    // TODO: Show only if not in any of my playlists.
     public fetchLiked(): Subject<Array<Video>> {
         this.request('/videos?myRating=like&part=snippet').subscribe((res: Object) => {
+            window.console.log(res); // TODO: Remove.
+
             const liked: Array<Video> = [];
 
             for (const item of res['items']) {
@@ -42,6 +45,8 @@ export class YoutubeService {
 
     public fetchPlaylists(): Subject<Array<Playlist>> {
         this.request('/playlists?mine=true&part=snippet').subscribe((res: Object) => {
+            window.console.log(res); // TODO: Remove.
+
             const playlists: Array<Playlist> = [];
 
             for (const item of res['items']) {
