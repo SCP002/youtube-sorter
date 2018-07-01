@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {LikedComponent} from './liked.component';
+import {InfoBarComponent} from './info-bar.component';
 
-describe('LikedComponent', () => {
-    let component: LikedComponent;
-    let fixture: ComponentFixture<LikedComponent>;
+describe('InfoBarComponent', () => {
+    let component: InfoBarComponent;
+    let fixture: ComponentFixture<InfoBarComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [LikedComponent]
+            declarations: [InfoBarComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LikedComponent);
+        fixture = TestBed.createComponent(InfoBarComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

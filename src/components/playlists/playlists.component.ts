@@ -16,7 +16,7 @@ export class PlaylistsComponent implements OnInit {
         //
     }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.user.getSignInSub().subscribe(() => {
             this.youtube.fetchPlaylists().subscribe((playlists: Array<Playlist>) => {
                 this.playlists = playlists;
