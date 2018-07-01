@@ -7,13 +7,15 @@ import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 import {GApiConfig} from '../../config/api.config';
 import {LikedComponent} from '../liked/liked.component';
 import {PlaylistsComponent} from '../playlists/playlists.component';
+import {SignInComponent} from '../sign-in/sign-in.component';
 import {AppComponent} from './app.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LikedComponent,
-        PlaylistsComponent
+        PlaylistsComponent,
+        SignInComponent
     ],
     imports: [
         BrowserModule,
