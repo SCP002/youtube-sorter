@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../services/user/user.service';
 import {Playlist} from '../../services/youtube/playlist';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
@@ -12,16 +11,12 @@ export class PlaylistsComponent implements OnInit {
 
     private playlists: Array<Playlist> = [];
 
-    public constructor(private user: UserService, private youtube: YoutubeService) {
+    public constructor(private youtube: YoutubeService) {
         //
     }
 
     public ngOnInit(): void {
-        this.user.getSignInSub().subscribe(() => {
-            this.youtube.fetchPlaylists().subscribe((playlists: Array<Playlist>) => {
-                this.playlists = playlists;
-            });
-        });
+        // TODO: this.youtube.playlistsSub.subscribe(...);
     }
 
     public getPlaylists(): Array<Playlist> {

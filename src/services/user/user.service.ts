@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GoogleAuthService} from 'ng-gapi';
-import {Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
@@ -9,16 +9,12 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
-    private readonly signInSub: Subject<boolean> = new Subject<boolean>();
+    private readonly signInSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private readonly token: string;
 
     private constructor(private googleAuth: GoogleAuthService) {
         //
-    }
-
-    public getSignInSub(): Subject<boolean> {
-        return this.signInSub;
     }
 
     public getToken(): string {
@@ -31,7 +27,7 @@ export class UserService {
         return token;
     }
 
-    public signIn(): Subject<boolean> {
+    public signIn(): BehaviorSubject<boolean> {
         this.googleAuth.getAuth().subscribe((auth: GoogleAuth) => {
             auth.signIn().then((user: GoogleUser) => {
                 sessionStorage.setItem(this.token, user.getAuthResponse().access_token);

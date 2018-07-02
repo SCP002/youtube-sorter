@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
@@ -12,8 +12,9 @@ import {Video} from './video';
 })
 export class YoutubeService {
 
-    private readonly likedSub: Subject<Array<Video>> = new Subject<Array<Video>>();
-    private readonly playlistsSub: Subject<Array<Playlist>> = new Subject<Array<Playlist>>();
+    private readonly likedSub: BehaviorSubject<Array<Video>> = new BehaviorSubject<Array<Video>>([]);
+    private readonly playlistsSub: BehaviorSubject<Array<Playlist>> = new BehaviorSubject<Array<Playlist>>([]);
+    private readonly playlistVideosSub: BehaviorSubject<Array<Video>> = new BehaviorSubject<Array<Video>>([]);
 
     private readonly apiUrl: string = 'https://www.googleapis.com/youtube/v3';
 
@@ -21,11 +22,8 @@ export class YoutubeService {
         //
     }
 
-    // TODO: Show only if not in any of my playlists.
-    public fetchLiked(): Subject<Array<Video>> {
+    public fetchLiked(): BehaviorSubject<Array<Video>> {
         this.request('/videos?myRating=like&part=snippet').subscribe((res: Object) => {
-            window.console.log(res); // TODO: Remove.
-
             const liked: Array<Video> = [];
 
             for (const item of res['items']) {
@@ -43,25 +41,44 @@ export class YoutubeService {
         return this.likedSub;
     }
 
-    public fetchPlaylists(): Subject<Array<Playlist>> {
+    public fetchPlaylists(): BehaviorSubject<Array<Playlist>> {
         this.request('/playlists?mine=true&part=snippet').subscribe((res: Object) => {
-            window.console.log(res); // TODO: Remove.
-
             const playlists: Array<Playlist> = [];
 
             for (const item of res['items']) {
                 const id: string = item['id'];
                 const title: string = item['snippet']['title'];
 
-                const playlist: Playlist = new Playlist(id, title);
+                this.fetchPlaylistVideos(id).subscribe((videos: Array<Video>) => {
+                    const playlist: Playlist = new Playlist(id, title, videos);
 
-                playlists.push(playlist);
+                    playlists.push(playlist);
+                });
             }
 
             this.playlistsSub.next(playlists);
         });
 
         return this.playlistsSub;
+    }
+
+    private fetchPlaylistVideos(fromPlaylistId: string): BehaviorSubject<Array<Video>> {
+        this.request('/playlistItems?part=snippet&playlistId=' + fromPlaylistId).subscribe((res: Object) => {
+            const videos: Array<Video> = [];
+
+            for (const item of res['items']) {
+                const id: string = item['id'];
+                const title: string = item['snippet']['title'];
+
+                const video: Video = new Video(id, title);
+
+                videos.push(video);
+            }
+
+            this.playlistVideosSub.next(videos);
+        });
+
+        return this.playlistVideosSub;
     }
 
     private request(params: string): Observable<Object> {

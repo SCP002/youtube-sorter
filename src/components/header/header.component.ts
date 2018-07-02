@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
+import {Playlist} from '../../services/youtube/playlist';
+import {Video} from '../../services/youtube/video';
+import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
     selector: 'app-header',
@@ -8,7 +11,7 @@ import {UserService} from '../../services/user/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-    public constructor(private user: UserService) {
+    public constructor(private user: UserService, private youtube: YoutubeService) {
         //
     }
 
@@ -17,7 +20,13 @@ export class HeaderComponent implements OnInit {
     }
 
     public signIn(): void {
-        this.user.signIn();
+        this.user.signIn().subscribe(() => {
+            this.youtube.fetchPlaylists().subscribe((playlists: Array<Playlist>) => {
+                this.youtube.fetchLiked().subscribe((liked: Array<Video>) => {
+                    // TODO: this.youtube.refineLiked(); ?
+                });
+            });
+        });
     }
 
 }
