@@ -11,6 +11,8 @@ import {LikedComponent} from '../liked/liked.component';
 import {PlaylistsComponent} from '../playlists/playlists.component';
 import {AppComponent} from './app.component';
 
+// TODO: Move to bootstrap? See https://ng-bootstrap.github.io/
+
 @NgModule({
     declarations: [
         AppComponent,

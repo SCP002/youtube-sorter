@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
 import {Playlist} from '../../services/youtube/playlist';
-import {Video} from '../../services/youtube/video';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
@@ -20,11 +19,10 @@ export class HeaderComponent implements OnInit {
     }
 
     public signIn(): void {
-        this.user.signIn().subscribe(() => {
-            this.youtube.fetchPlaylists().subscribe((playlists: Array<Playlist>) => {
-                this.youtube.fetchLiked().subscribe((liked: Array<Video>) => {
-                    // TODO: this.youtube.refineLiked(); ?
-                });
+        this.user.signIn().then(() => {
+            this.youtube.fetchPlaylists().then((playlists: Array<Playlist>) => {
+                // noinspection JSIgnoredPromiseFromCall
+                this.youtube.fetchLiked(playlists);
             });
         });
     }

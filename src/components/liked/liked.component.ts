@@ -16,7 +16,9 @@ export class LikedComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        // TODO: this.youtube.likedRefSub.subscribe(...);
+        this.youtube.getLikedSub().subscribe((liked: Array<Video>) => {
+            this.liked = liked;
+        });
     }
 
     public getLiked(): Array<Video> {
