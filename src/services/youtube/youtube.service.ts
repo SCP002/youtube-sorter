@@ -1,19 +1,19 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
 
-// TODO: See https://developers.google.com/youtube/v3/getting-started
+// TODO: Fetch all videos and playlists using maxResults and nextPageToken.
 
 @Injectable({
     providedIn: 'root'
 })
 export class YoutubeService {
 
-    private readonly likedSub: Subject<Array<Video>> = new Subject<Array<Video>>();
-    private readonly playlistsSub: Subject<Array<Playlist>> = new Subject<Array<Playlist>>();
+    private readonly likedSub: BehaviorSubject<Array<Video>> = new BehaviorSubject<Array<Video>>([]);
+    private readonly playlistsSub: BehaviorSubject<Array<Playlist>> = new BehaviorSubject<Array<Playlist>>(null);
 
     private readonly apiUrl: string = 'https://www.googleapis.com/youtube/v3';
 
@@ -21,27 +21,15 @@ export class YoutubeService {
         //
     }
 
-    private static shouldAddToLiked(targetVideo: Video, playlists: Array<Playlist>): boolean {
-        for (const playlist of playlists) {
-            for (const currentVideo of playlist.getVideos()) {
-                if (targetVideo.getId() === currentVideo.getId()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public getLikedSub(): Subject<Array<Video>> {
+    public getLikedSub(): BehaviorSubject<Array<Video>> {
         return this.likedSub;
     }
 
-    public getPlaylistsSub(): Subject<Array<Playlist>> {
+    public getPlaylistsSub(): BehaviorSubject<Array<Playlist>> {
         return this.playlistsSub;
     }
 
-    public fetchLiked(playlists: Array<Playlist>): Promise<Array<Video>> {
+    public fetchLiked(): Promise<Array<Video>> {
         return new Promise<Array<Video>>((resolve: Function) => {
             this.request('/videos?myRating=like&part=snippet').then((res: Object) => {
                 const liked: Array<Video> = [];
@@ -52,7 +40,7 @@ export class YoutubeService {
 
                     const video: Video = new Video(id, title);
 
-                    if (YoutubeService.shouldAddToLiked(video, playlists)) { // TODO: Handle it from here; Throw exception if no playlist.
+                    if (this.shouldAddToLiked(video)) {
                         liked.push(video);
                     }
                 }
@@ -72,7 +60,6 @@ export class YoutubeService {
                 for (const item of res['items']) {
                     const id: string = item['id'];
                     const title: string = item['snippet']['title'];
-                    // TODO: Check if playlists really not contain videos information.
 
                     await this.fetchPlaylistVideos(id).then((videos: Array<Video>) => {
                         const playlist: Playlist = new Playlist(id, title, videos);
@@ -86,6 +73,24 @@ export class YoutubeService {
                 resolve(playlists);
             });
         });
+    }
+
+    private shouldAddToLiked(targetVideo: Video): boolean {
+        const playlists: Array<Playlist> = this.playlistsSub.getValue();
+
+        if (playlists == null) {
+            throw new Error('Can not fetch liked videos, no filtering playlist set. Call fetchPlaylists() first.');
+        }
+
+        for (const playlist of playlists) {
+            for (const currentVideo of playlist.getVideos()) {
+                if (targetVideo.getId() === currentVideo.getId()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private fetchPlaylistVideos(fromPlaylistId: string): Promise<Array<Video>> {

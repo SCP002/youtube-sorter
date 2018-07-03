@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
-import {Playlist} from '../../services/youtube/playlist';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
@@ -18,11 +17,13 @@ export class HeaderComponent implements OnInit {
         //
     }
 
+    // TODO: Try to replace promises with subject.first().subscribe(...);
+
     public signIn(): void {
         this.user.signIn().then(() => {
-            this.youtube.fetchPlaylists().then((playlists: Array<Playlist>) => {
+            this.youtube.fetchPlaylists().then(() => {
                 // noinspection JSIgnoredPromiseFromCall
-                this.youtube.fetchLiked(playlists);
+                this.youtube.fetchLiked();
             });
         });
     }
