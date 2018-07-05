@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
@@ -12,21 +12,19 @@ import {Video} from './video';
 })
 export class YoutubeService {
 
-    private readonly likedSub: BehaviorSubject<Array<Video>> = new BehaviorSubject<Array<Video>>([]);
+    private readonly likedSub: BehaviorSubject<Array<Video>> = new BehaviorSubject<Array<Video>>(null);
     private readonly playlistsSub: BehaviorSubject<Array<Playlist>> = new BehaviorSubject<Array<Playlist>>(null);
-
-    private readonly apiUrl: string = 'https://www.googleapis.com/youtube/v3';
 
     private constructor(private user: UserService, private httpClient: HttpClient) {
         //
     }
 
-    public getLikedSub(): BehaviorSubject<Array<Video>> {
-        return this.likedSub;
+    public getLikedObs(): Observable<Array<Video>> {
+        return this.likedSub.asObservable();
     }
 
-    public getPlaylistsSub(): BehaviorSubject<Array<Playlist>> {
-        return this.playlistsSub;
+    public getPlaylistsObs(): Observable<Array<Playlist>> {
+        return this.playlistsSub.asObservable();
     }
 
     public fetchLiked(): Promise<Array<Video>> {
@@ -76,7 +74,7 @@ export class YoutubeService {
     }
 
     private shouldAddToLiked(targetVideo: Video): boolean {
-        const playlists: Array<Playlist> = this.playlistsSub.getValue();
+        const playlists: Array<Playlist> = this.playlistsSub.getValue(); // TODO: Rework it?
 
         if (playlists == null) {
             throw new Error('Can not fetch liked videos, no filtering playlist set. Call fetchPlaylists() first.');
@@ -113,11 +111,15 @@ export class YoutubeService {
     }
 
     private request(params: string): Promise<Object> {
-        return this.httpClient.get(this.apiUrl + params, {
+        const options = {
             headers: new HttpHeaders({
                 Authorization: `Bearer ${this.user.getToken()}`
             })
-        }).toPromise();
+        };
+
+        const apiUrl = 'https://www.googleapis.com/youtube/v3';
+
+        return this.httpClient.get(apiUrl + params, options).toPromise();
     }
 
 }

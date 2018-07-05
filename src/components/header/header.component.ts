@@ -17,8 +17,6 @@ export class HeaderComponent implements OnInit {
         //
     }
 
-    // TODO: Try to replace promises with subject.first().subscribe(...);
-
     public signIn(): void {
         this.user.signIn().then(() => {
             this.youtube.fetchPlaylists().then(() => {
