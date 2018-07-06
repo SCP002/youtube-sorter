@@ -27,8 +27,8 @@ export class YoutubeService {
     }
 
     public fetchLiked(): Promise<Video[]> {
-        return new Promise<Video[]>(async (resolve: Function) => {
-            await this.requestAll('/videos?myRating=like&part=snippet').then((responses: Object[]) => {
+        return new Promise<Video[]>((resolve: Function) => {
+            this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
                 const liked: Video[] = [];
 
                 for (const response of responses) {
@@ -52,8 +52,8 @@ export class YoutubeService {
     }
 
     public fetchPlaylists(): Promise<Playlist[]> {
-        return new Promise<Playlist[]>(async (resolve: Function) => {
-            await this.requestAll('/playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
+        return new Promise<Playlist[]>((resolve: Function) => {
+            this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
                 const playlists: Playlist[] = [];
 
                 for (const response of responses) {
@@ -95,8 +95,8 @@ export class YoutubeService {
     }
 
     private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
-        return new Promise<Video[]>(async (resolve: Function) => {
-            await this.requestAll('/playlistItems?part=snippet&playlistId=' + playlistId).then((responses: Object[]) => {
+        return new Promise<Video[]>((resolve: Function) => {
+            this.requestAll('playlistItems?part=snippet&playlistId=' + playlistId).then((responses: Object[]) => {
                 const videos: Video[] = [];
 
                 for (const response of responses) {
@@ -116,7 +116,7 @@ export class YoutubeService {
     }
 
     private requestAll(params: string): Promise<Object[]> {
-        const apiUrl = 'https://www.googleapis.com/youtube/v3';
+        const apiUrl = 'https://www.googleapis.com/youtube/v3/';
 
         const options = {
             headers: new HttpHeaders({
@@ -128,14 +128,15 @@ export class YoutubeService {
             const responses: Object[] = [];
 
             let nextPageToken: string;
-            let postfix = '';
 
             do {
+                let postfix = '&maxResults=50';
+
                 if (typeof nextPageToken !== 'undefined') {
-                    postfix = '&pageToken=' + nextPageToken;
+                    postfix += '&pageToken=' + nextPageToken;
                 }
 
-                const url: string = apiUrl + params + '&maxResults=50' + postfix;
+                const url: string = apiUrl + params + postfix;
 
                 await this.httpClient.get(url, options).toPromise().then((response: Object) => {
                     nextPageToken = response['nextPageToken'];
