@@ -5,8 +5,6 @@ import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
 
-// TODO: Request data using maxResults=50 and '...pageToken=' + res['nextPageToken']. Use requestAll(params: string): Promise<Object[]>.
-
 @Injectable({
     providedIn: 'root'
 })
@@ -29,18 +27,20 @@ export class YoutubeService {
     }
 
     public fetchLiked(): Promise<Video[]> {
-        return new Promise<Video[]>((resolve: Function) => {
-            this.request('/videos?myRating=like&part=snippet').then((res: Object) => {
+        return new Promise<Video[]>(async (resolve: Function) => {
+            await this.requestAll('/videos?myRating=like&part=snippet').then((responses: Object[]) => {
                 const liked: Video[] = [];
 
-                for (const item of res['items']) {
-                    const id: string = item['id'];
-                    const title: string = item['snippet']['title'];
+                for (const response of responses) {
+                    for (const item of response['items']) {
+                        const id: string = item['id'];
+                        const title: string = item['snippet']['title'];
 
-                    const video: Video = new Video(id, title);
+                        const video: Video = new Video(id, title);
 
-                    if (this.shouldAddToLiked(video)) {
-                        liked.push(video);
+                        if (this.shouldAddToLiked(video)) {
+                            liked.push(video);
+                        }
                     }
                 }
 
@@ -52,19 +52,21 @@ export class YoutubeService {
     }
 
     public fetchPlaylists(): Promise<Playlist[]> {
-        return new Promise<Playlist[]>((resolve: Function) => {
-            this.request('/playlists?mine=true&part=snippet').then(async (res: Object) => {
+        return new Promise<Playlist[]>(async (resolve: Function) => {
+            await this.requestAll('/playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
                 const playlists: Playlist[] = [];
 
-                for (const item of res['items']) {
-                    const id: string = item['id'];
-                    const title: string = item['snippet']['title'];
+                for (const response of responses) {
+                    for (const item of response['items']) {
+                        const id: string = item['id'];
+                        const title: string = item['snippet']['title'];
 
-                    await this.fetchPlaylistVideos(id).then((videos: Video[]) => {
-                        const playlist: Playlist = new Playlist(id, title, videos);
+                        await this.fetchPlaylistVideos(id).then((videos: Video[]) => {
+                            const playlist: Playlist = new Playlist(id, title, videos);
 
-                        playlists.push(playlist);
-                    });
+                            playlists.push(playlist);
+                        });
+                    }
                 }
 
                 this.playlistsSub.next(playlists);
@@ -77,7 +79,7 @@ export class YoutubeService {
     private shouldAddToLiked(targetVideo: Video): boolean { // TODO: Rework it?
         const playlists: Playlist[] = this.playlistsSub.getValue();
 
-        if (playlists == null) {
+        if (playlists === null) {
             throw new Error('Can not fetch liked videos, no filtering playlist set. Call fetchPlaylists() first.');
         }
 
@@ -93,17 +95,19 @@ export class YoutubeService {
     }
 
     private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
-        return new Promise<Video[]>((resolve: Function) => {
-            this.request('/playlistItems?part=snippet&playlistId=' + playlistId).then((res: Object) => {
+        return new Promise<Video[]>(async (resolve: Function) => {
+            await this.requestAll('/playlistItems?part=snippet&playlistId=' + playlistId).then((responses: Object[]) => {
                 const videos: Video[] = [];
 
-                for (const item of res['items']) {
-                    const id: string = item['snippet']['resourceId']['videoId'];
-                    const title: string = item['snippet']['title'];
+                for (const response of responses) {
+                    for (const item of response['items']) {
+                        const id: string = item['snippet']['resourceId']['videoId'];
+                        const title: string = item['snippet']['title'];
 
-                    const video: Video = new Video(id, title);
+                        const video: Video = new Video(id, title);
 
-                    videos.push(video);
+                        videos.push(video);
+                    }
                 }
 
                 resolve(videos);
@@ -111,16 +115,37 @@ export class YoutubeService {
         });
     }
 
-    private request(params: string): Promise<Object> {
+    private requestAll(params: string): Promise<Object[]> {
+        const apiUrl = 'https://www.googleapis.com/youtube/v3';
+
         const options = {
             headers: new HttpHeaders({
                 Authorization: `Bearer ${this.user.getToken()}`
             })
         };
 
-        const apiUrl = 'https://www.googleapis.com/youtube/v3';
+        return new Promise<Object[]>(async (resolve: Function) => {
+            const responses: Object[] = [];
 
-        return this.httpClient.get(apiUrl + params, options).toPromise();
+            let nextPageToken: string;
+            let postfix = '';
+
+            do {
+                if (typeof nextPageToken !== 'undefined') {
+                    postfix = '&pageToken=' + nextPageToken;
+                }
+
+                const url: string = apiUrl + params + '&maxResults=50' + postfix;
+
+                await this.httpClient.get(url, options).toPromise().then((response: Object) => {
+                    nextPageToken = response['nextPageToken'];
+
+                    responses.push(response);
+                });
+            } while (typeof nextPageToken !== 'undefined');
+
+            resolve(responses);
+        });
     }
 
 }
