@@ -1,11 +1,8 @@
 export class Video {
 
-    private readonly id: string;
-    private readonly title: string;
-
-    public constructor(id: string, title: string) {
-        this.title = title;
-        this.id = id;
+    public constructor(private readonly id: string,
+                       private readonly title: string) {
+        //
     }
 
     public getId(): string {

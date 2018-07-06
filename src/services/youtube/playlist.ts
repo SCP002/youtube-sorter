@@ -2,14 +2,10 @@ import {Video} from './video';
 
 export class Playlist {
 
-    private readonly id: string;
-    private readonly title: string;
-    private readonly videos: Array<Video>;
-
-    public constructor(id: string, title: string, videos: Array<Video>) {
-        this.title = title;
-        this.id = id;
-        this.videos = videos;
+    public constructor(private readonly id: string,
+                       private readonly title: string,
+                       private readonly videos: Video[]) {
+        //
     }
 
     public getId(): string {
@@ -20,7 +16,7 @@ export class Playlist {
         return this.title;
     }
 
-    public getVideos(): Array<Video> {
+    public getVideos(): Video[] {
         return this.videos;
     }
 

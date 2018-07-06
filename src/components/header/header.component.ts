@@ -9,7 +9,8 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class HeaderComponent implements OnInit {
 
-    public constructor(private user: UserService, private youtube: YoutubeService) {
+    public constructor(private readonly user: UserService,
+                       private readonly youtube: YoutubeService) {
         //
     }
 

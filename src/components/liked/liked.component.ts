@@ -9,19 +9,19 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class LikedComponent implements OnInit {
 
-    private liked: Array<Video> = [];
+    private liked: Video[] = [];
 
-    public constructor(private youtube: YoutubeService) {
+    public constructor(private readonly youtube: YoutubeService) {
         //
     }
 
     public ngOnInit(): void {
-        this.youtube.getLikedObs().subscribe((liked: Array<Video>) => {
+        this.youtube.getLikedObs().subscribe((liked: Video[]) => {
             this.liked = liked;
         });
     }
 
-    public getLiked(): Array<Video> {
+    public getLiked(): Video[] {
         return this.liked;
     }
 

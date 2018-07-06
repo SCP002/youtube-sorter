@@ -9,19 +9,19 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class PlaylistsComponent implements OnInit {
 
-    private playlists: Array<Playlist> = [];
+    private playlists: Playlist[] = [];
 
-    public constructor(private youtube: YoutubeService) {
+    public constructor(private readonly youtube: YoutubeService) {
         //
     }
 
     public ngOnInit(): void {
-        this.youtube.getPlaylistsObs().subscribe((playlists: Array<Playlist>) => {
+        this.youtube.getPlaylistsObs().subscribe((playlists: Playlist[]) => {
             this.playlists = playlists;
         });
     }
 
-    public getPlaylists(): Array<Playlist> {
+    public getPlaylists(): Playlist[] {
         return this.playlists;
     }
 

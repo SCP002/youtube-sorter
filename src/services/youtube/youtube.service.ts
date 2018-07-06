@@ -5,32 +5,33 @@ import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
 
-// TODO: Fetch all videos and playlists using maxResults and nextPageToken.
+// TODO: Request data using maxResults=50 and '...pageToken=' + res['nextPageToken']. Use requestAll(params: string): Promise<Object[]>.
 
 @Injectable({
     providedIn: 'root'
 })
 export class YoutubeService {
 
-    private readonly likedSub: BehaviorSubject<Array<Video>> = new BehaviorSubject<Array<Video>>(null);
-    private readonly playlistsSub: BehaviorSubject<Array<Playlist>> = new BehaviorSubject<Array<Playlist>>(null);
+    private readonly likedSub: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>(null);
+    private readonly playlistsSub: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>(null);
 
-    private constructor(private user: UserService, private httpClient: HttpClient) {
+    private constructor(private readonly user: UserService,
+                        private readonly httpClient: HttpClient) {
         //
     }
 
-    public getLikedObs(): Observable<Array<Video>> {
+    public getLikedObs(): Observable<Video[]> {
         return this.likedSub.asObservable();
     }
 
-    public getPlaylistsObs(): Observable<Array<Playlist>> {
+    public getPlaylistsObs(): Observable<Playlist[]> {
         return this.playlistsSub.asObservable();
     }
 
-    public fetchLiked(): Promise<Array<Video>> {
-        return new Promise<Array<Video>>((resolve: Function) => {
+    public fetchLiked(): Promise<Video[]> {
+        return new Promise<Video[]>((resolve: Function) => {
             this.request('/videos?myRating=like&part=snippet').then((res: Object) => {
-                const liked: Array<Video> = [];
+                const liked: Video[] = [];
 
                 for (const item of res['items']) {
                     const id: string = item['id'];
@@ -50,16 +51,16 @@ export class YoutubeService {
         });
     }
 
-    public fetchPlaylists(): Promise<Array<Playlist>> {
-        return new Promise<Array<Playlist>>((resolve: Function) => {
+    public fetchPlaylists(): Promise<Playlist[]> {
+        return new Promise<Playlist[]>((resolve: Function) => {
             this.request('/playlists?mine=true&part=snippet').then(async (res: Object) => {
-                const playlists: Array<Playlist> = [];
+                const playlists: Playlist[] = [];
 
                 for (const item of res['items']) {
                     const id: string = item['id'];
                     const title: string = item['snippet']['title'];
 
-                    await this.fetchPlaylistVideos(id).then((videos: Array<Video>) => {
+                    await this.fetchPlaylistVideos(id).then((videos: Video[]) => {
                         const playlist: Playlist = new Playlist(id, title, videos);
 
                         playlists.push(playlist);
@@ -73,8 +74,8 @@ export class YoutubeService {
         });
     }
 
-    private shouldAddToLiked(targetVideo: Video): boolean {
-        const playlists: Array<Playlist> = this.playlistsSub.getValue(); // TODO: Rework it?
+    private shouldAddToLiked(targetVideo: Video): boolean { // TODO: Rework it?
+        const playlists: Playlist[] = this.playlistsSub.getValue();
 
         if (playlists == null) {
             throw new Error('Can not fetch liked videos, no filtering playlist set. Call fetchPlaylists() first.');
@@ -91,10 +92,10 @@ export class YoutubeService {
         return true;
     }
 
-    private fetchPlaylistVideos(fromPlaylistId: string): Promise<Array<Video>> {
-        return new Promise<Array<Video>>((resolve: Function) => {
-            this.request('/playlistItems?part=snippet&playlistId=' + fromPlaylistId).then((res: Object) => {
-                const videos: Array<Video> = [];
+    private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
+        return new Promise<Video[]>((resolve: Function) => {
+            this.request('/playlistItems?part=snippet&playlistId=' + playlistId).then((res: Object) => {
+                const videos: Video[] = [];
 
                 for (const item of res['items']) {
                     const id: string = item['snippet']['resourceId']['videoId'];

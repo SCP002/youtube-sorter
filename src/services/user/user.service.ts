@@ -10,7 +10,7 @@ export class UserService {
 
     private readonly token: string;
 
-    private constructor(private googleAuth: GoogleAuthService) {
+    private constructor(private readonly googleAuth: GoogleAuthService) {
         //
     }
 
