@@ -20,10 +20,9 @@ export class HeaderComponent implements OnInit {
 
     public signIn(): void {
         this.user.signIn().then(() => {
-            this.youtube.fetchPlaylists().then(() => {
-                // noinspection JSIgnoredPromiseFromCall
-                this.youtube.fetchLiked();
-            });
+            return this.youtube.fetchPlaylists();
+        }).then(() => {
+            return this.youtube.fetchLiked();
         });
     }
 
