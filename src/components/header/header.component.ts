@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
+import {Playlist} from '../../services/youtube/playlist';
+import {Video} from '../../services/youtube/video';
 import {YoutubeService} from '../../services/youtube/youtube.service';
+import GoogleUser = gapi.auth2.GoogleUser;
 
 @Component({
     selector: 'app-header',
@@ -19,10 +22,18 @@ export class HeaderComponent implements OnInit {
     }
 
     public signIn(): void {
-        this.user.signIn().then(() => {
+        this.user.signIn().then((user: GoogleUser) => {
+            console.log('Signed-in with user name: ' + user.getBasicProfile().getName());
+
             return this.youtube.fetchPlaylists();
-        }).then(() => {
+        }).then((playlists: Playlist[]) => {
+            console.log('Got playlists:');
+            console.log(playlists);
+
             return this.youtube.fetchLiked();
+        }).then((liked: Video[]) => {
+            console.log('Got liked:');
+            console.log(liked);
         });
     }
 
