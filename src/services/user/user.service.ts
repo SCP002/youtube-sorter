@@ -25,14 +25,12 @@ export class UserService {
     }
 
     public signIn(): Promise<GoogleUser> {
-        return new Promise<GoogleUser>((resolve: Function) => {
-            this.googleAuth.getAuth().toPromise().then((auth: GoogleAuth) => {
-                auth.signIn().then((user: GoogleUser) => {
-                    sessionStorage.setItem(this.token, user.getAuthResponse().access_token);
+        return this.googleAuth.getAuth().toPromise().then((auth: GoogleAuth) => {
+            return <Promise<GoogleUser>> auth.signIn();
+        }).then((user: GoogleUser) => {
+            sessionStorage.setItem(this.token, user.getAuthResponse().access_token);
 
-                    resolve(user);
-                });
-            });
+            return user;
         });
     }
 
