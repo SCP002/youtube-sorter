@@ -27,52 +27,48 @@ export class YoutubeService {
     }
 
     public fetchLiked(): Promise<Video[]> {
-        return new Promise<Video[]>((resolve: Function) => {
-            this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
-                const liked: Video[] = [];
+        return this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
+            const liked: Video[] = [];
 
-                for (const response of responses) {
-                    for (const item of response['items']) {
-                        const id: string = item['id'];
-                        const title: string = item['snippet']['title'];
+            for (const response of responses) {
+                for (const item of response['items']) {
+                    const id: string = item['id'];
+                    const title: string = item['snippet']['title'];
 
-                        const video: Video = new Video(id, title);
+                    const video: Video = new Video(id, title);
 
-                        if (this.shouldAddToLiked(video)) {
-                            liked.push(video);
-                        }
+                    if (this.shouldAddToLiked(video)) {
+                        liked.push(video);
                     }
                 }
+            }
 
-                this.likedSub.next(liked);
+            this.likedSub.next(liked);
 
-                resolve(liked);
-            });
+            return liked;
         });
     }
 
     public fetchPlaylists(): Promise<Playlist[]> {
-        return new Promise<Playlist[]>((resolve: Function) => {
-            this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
-                const playlists: Playlist[] = [];
+        return this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
+            const playlists: Playlist[] = [];
 
-                for (const response of responses) {
-                    for (const item of response['items']) {
-                        const id: string = item['id'];
-                        const title: string = item['snippet']['title'];
+            for (const response of responses) {
+                for (const item of response['items']) {
+                    const id: string = item['id'];
+                    const title: string = item['snippet']['title'];
 
-                        await this.fetchPlaylistVideos(id).then((videos: Video[]) => {
-                            const playlist: Playlist = new Playlist(id, title, videos);
+                    await this.fetchPlaylistVideos(id).then((videos: Video[]) => {
+                        const playlist: Playlist = new Playlist(id, title, videos);
 
-                            playlists.push(playlist);
-                        });
-                    }
+                        playlists.push(playlist);
+                    });
                 }
+            }
 
-                this.playlistsSub.next(playlists);
+            this.playlistsSub.next(playlists);
 
-                resolve(playlists);
-            });
+            return playlists;
         });
     }
 
@@ -95,23 +91,21 @@ export class YoutubeService {
     }
 
     private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
-        return new Promise<Video[]>((resolve: Function) => {
-            this.requestAll('playlistItems?part=snippet&playlistId=' + playlistId).then((responses: Object[]) => {
-                const videos: Video[] = [];
+        return this.requestAll('playlistItems?part=snippet&playlistId=' + playlistId).then((responses: Object[]) => {
+            const videos: Video[] = [];
 
-                for (const response of responses) {
-                    for (const item of response['items']) {
-                        const id: string = item['snippet']['resourceId']['videoId'];
-                        const title: string = item['snippet']['title'];
+            for (const response of responses) {
+                for (const item of response['items']) {
+                    const id: string = item['snippet']['resourceId']['videoId'];
+                    const title: string = item['snippet']['title'];
 
-                        const video: Video = new Video(id, title);
+                    const video: Video = new Video(id, title);
 
-                        videos.push(video);
-                    }
+                    videos.push(video);
                 }
+            }
 
-                resolve(videos);
-            });
+            return videos;
         });
     }
 
