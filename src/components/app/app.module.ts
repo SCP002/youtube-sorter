@@ -1,8 +1,10 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatCardModule, MatGridListModule, MatListModule} from '@angular/material';
+import {MatButtonModule, MatGridListModule, MatListModule, MatToolbarModule} from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 import {GApiConfig} from '../../config/api.config';
 import {FooterComponent} from '../footer/footer.component';
@@ -10,8 +12,6 @@ import {HeaderComponent} from '../header/header.component';
 import {LikedComponent} from '../liked/liked.component';
 import {PlaylistsComponent} from '../playlists/playlists.component';
 import {AppComponent} from './app.component';
-
-// TODO: Move to bootstrap? See https://ng-bootstrap.github.io/
 
 @NgModule({
     declarations: [
@@ -23,10 +23,12 @@ import {AppComponent} from './app.component';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
         FormsModule,
+        FlexLayoutModule,
         HttpClientModule,
         MatButtonModule,
-        MatCardModule,
         MatGridListModule,
         MatListModule,
         GoogleApiModule.forRoot({

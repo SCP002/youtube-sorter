@@ -1,0 +1,3 @@
+div.container.main {
+    height: calc(100vh - 144px); /* 144 is header height + footer height + body margins */
+}

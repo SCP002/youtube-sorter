@@ -1,21 +1,20 @@
-<mat-card>
-    <app-header></app-header>
-</mat-card>
+<div class="container" fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex>
+        <app-header></app-header>
+    </div>
+</div>
 
-<mat-grid-list cols="2" rowHeight="1.25:1" gutterSize="10px">
-    <mat-grid-tile>
-        <mat-card>
-            <app-liked></app-liked>
-        </mat-card>
-    </mat-grid-tile>
+<div class="container main" fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex>
+        <app-liked></app-liked>
+    </div>
+    <div fxFlex>
+        <app-playlists></app-playlists>
+    </div>
+</div>
 
-    <mat-grid-tile>
-        <mat-card>
-            <app-playlists></app-playlists>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
-
-<mat-card>
-    <app-footer></app-footer>
-</mat-card>
+<div class="container" fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex>
+        <app-footer></app-footer>
+    </div>
+</div>

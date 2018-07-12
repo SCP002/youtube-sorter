@@ -72,7 +72,8 @@ export class YoutubeService {
         });
     }
 
-    private shouldAddToLiked(targetVideo: Video): boolean { // TODO: Rework it?
+    // TODO: Rework it. Use one public method like fetchAll and do chaining here. Change BehaviorSubject to Subject.
+    private shouldAddToLiked(targetVideo: Video): boolean {
         const playlists: Playlist[] = this.playlistsSub.getValue();
 
         if (playlists === null) {
