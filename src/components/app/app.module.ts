@@ -5,7 +5,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 import {GApiConfig} from '../../config/api.config';
-import {FooterComponent} from '../footer/footer.component';
 import {HeaderComponent} from '../header/header.component';
 import {LikedComponent} from '../liked/liked.component';
 import {PlaylistsComponent} from '../playlists/playlists.component';
@@ -14,7 +13,6 @@ import {AppComponent} from './app.component';
 @NgModule({
     declarations: [
         AppComponent,
-        FooterComponent,
         HeaderComponent,
         LikedComponent,
         PlaylistsComponent

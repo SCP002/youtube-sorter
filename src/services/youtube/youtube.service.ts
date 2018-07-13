@@ -37,7 +37,7 @@ export class YoutubeService {
 
                     const video: Video = new Video(id, title);
 
-                    if (this.shouldAddToLiked(video)) {
+                    if (this.shouldAddToLiked(video)) { // TODO: Add all, but mark with boolean.
                         liked.push(video);
                     }
                 }
