@@ -1,3 +1,7 @@
-<mat-selection-list>
-    <mat-list-option *ngFor="let video of getLiked()">{{video.getTitle()}}</mat-list-option>
-</mat-selection-list>
+<div class="card">
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let video of getLiked()">{{video.getTitle()}}</li>
+        </ul>
+    </div>
+</div>

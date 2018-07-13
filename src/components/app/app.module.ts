@@ -1,10 +1,8 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatGridListModule, MatListModule, MatToolbarModule} from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 import {GApiConfig} from '../../config/api.config';
 import {FooterComponent} from '../footer/footer.component';
@@ -23,18 +21,10 @@ import {AppComponent} from './app.component';
     ],
     imports: [
         BrowserModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
         FormsModule,
-        FlexLayoutModule,
+        GoogleApiModule.forRoot({provide: NG_GAPI_CONFIG, useValue: GApiConfig.INSTANCE}),
         HttpClientModule,
-        MatButtonModule,
-        MatGridListModule,
-        MatListModule,
-        GoogleApiModule.forRoot({
-            provide: NG_GAPI_CONFIG,
-            useValue: GApiConfig.INSTANCE
-        })
+        NgbModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

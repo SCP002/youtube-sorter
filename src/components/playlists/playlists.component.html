@@ -1,3 +1,7 @@
-<mat-list>
-    <mat-list-item *ngFor="let playlist of getPlaylists()">{{playlist.getTitle()}}</mat-list-item>
-</mat-list>
+<div class="card">
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let playlist of getPlaylists()">{{playlist.getTitle()}}</li>
+        </ul>
+    </div>
+</div>

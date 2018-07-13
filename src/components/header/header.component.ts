@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     }
 
     public signIn(): void {
+        // TODO: Perform actions in subscription to user observable to avoid popup problems?
         this.user.signIn().then((user: GoogleUser) => {
             console.log('Signed-in with user name: ' + user.getBasicProfile().getName());
 
