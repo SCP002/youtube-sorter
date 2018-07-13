@@ -12,6 +12,8 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class HeaderComponent implements OnInit {
 
+    private signedIn = false;
+
     public constructor(private readonly user: UserService,
                        private readonly youtube: YoutubeService) {
         //
@@ -21,10 +23,15 @@ export class HeaderComponent implements OnInit {
         //
     }
 
+    public isSignedIn(): boolean {
+        return this.signedIn;
+    }
+
     public signIn(): void {
-        // TODO: Perform actions in subscription to user observable to avoid popup problems?
         this.user.signIn().then((user: GoogleUser) => {
             console.log('Signed-in with user name: ' + user.getBasicProfile().getName());
+
+            this.signedIn = true;
 
             return this.youtube.fetchPlaylists();
         }).then((playlists: Playlist[]) => {

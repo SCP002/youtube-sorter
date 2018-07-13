@@ -1,5 +1,5 @@
 <div class="card">
     <div class="card-body">
-        <button (click)="signIn()">Sign In</button> <!-- TODO: Change button text to `Switch user` if logged in. -->
+        <button (click)="signIn()">{{isSignedIn() ? 'Switch User' : 'Sign In'}}</button>
     </div>
 </div>

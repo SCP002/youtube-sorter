@@ -24,6 +24,7 @@ export class UserService {
         return token;
     }
 
+    // FIXME: popup_blocked_by_browser.
     public signIn(): Promise<GoogleUser> {
         return this.googleAuth.getAuth().toPromise().then((auth: GoogleAuth) => {
             return <Promise<GoogleUser>> auth.signIn();
