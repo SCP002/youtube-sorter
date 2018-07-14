@@ -10,8 +10,8 @@ import {Video} from './video';
 })
 export class YoutubeService {
 
-    private readonly likedSub: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>(null);
-    private readonly playlistsSub: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>(null);
+    private readonly likedSub: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>([]);
+    private readonly playlistsSub: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>([]);
 
     private constructor(private readonly httpClient: HttpClient,
                         private readonly userSvc: UserService) {
@@ -26,7 +26,19 @@ export class YoutubeService {
         return this.playlistsSub.asObservable();
     }
 
-    public fetchLiked(): Promise<Video[]> {
+    public fetchAll(): void {
+        this.fetchPlaylists().then((playlists: Playlist[]) => {
+            console.log('Got playlists:');
+            console.log(playlists);
+
+            return this.fetchLiked();
+        }).then((liked: Video[]) => {
+            console.log('Got liked:');
+            console.log(liked);
+        });
+    }
+
+    private fetchLiked(): Promise<Video[]> {
         return this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
             const liked: Video[] = [];
 
@@ -49,7 +61,7 @@ export class YoutubeService {
         });
     }
 
-    public fetchPlaylists(): Promise<Playlist[]> {
+    private fetchPlaylists(): Promise<Playlist[]> {
         return this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
             const playlists: Playlist[] = [];
 
@@ -72,13 +84,8 @@ export class YoutubeService {
         });
     }
 
-    // TODO: Rework it. Use one public method like fetchAll and do chaining here. Change BehaviorSubject to Subject.
     private shouldAddToLiked(targetVideo: Video): boolean {
         const playlists: Playlist[] = this.playlistsSub.getValue();
-
-        if (playlists === null) {
-            throw new Error('Can not fetch liked videos, no filtering playlist set. Call fetchPlaylists() first.');
-        }
 
         for (const playlist of playlists) {
             for (const currentVideo of playlist.getVideos()) {
