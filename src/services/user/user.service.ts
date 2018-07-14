@@ -8,14 +8,12 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
-    private readonly token: string;
-
     private constructor(private readonly googleAuth: GoogleAuthService) {
         //
     }
 
-    public getToken(): string {
-        const token: string = sessionStorage.getItem(this.token);
+    public static getToken(): string {
+        const token: string = sessionStorage.getItem('accessToken');
 
         if (!token) {
             throw new Error('No token set, authentication required');
@@ -29,7 +27,7 @@ export class UserService {
         return this.googleAuth.getAuth().toPromise().then((auth: GoogleAuth) => {
             return <Promise<GoogleUser>> auth.signIn();
         }).then((user: GoogleUser) => {
-            sessionStorage.setItem(this.token, user.getAuthResponse().access_token);
+            sessionStorage.setItem('accessToken', user.getAuthResponse().access_token);
 
             return user;
         });
