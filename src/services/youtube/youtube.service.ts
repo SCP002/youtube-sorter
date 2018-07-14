@@ -4,13 +4,14 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
+import {VideoHolder} from './video-holder';
 
 @Injectable({
     providedIn: 'root'
 })
 export class YoutubeService {
 
-    private readonly likedSub: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>([]);
+    private readonly likedSub: BehaviorSubject<VideoHolder[]> = new BehaviorSubject<VideoHolder[]>([]);
     private readonly playlistsSub: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>([]);
 
     private constructor(private readonly httpClient: HttpClient,
@@ -18,7 +19,7 @@ export class YoutubeService {
         //
     }
 
-    public getLikedObs(): Observable<Video[]> {
+    public getLikedObs(): Observable<VideoHolder[]> {
         return this.likedSub.asObservable();
     }
 
@@ -32,15 +33,15 @@ export class YoutubeService {
             console.log(playlists);
 
             return this.fetchLiked();
-        }).then((liked: Video[]) => {
+        }).then((liked: VideoHolder[]) => {
             console.log('Got liked:');
             console.log(liked);
         });
     }
 
-    private fetchLiked(): Promise<Video[]> {
+    private fetchLiked(): Promise<VideoHolder[]> {
         return this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
-            const liked: Video[] = [];
+            const liked: VideoHolder[] = [];
 
             for (const response of responses) {
                 for (const item of response['items']) {
@@ -48,10 +49,9 @@ export class YoutubeService {
                     const title: string = item['snippet']['title'];
 
                     const video: Video = new Video(id, title);
+                    const videoHolder = new VideoHolder(video, this.isInPlaylist(video));
 
-                    if (this.shouldAddToLiked(video)) { // TODO: Add all, but mark with boolean.
-                        liked.push(video);
-                    }
+                    liked.push(videoHolder);
                 }
             }
 
@@ -84,18 +84,18 @@ export class YoutubeService {
         });
     }
 
-    private shouldAddToLiked(targetVideo: Video): boolean {
+    private isInPlaylist(targetVideo: Video): boolean {
         const playlists: Playlist[] = this.playlistsSub.getValue();
 
         for (const playlist of playlists) {
             for (const currentVideo of playlist.getVideos()) {
                 if (targetVideo.getId() === currentVideo.getId()) {
-                    return false;
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 
     private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {

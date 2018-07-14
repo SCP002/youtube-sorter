@@ -2,7 +2,10 @@
     <div class="card-body">
         <h5 class="card-title">[{{getLiked().length}}] Liked videos:</h5>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let video of getLiked()">{{video.getTitle()}}</li>
+            <li class="list-group-item" *ngFor="let videoHolder of getLiked()"
+                [class.list-group-item-success]="videoHolder.isInPlaylist()">
+                {{videoHolder.getVideo().getTitle()}}
+            </li>
         </ul>
     </div>
 </div>

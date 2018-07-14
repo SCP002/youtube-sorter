@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Video} from '../../services/youtube/video';
+import {VideoHolder} from '../../services/youtube/video-holder';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
@@ -9,19 +9,19 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class LikedComponent implements OnInit {
 
-    private liked: Video[] = [];
+    private liked: VideoHolder[] = [];
 
     public constructor(private readonly youtubeSvc: YoutubeService) {
         //
     }
 
     public ngOnInit(): void {
-        this.youtubeSvc.getLikedObs().subscribe((liked: Video[]) => {
+        this.youtubeSvc.getLikedObs().subscribe((liked: VideoHolder[]) => {
             this.liked = liked;
         });
     }
 
-    public getLiked(): Video[] {
+    public getLiked(): VideoHolder[] {
         return this.liked;
     }
 
