@@ -13,7 +13,8 @@ export class YoutubeService {
     private readonly likedSub: BehaviorSubject<Video[]> = new BehaviorSubject<Video[]>(null);
     private readonly playlistsSub: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>(null);
 
-    private constructor(private readonly httpClient: HttpClient) {
+    private constructor(private readonly httpClient: HttpClient,
+                        private readonly userSvc: UserService) {
         //
     }
 
@@ -114,7 +115,7 @@ export class YoutubeService {
 
         const options = {
             headers: new HttpHeaders({
-                Authorization: `Bearer ${UserService.getToken()}`
+                Authorization: `Bearer ${this.userSvc.getToken()}`
             })
         };
 

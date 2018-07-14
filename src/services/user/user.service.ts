@@ -8,12 +8,18 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
-    private constructor(private readonly googleAuth: GoogleAuthService) {
-        //
+    private readonly tokenStorageKey = 'accessToken';
+
+    private googleAuth: GoogleAuth;
+
+    private constructor(private readonly googleAuthSvc: GoogleAuthService) {
+        this.googleAuthSvc.getAuth().subscribe((googleAuth: GoogleAuth) => {
+            this.googleAuth = googleAuth;
+        });
     }
 
-    public static getToken(): string {
-        const token: string = sessionStorage.getItem('accessToken');
+    public getToken(): string {
+        const token: string = sessionStorage.getItem(this.tokenStorageKey);
 
         if (!token) {
             throw new Error('No token set, authentication required');
@@ -22,12 +28,9 @@ export class UserService {
         return token;
     }
 
-    // FIXME: popup_blocked_by_browser.
-    public signIn(): Promise<GoogleUser> {
-        return this.googleAuth.getAuth().toPromise().then((auth: GoogleAuth) => {
-            return <Promise<GoogleUser>> auth.signIn();
-        }).then((user: GoogleUser) => {
-            sessionStorage.setItem('accessToken', user.getAuthResponse().access_token);
+    public async signIn(): Promise<GoogleUser> {
+        return await <Promise<GoogleUser>> this.googleAuth.signIn().then((user: GoogleUser) => {
+            sessionStorage.setItem(this.tokenStorageKey, user.getAuthResponse().access_token);
 
             return user;
         });

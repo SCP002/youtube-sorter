@@ -11,12 +11,12 @@ export class LikedComponent implements OnInit {
 
     private liked: Video[] = [];
 
-    public constructor(private readonly youtube: YoutubeService) {
+    public constructor(private readonly youtubeSvc: YoutubeService) {
         //
     }
 
     public ngOnInit(): void {
-        this.youtube.getLikedObs().subscribe((liked: Video[]) => {
+        this.youtubeSvc.getLikedObs().subscribe((liked: Video[]) => {
             this.liked = liked;
         });
     }

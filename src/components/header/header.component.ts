@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
 
     private signedIn = false;
 
-    public constructor(private readonly user: UserService,
-                       private readonly youtube: YoutubeService) {
+    public constructor(private readonly userSvc: UserService,
+                       private readonly youtubeSvc: YoutubeService) {
         //
     }
 
@@ -28,17 +28,17 @@ export class HeaderComponent implements OnInit {
     }
 
     public signIn(): void {
-        this.user.signIn().then((user: GoogleUser) => {
+        this.userSvc.signIn().then((user: GoogleUser) => {
             console.log('Signed-in with user name: ' + user.getBasicProfile().getName());
 
             this.signedIn = true;
 
-            return this.youtube.fetchPlaylists();
+            return this.youtubeSvc.fetchPlaylists();
         }).then((playlists: Playlist[]) => {
             console.log('Got playlists:');
             console.log(playlists);
 
-            return this.youtube.fetchLiked();
+            return this.youtubeSvc.fetchLiked();
         }).then((liked: Video[]) => {
             console.log('Got liked:');
             console.log(liked);

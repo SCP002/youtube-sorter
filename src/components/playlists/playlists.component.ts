@@ -11,12 +11,12 @@ export class PlaylistsComponent implements OnInit {
 
     private playlists: Playlist[] = [];
 
-    public constructor(private readonly youtube: YoutubeService) {
+    public constructor(private readonly youtubeSvc: YoutubeService) {
         //
     }
 
     public ngOnInit(): void {
-        this.youtube.getPlaylistsObs().subscribe((playlists: Playlist[]) => {
+        this.youtubeSvc.getPlaylistsObs().subscribe((playlists: Playlist[]) => {
             this.playlists = playlists;
         });
     }
