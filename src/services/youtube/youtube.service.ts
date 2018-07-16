@@ -1,6 +1,5 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from '../user/user.service';
 import {Playlist} from './playlist';
 import {Video} from './video';
@@ -11,31 +10,25 @@ import {VideoHolder} from './video-holder';
 })
 export class YoutubeService {
 
-    private readonly likedSub: BehaviorSubject<VideoHolder[]> = new BehaviorSubject<VideoHolder[]>([]);
-    private readonly playlistsSub: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>([]);
+    private liked: VideoHolder[] = [];
+    private playlists: Playlist[] = [];
 
     private constructor(private readonly httpClient: HttpClient,
                         private readonly userSvc: UserService) {
         //
     }
 
-    public getLikedObs(): Observable<VideoHolder[]> {
-        return this.likedSub.asObservable();
+    public getLiked(): VideoHolder[] {
+        return this.liked;
     }
 
-    public getPlaylistsObs(): Observable<Playlist[]> {
-        return this.playlistsSub.asObservable();
+    public getPlaylists(): Playlist[] {
+        return this.playlists;
     }
 
     public fetchAll(): void {
-        this.fetchPlaylists().then((playlists: Playlist[]) => {
-            console.log('Got playlists:');
-            console.log(playlists);
-
+        this.fetchPlaylists().then(() => {
             return this.fetchLiked();
-        }).then((liked: VideoHolder[]) => {
-            console.log('Got liked:');
-            console.log(liked);
         });
     }
 
@@ -55,7 +48,9 @@ export class YoutubeService {
                 }
             }
 
-            this.likedSub.next(liked);
+            this.liked = liked;
+
+            console.log('Fetched ' + liked.length + ' liked videos');
 
             return liked;
         });
@@ -78,16 +73,16 @@ export class YoutubeService {
                 }
             }
 
-            this.playlistsSub.next(playlists);
+            this.playlists = playlists;
+
+            console.log('Fetched ' + playlists.length + ' playlists');
 
             return playlists;
         });
     }
 
     private isInPlaylist(targetVideo: Video): boolean {
-        const playlists: Playlist[] = this.playlistsSub.getValue();
-
-        for (const playlist of playlists) {
+        for (const playlist of this.playlists) {
             for (const currentVideo of playlist.getVideos()) {
                 if (targetVideo.getId() === currentVideo.getId()) {
                     return true;

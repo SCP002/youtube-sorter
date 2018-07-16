@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
 import {YoutubeService} from '../../services/youtube/youtube.service';
-import GoogleUser = gapi.auth2.GoogleUser;
 
 @Component({
     selector: 'app-header',
@@ -9,8 +8,6 @@ import GoogleUser = gapi.auth2.GoogleUser;
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-    private signedIn = false;
 
     public constructor(private readonly userSvc: UserService,
                        private readonly youtubeSvc: YoutubeService) {
@@ -22,15 +19,11 @@ export class HeaderComponent implements OnInit {
     }
 
     public isSignedIn(): boolean {
-        return this.signedIn;
+        return this.userSvc.isSignedIn();
     }
 
     public signIn(): void {
-        this.userSvc.signIn().then((user: GoogleUser) => {
-            console.log('Signed-in with user name: ' + user.getBasicProfile().getName());
-
-            this.signedIn = true;
-
+        this.userSvc.signIn().then(() => {
             this.youtubeSvc.fetchAll();
         });
     }

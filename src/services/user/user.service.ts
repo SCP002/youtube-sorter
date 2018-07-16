@@ -8,8 +8,8 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
-    private readonly tokenStorageKey = 'accessToken';
-
+    private token = '';
+    private signedIn = false;
     private googleAuth: GoogleAuth;
 
     private constructor(private readonly googleAuthSvc: GoogleAuthService) {
@@ -19,18 +19,20 @@ export class UserService {
     }
 
     public getToken(): string {
-        const token: string = sessionStorage.getItem(this.tokenStorageKey);
+        return this.token;
+    }
 
-        if (!token) {
-            throw new Error('No token set, authentication required');
-        }
-
-        return token;
+    public isSignedIn(): boolean {
+        return this.signedIn;
     }
 
     public async signIn(): Promise<GoogleUser> {
         return await <Promise<GoogleUser>> this.googleAuth.signIn().then((user: GoogleUser) => {
-            sessionStorage.setItem(this.tokenStorageKey, user.getAuthResponse().access_token);
+            this.token = user.getAuthResponse().access_token;
+
+            this.signedIn = true;
+
+            console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
 
             return user;
         });
