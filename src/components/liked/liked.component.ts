@@ -38,4 +38,12 @@ export class LikedComponent implements OnInit {
         return this.youtubeSvc.getLiked();
     }
 
+    public getListItemSubtext(videoHolder: VideoHolder): string {
+        if (videoHolder.isInPlaylist()) {
+            return 'In playlist: "' + videoHolder.getPlaylistName() + '"';
+        }
+
+        return '';
+    }
+
 }

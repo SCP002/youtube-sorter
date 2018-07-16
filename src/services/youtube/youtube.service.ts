@@ -56,7 +56,7 @@ export class YoutubeService {
                     const title: string = item['snippet']['title'];
 
                     const video: Video = new Video(id, title);
-                    const videoHolder = new VideoHolder(video, this.isInPlaylist(video));
+                    const videoHolder = new VideoHolder(video, this.getPlaylistForVideo(video));
 
                     liked.push(videoHolder);
                 }
@@ -101,16 +101,16 @@ export class YoutubeService {
         });
     }
 
-    private isInPlaylist(targetVideo: Video): boolean {
+    private getPlaylistForVideo(targetVideo: Video): string {
         for (const playlist of this.playlists) {
             for (const currentVideo of playlist.getVideos()) {
                 if (targetVideo.getId() === currentVideo.getId()) {
-                    return true;
+                    return playlist.getTitle();
                 }
             }
         }
 
-        return false;
+        return '';
     }
 
     private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
