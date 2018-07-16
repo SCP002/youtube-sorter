@@ -1,6 +1,7 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UserService} from '../user/user.service';
+import {LoadStatus} from './load-status';
 import {Playlist} from './playlist';
 import {Video} from './video';
 import {VideoHolder} from './video-holder';
@@ -12,6 +13,9 @@ export class YoutubeService {
 
     private liked: VideoHolder[] = [];
     private playlists: Playlist[] = [];
+
+    private likedLoadStatus: LoadStatus = LoadStatus.NOT_STARTED;
+    private playlistsLoadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
     private constructor(private readonly httpClient: HttpClient,
                         private readonly userSvc: UserService) {
@@ -26,6 +30,14 @@ export class YoutubeService {
         return this.playlists;
     }
 
+    public getLikedLoadStatus(): LoadStatus {
+        return this.likedLoadStatus;
+    }
+
+    public getPlaylistsLoadStatus(): LoadStatus {
+        return this.playlistsLoadStatus;
+    }
+
     public fetchAll(): void {
         this.fetchPlaylists().then(() => {
             return this.fetchLiked();
@@ -33,6 +45,8 @@ export class YoutubeService {
     }
 
     private fetchLiked(): Promise<VideoHolder[]> {
+        this.likedLoadStatus = LoadStatus.IN_PROCESS;
+
         return this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
             const liked: VideoHolder[] = [];
 
@@ -50,6 +64,8 @@ export class YoutubeService {
 
             this.liked = liked;
 
+            this.likedLoadStatus = LoadStatus.DONE;
+
             console.log('Fetched ' + liked.length + ' liked videos');
 
             return liked;
@@ -57,6 +73,8 @@ export class YoutubeService {
     }
 
     private fetchPlaylists(): Promise<Playlist[]> {
+        this.playlistsLoadStatus = LoadStatus.IN_PROCESS;
+
         return this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
             const playlists: Playlist[] = [];
 
@@ -74,6 +92,8 @@ export class YoutubeService {
             }
 
             this.playlists = playlists;
+
+            this.playlistsLoadStatus = LoadStatus.DONE;
 
             console.log('Fetched ' + playlists.length + ' playlists');
 
