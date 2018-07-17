@@ -7,7 +7,7 @@ import {GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 import {GApiConfig} from '../../config/api.config';
 import {HeaderComponent} from '../header/header.component';
 import {LikedComponent} from '../liked/liked.component';
-import {PlaylistsComponent} from '../playlists/playlists.component';
+import {PlaylistComponent} from '../playlist/playlist.component';
 import {AppComponent} from './app.component';
 
 @NgModule({
@@ -15,7 +15,7 @@ import {AppComponent} from './app.component';
         AppComponent,
         HeaderComponent,
         LikedComponent,
-        PlaylistsComponent
+        PlaylistComponent
     ],
     imports: [
         BrowserModule,
@@ -24,8 +24,12 @@ import {AppComponent} from './app.component';
         HttpClientModule,
         NgbModule.forRoot()
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    providers: [
+        //
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule {
 

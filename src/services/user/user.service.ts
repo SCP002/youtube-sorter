@@ -10,12 +10,10 @@ export class UserService {
 
     private token = '';
     private signedIn = false;
-    private googleAuth: GoogleAuth;
+    private googleAuth: Promise<GoogleAuth>;
 
     private constructor(private readonly googleAuthSvc: GoogleAuthService) {
-        this.googleAuthSvc.getAuth().subscribe((googleAuth: GoogleAuth) => {
-            this.googleAuth = googleAuth;
-        });
+        this.googleAuth = this.googleAuthSvc.getAuth().toPromise();
     }
 
     public getToken(): string {
@@ -26,8 +24,11 @@ export class UserService {
         return this.signedIn;
     }
 
-    public async signIn(): Promise<GoogleUser> {
-        return await <Promise<GoogleUser>> this.googleAuth.signIn().then((user: GoogleUser) => {
+    public signIn(): Promise<GoogleUser> {
+        // Logic partially moved to constructor to avoid 'popup_blocked_by_browser'.
+        return this.googleAuth.then((auth: GoogleAuth) => {
+            return <Promise<GoogleUser>> auth.signIn();
+        }).then((user: GoogleUser) => {
             this.token = user.getAuthResponse().access_token;
 
             this.signedIn = true;

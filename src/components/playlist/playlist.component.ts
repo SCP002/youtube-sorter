@@ -4,11 +4,11 @@ import {PlaylistItem} from '../../services/youtube/playlist-item';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
-    selector: 'app-playlists',
-    templateUrl: './playlists.component.html',
-    styleUrls: ['./playlists.component.css']
+    selector: 'app-playlist',
+    templateUrl: './playlist.component.html',
+    styleUrls: ['./playlist.component.css']
 })
-export class PlaylistsComponent implements OnInit { // TODO: Rename to PlaylistComponent.
+export class PlaylistComponent implements OnInit {
 
     public constructor(private readonly youtubeSvc: YoutubeService) {
         //
@@ -19,7 +19,7 @@ export class PlaylistsComponent implements OnInit { // TODO: Rename to PlaylistC
     }
 
     public getCardSubtitle(): string {
-        const loadStatus = this.youtubeSvc.getPlaylistsLoadStatus();
+        const loadStatus = this.youtubeSvc.getPlaylistLoadStatus();
 
         if (loadStatus === LoadStatus.NOT_STARTED) {
             return 'Sign in to load data';

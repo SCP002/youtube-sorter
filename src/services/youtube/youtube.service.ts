@@ -15,8 +15,8 @@ export class YoutubeService {
     private likedItems: LikedItem[] = []; // TODO: Move to liked.service.
     private playlistItems: PlaylistItem[] = []; // TODO: Move to playlist.service.
 
-    private likedLoadStatus: LoadStatus = LoadStatus.NOT_STARTED; // TODO: Move to liked.service -> likedStatus.
-    private playlistsLoadStatus: LoadStatus = LoadStatus.NOT_STARTED; // TODO: Move to playlist.service -> playlistStatus.
+    private likedLoadStatus: LoadStatus = LoadStatus.NOT_STARTED; // TODO: Move to liked.service -> loadStatus.
+    private playlistLoadStatus: LoadStatus = LoadStatus.NOT_STARTED; // TODO: Move to playlist.service -> loadStatus.
 
     private playlists: Playlist[] = [];
 
@@ -37,8 +37,8 @@ export class YoutubeService {
         return this.likedLoadStatus;
     }
 
-    public getPlaylistsLoadStatus(): LoadStatus {
-        return this.playlistsLoadStatus;
+    public getPlaylistLoadStatus(): LoadStatus {
+        return this.playlistLoadStatus;
     }
 
     public loadAll(): void {
@@ -75,7 +75,7 @@ export class YoutubeService {
     }
 
     private loadPlaylistItems(): Promise<PlaylistItem[]> {
-        this.playlistsLoadStatus = LoadStatus.IN_PROCESS;
+        this.playlistLoadStatus = LoadStatus.IN_PROCESS;
 
         return this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
             const playlists: Playlist[] = [];
@@ -98,7 +98,7 @@ export class YoutubeService {
 
             this.playlists = playlists;
             this.playlistItems = playlistItems;
-            this.playlistsLoadStatus = LoadStatus.DONE;
+            this.playlistLoadStatus = LoadStatus.DONE;
 
             console.log('Loaded ' + playlists.length + ' playlist items');
 
