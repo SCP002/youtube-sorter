@@ -51,7 +51,7 @@ export class YoutubeService {
         this.likedLoadStatus = LoadStatus.IN_PROCESS;
 
         return this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
-            const likedItems: LikedItem[] = [];
+            this.likedItems = [];
 
             for (const response of responses) {
                 for (const item of response['items']) {
@@ -59,18 +59,19 @@ export class YoutubeService {
                     const title: string = item['snippet']['title'];
 
                     const video: Video = new Video(id, title);
-                    const likedItem = new LikedItem(video, this.getPlaylistForVideo(video));
+                    const playlistName = this.getPlaylistForVideo(video);
 
-                    likedItems.push(likedItem);
+                    const likedItem = new LikedItem(video, playlistName);
+
+                    this.likedItems.push(likedItem);
                 }
             }
 
-            this.likedItems = likedItems;
             this.likedLoadStatus = LoadStatus.DONE;
 
-            console.log('Loaded ' + likedItems.length + ' liked items');
+            console.log('Loaded ' + this.likedItems.length + ' liked items');
 
-            return likedItems;
+            return this.likedItems;
         });
     }
 
@@ -78,8 +79,8 @@ export class YoutubeService {
         this.playlistLoadStatus = LoadStatus.IN_PROCESS;
 
         return this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
-            const playlists: Playlist[] = [];
-            const playlistItems: PlaylistItem[] = [];
+            this.playlists = [];
+            this.playlistItems = [];
 
             for (const response of responses) {
                 for (const item of response['items']) {
@@ -90,19 +91,17 @@ export class YoutubeService {
                         const playlist: Playlist = new Playlist(id, title, videos);
                         const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
-                        playlists.push(playlist);
-                        playlistItems.push(playlistItem);
+                        this.playlists.push(playlist);
+                        this.playlistItems.push(playlistItem);
                     });
                 }
             }
 
-            this.playlists = playlists;
-            this.playlistItems = playlistItems;
             this.playlistLoadStatus = LoadStatus.DONE;
 
-            console.log('Loaded ' + playlists.length + ' playlist items');
+            console.log('Loaded ' + this.playlistItems.length + ' playlist items');
 
-            return playlistItems;
+            return this.playlistItems;
         });
     }
 
