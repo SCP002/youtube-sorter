@@ -5,7 +5,8 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item list-group-item-action flex-column align-items-start"
                 *ngFor="let likedItem of getLikedItems()"
-                [class.list-group-item-success]="likedItem.isInPlaylist()">
+                [ngClass]="likedItem.getClasses()"
+                (click)="likedItem.onClick()">
                 {{likedItem.getVideo().getTitle()}}
                 <p class="mb-1">
                     {{likedItem.getSubText()}}

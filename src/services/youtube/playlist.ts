@@ -8,10 +8,6 @@ export class Playlist {
         //
     }
 
-    public getId(): string {
-        return this.id;
-    }
-
     public getTitle(): string {
         return this.title;
     }

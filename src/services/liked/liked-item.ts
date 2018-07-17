@@ -5,6 +5,8 @@ export class LikedItem {
     private readonly inPlaylist: boolean;
     private readonly subText: string;
 
+    private selected = false;
+
     public constructor(private readonly video: Video,
                        private readonly playlistName: string) {
         this.inPlaylist = playlistName !== '';
@@ -15,16 +17,24 @@ export class LikedItem {
         return this.video;
     }
 
-    public getPlaylistName(): string {
-        return this.playlistName;
-    }
-
-    public isInPlaylist(): boolean {
-        return this.inPlaylist;
-    }
-
     public getSubText(): string {
         return this.subText;
+    }
+
+    public getClasses(): string {
+        if (this.selected) {
+            return 'list-group-item-primary';
+        }
+
+        if (this.inPlaylist) {
+            return 'list-group-item-success';
+        }
+
+        return '';
+    }
+
+    public onClick(): void {
+        this.selected = !this.selected;
     }
 
 }

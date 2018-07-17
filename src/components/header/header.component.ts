@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
         //
     }
 
-    public isSignedIn(): boolean {
-        return this.userSvc.isSignedIn();
+    public getSignInBtnText(): string {
+        return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign In';
     }
 
     public signIn(): void {
