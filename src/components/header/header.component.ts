@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {LikedService} from '../../services/liked/liked.service';
+import {PlaylistService} from '../../services/playlist/playlist.service';
 import {UserService} from '../../services/user/user.service';
-import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +11,8 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 export class HeaderComponent implements OnInit {
 
     public constructor(private readonly userSvc: UserService,
-                       private readonly youtubeSvc: YoutubeService) {
+                       private readonly playlistSvc: PlaylistService,
+                       private readonly likedSvc: LikedService) {
         //
     }
 
@@ -24,7 +26,14 @@ export class HeaderComponent implements OnInit {
 
     public signIn(): void {
         this.userSvc.signIn().then(() => {
-            this.youtubeSvc.loadAll();
+            this.loadAll();
+        });
+    }
+
+    private loadAll(): void {
+        // Order is important there.
+        this.playlistSvc.loadPlaylistItems().then(() => {
+            return this.likedSvc.loadLikedItems();
         });
     }
 

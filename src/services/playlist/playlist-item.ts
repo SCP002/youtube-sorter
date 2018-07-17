@@ -1,4 +1,4 @@
-import {Playlist} from './playlist';
+import {Playlist} from '../youtube/playlist';
 
 export class PlaylistItem {
 

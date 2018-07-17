@@ -1,4 +1,4 @@
-import {Video} from './video';
+import {Video} from '../youtube/video';
 
 export class LikedItem {
 

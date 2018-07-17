@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {PlaylistItem} from '../../services/playlist/playlist-item';
+import {PlaylistService} from '../../services/playlist/playlist.service';
 import {LoadStatus} from '../../services/youtube/load-status';
-import {PlaylistItem} from '../../services/youtube/playlist-item';
-import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
     selector: 'app-playlist',
@@ -10,7 +10,7 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class PlaylistComponent implements OnInit {
 
-    public constructor(private readonly youtubeSvc: YoutubeService) {
+    public constructor(private readonly playlistSvc: PlaylistService) {
         //
     }
 
@@ -19,7 +19,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     public getCardSubtitle(): string {
-        const loadStatus = this.youtubeSvc.getPlaylistLoadStatus();
+        const loadStatus = this.playlistSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.NOT_STARTED) {
             return 'Sign in to load data';
@@ -35,7 +35,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     public getPlaylistItems(): PlaylistItem[] {
-        return this.youtubeSvc.getPlaylistItems();
+        return this.playlistSvc.getPlaylistItems();
     }
 
 }

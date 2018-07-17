@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {LikedItem} from '../../services/youtube/liked-item';
+import {LikedItem} from '../../services/liked/liked-item';
+import {LikedService} from '../../services/liked/liked.service';
 import {LoadStatus} from '../../services/youtube/load-status';
-import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
     selector: 'app-liked',
@@ -10,7 +10,7 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
 })
 export class LikedComponent implements OnInit {
 
-    public constructor(private readonly youtubeSvc: YoutubeService) {
+    public constructor(private readonly likedSvc: LikedService) {
         //
     }
 
@@ -19,7 +19,7 @@ export class LikedComponent implements OnInit {
     }
 
     public getCardSubTitle(): string {
-        const loadStatus = this.youtubeSvc.getLikedLoadStatus();
+        const loadStatus = this.likedSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.NOT_STARTED) {
             return 'Sign in to load data';
@@ -35,7 +35,7 @@ export class LikedComponent implements OnInit {
     }
 
     public getLikedItems(): LikedItem[] {
-        return this.youtubeSvc.getLikedItems();
+        return this.likedSvc.getLikedItems();
     }
 
 }
