@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LoadStatus} from '../../services/youtube/load-status';
-import {Playlist} from '../../services/youtube/playlist';
+import {PlaylistItem} from '../../services/youtube/playlist-item';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
@@ -8,7 +8,7 @@ import {YoutubeService} from '../../services/youtube/youtube.service';
     templateUrl: './playlists.component.html',
     styleUrls: ['./playlists.component.css']
 })
-export class PlaylistsComponent implements OnInit {
+export class PlaylistsComponent implements OnInit { // TODO: Rename to PlaylistComponent.
 
     public constructor(private readonly youtubeSvc: YoutubeService) {
         //
@@ -30,12 +30,12 @@ export class PlaylistsComponent implements OnInit {
         }
 
         if (loadStatus === LoadStatus.DONE) {
-            return this.getPlaylists().length + ' items';
+            return this.getPlaylistItems().length + ' items';
         }
     }
 
-    public getPlaylists(): Playlist[] {
-        return this.youtubeSvc.getPlaylists();
+    public getPlaylistItems(): PlaylistItem[] {
+        return this.youtubeSvc.getPlaylistItems();
     }
 
 }

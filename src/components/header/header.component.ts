@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
     public signIn(): void {
         this.userSvc.signIn().then(() => {
-            this.youtubeSvc.fetchAll();
+            this.youtubeSvc.loadAll();
         });
     }
 

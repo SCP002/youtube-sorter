@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {LikedItem} from '../../services/youtube/liked-item';
 import {LoadStatus} from '../../services/youtube/load-status';
-import {VideoHolder} from '../../services/youtube/video-holder';
 import {YoutubeService} from '../../services/youtube/youtube.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class LikedComponent implements OnInit {
         //
     }
 
-    public getCardSubtitle(): string {
+    public getCardSubTitle(): string {
         const loadStatus = this.youtubeSvc.getLikedLoadStatus();
 
         if (loadStatus === LoadStatus.NOT_STARTED) {
@@ -30,20 +30,12 @@ export class LikedComponent implements OnInit {
         }
 
         if (loadStatus === LoadStatus.DONE) {
-            return this.getLiked().length + ' items';
+            return this.getLikedItems().length + ' items';
         }
     }
 
-    public getLiked(): VideoHolder[] {
-        return this.youtubeSvc.getLiked();
-    }
-
-    public getListItemSubtext(videoHolder: VideoHolder): string {
-        if (videoHolder.isInPlaylist()) {
-            return 'In playlist: "' + videoHolder.getPlaylistName() + '"';
-        }
-
-        return '';
+    public getLikedItems(): LikedItem[] {
+        return this.youtubeSvc.getLikedItems();
     }
 
 }

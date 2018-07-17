@@ -1,33 +1,36 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UserService} from '../user/user.service';
+import {LikedItem} from './liked-item';
 import {LoadStatus} from './load-status';
 import {Playlist} from './playlist';
+import {PlaylistItem} from './playlist-item';
 import {Video} from './video';
-import {VideoHolder} from './video-holder';
 
 @Injectable({
     providedIn: 'root'
 })
 export class YoutubeService {
 
-    private liked: VideoHolder[] = [];
-    private playlists: Playlist[] = [];
+    private likedItems: LikedItem[] = []; // TODO: Move to liked.service.
+    private playlistItems: PlaylistItem[] = []; // TODO: Move to playlist.service.
 
-    private likedLoadStatus: LoadStatus = LoadStatus.NOT_STARTED;
-    private playlistsLoadStatus: LoadStatus = LoadStatus.NOT_STARTED;
+    private likedLoadStatus: LoadStatus = LoadStatus.NOT_STARTED; // TODO: Move to liked.service -> likedStatus.
+    private playlistsLoadStatus: LoadStatus = LoadStatus.NOT_STARTED; // TODO: Move to playlist.service -> playlistStatus.
+
+    private playlists: Playlist[] = [];
 
     private constructor(private readonly httpClient: HttpClient,
                         private readonly userSvc: UserService) {
         //
     }
 
-    public getLiked(): VideoHolder[] {
-        return this.liked;
+    public getLikedItems(): LikedItem[] {
+        return this.likedItems;
     }
 
-    public getPlaylists(): Playlist[] {
-        return this.playlists;
+    public getPlaylistItems(): PlaylistItem[] {
+        return this.playlistItems;
     }
 
     public getLikedLoadStatus(): LoadStatus {
@@ -38,17 +41,17 @@ export class YoutubeService {
         return this.playlistsLoadStatus;
     }
 
-    public fetchAll(): void {
-        this.fetchPlaylists().then(() => {
-            return this.fetchLiked();
+    public loadAll(): void {
+        this.loadPlaylistItems().then(() => {
+            return this.loadLikedItems();
         });
     }
 
-    private fetchLiked(): Promise<VideoHolder[]> {
+    private loadLikedItems(): Promise<LikedItem[]> {
         this.likedLoadStatus = LoadStatus.IN_PROCESS;
 
         return this.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
-            const liked: VideoHolder[] = [];
+            const likedItems: LikedItem[] = [];
 
             for (const response of responses) {
                 for (const item of response['items']) {
@@ -56,48 +59,50 @@ export class YoutubeService {
                     const title: string = item['snippet']['title'];
 
                     const video: Video = new Video(id, title);
-                    const videoHolder = new VideoHolder(video, this.getPlaylistForVideo(video));
+                    const likedItem = new LikedItem(video, this.getPlaylistForVideo(video));
 
-                    liked.push(videoHolder);
+                    likedItems.push(likedItem);
                 }
             }
 
-            this.liked = liked;
-
+            this.likedItems = likedItems;
             this.likedLoadStatus = LoadStatus.DONE;
 
-            console.log('Fetched ' + liked.length + ' liked videos');
+            console.log('Loaded ' + likedItems.length + ' liked items');
 
-            return liked;
+            return likedItems;
         });
     }
 
-    private fetchPlaylists(): Promise<Playlist[]> {
+    private loadPlaylistItems(): Promise<PlaylistItem[]> {
         this.playlistsLoadStatus = LoadStatus.IN_PROCESS;
 
         return this.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
             const playlists: Playlist[] = [];
+            const playlistItems: PlaylistItem[] = [];
 
             for (const response of responses) {
                 for (const item of response['items']) {
                     const id: string = item['id'];
                     const title: string = item['snippet']['title'];
 
-                    await this.fetchPlaylistVideos(id).then((videos: Video[]) => {
+                    await this.loadPlaylistVideos(id).then((videos: Video[]) => {
                         const playlist: Playlist = new Playlist(id, title, videos);
+                        const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
                         playlists.push(playlist);
+                        playlistItems.push(playlistItem);
                     });
                 }
             }
 
             this.playlists = playlists;
-
+            this.playlistItems = playlistItems;
             this.playlistsLoadStatus = LoadStatus.DONE;
 
-            console.log('Fetched ' + playlists.length + ' playlists');
+            console.log('Loaded ' + playlists.length + ' playlist items');
 
-            return playlists;
+            return playlistItems;
         });
     }
 
@@ -113,7 +118,7 @@ export class YoutubeService {
         return '';
     }
 
-    private fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
+    private loadPlaylistVideos(playlistId: string): Promise<Video[]> {
         return this.requestAll('playlistItems?part=snippet&playlistId=' + playlistId).then((responses: Object[]) => {
             const videos: Video[] = [];
 

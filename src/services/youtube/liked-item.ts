@@ -1,12 +1,14 @@
 import {Video} from './video';
 
-export class VideoHolder {
+export class LikedItem {
 
     private readonly inPlaylist: boolean;
+    private readonly subText: string;
 
     public constructor(private readonly video: Video,
                        private readonly playlistName: string) {
         this.inPlaylist = playlistName !== '';
+        this.subText = this.inPlaylist ? 'In playlist "' + playlistName + '"' : '';
     }
 
     public getVideo(): Video {
@@ -19,6 +21,10 @@ export class VideoHolder {
 
     public isInPlaylist(): boolean {
         return this.inPlaylist;
+    }
+
+    public getSubText(): string {
+        return this.subText;
     }
 
 }

@@ -1,14 +1,14 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Liked videos:</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{getCardSubtitle()}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{getCardSubTitle()}}</h6>
         <ul class="list-group list-group-flush">
             <li class="list-group-item list-group-item-action flex-column align-items-start"
-                *ngFor="let videoHolder of getLiked()"
-                [class.list-group-item-success]="videoHolder.isInPlaylist()">
-                {{videoHolder.getVideo().getTitle()}}
+                *ngFor="let likedItem of getLikedItems()"
+                [class.list-group-item-success]="likedItem.isInPlaylist()">
+                {{likedItem.getVideo().getTitle()}}
                 <p class="mb-1">
-                    {{getListItemSubtext(videoHolder)}}
+                    {{likedItem.getSubText()}}
                 </p>
             </li>
         </ul>
