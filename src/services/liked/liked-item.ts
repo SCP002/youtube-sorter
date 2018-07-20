@@ -37,8 +37,4 @@ export class LikedItem {
         this.selected = !this.selected;
     }
 
-    public onDragStart(): void {
-        this.selected = true;
-    }
-
 }

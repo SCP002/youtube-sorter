@@ -1,4 +1,3 @@
-<!-- TODO: Add touch events support. -->
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Liked videos:</h5>
@@ -6,12 +5,8 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item list-group-item-action flex-column align-items-start"
                 *ngFor="let likedItem of getLikedItems()"
-                [draggable]="true"
                 [ngClass]="likedItem.getClasses()"
-                (click)="likedItem.onClick()"
-                (dragend)="onDragEnd()"
-                (dragstart)="likedItem.onDragStart()"
-            >
+                (click)="likedItem.onClick()">
                 {{likedItem.getVideo().getTitle()}}
                 <p class="mb-1">
                     {{likedItem.getSubText()}}

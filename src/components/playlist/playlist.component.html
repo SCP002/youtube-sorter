@@ -4,10 +4,7 @@
         <h6 class="card-subtitle mb-2 text-muted">{{getCardSubtitle()}}</h6>
         <ul class="list-group list-group-flush">
             <li class="list-group-item"
-                *ngFor="let playlistItem of getPlaylistItems()"
-                (dragenter)="playlistItem.onDragEnter()"
-                (mouseleave)="playlistItem.onMouseLeave()"
-            >
+                *ngFor="let playlistItem of getPlaylistItems()">
                 {{playlistItem.getPlaylist().getTitle()}}
             </li>
         </ul>
