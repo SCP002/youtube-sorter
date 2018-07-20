@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {PlaylistService} from '../playlist/playlist.service';
 import {LoadStatus} from '../youtube/load-status';
 import {Video} from '../youtube/video';
 import {YoutubeService} from '../youtube/youtube.service';
@@ -12,7 +13,8 @@ export class LikedService {
     private likedItems: LikedItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
-    private constructor(private readonly youtubeSvc: YoutubeService) {
+    private constructor(private readonly youtubeSvc: YoutubeService,
+                        private readonly playlistSvc: PlaylistService) {
         //
     }
 
@@ -50,6 +52,15 @@ export class LikedService {
 
             return this.likedItems;
         });
+    }
+
+    public onDragEnd(): void { // TODO: This; Optimize by storing index in favour of loop?
+        for (const playlistItem of this.playlistSvc.getPlaylistItems()) {
+            if (playlistItem.isDragOver()) {
+                console.log('onDragEnd over ' + playlistItem.getPlaylist().getTitle() + '!');
+                break;
+            }
+        }
     }
 
     private getPlaylistForVideo(targetVideo: Video): string {

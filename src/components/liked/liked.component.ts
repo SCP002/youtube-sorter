@@ -38,4 +38,8 @@ export class LikedComponent implements OnInit {
         return this.likedSvc.getLikedItems();
     }
 
+    public onDragEnd(): void {
+        this.likedSvc.onDragEnd();
+    }
+
 }
