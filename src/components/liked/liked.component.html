@@ -5,8 +5,11 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item list-group-item-action flex-column align-items-start"
                 *ngFor="let likedItem of getLikedItems()"
+                [draggable]="true"
                 [ngClass]="likedItem.getClasses()"
-                (click)="likedItem.onClick()">
+                (click)="likedItem.onClick()"
+                (dragstart)="likedItem.onDragStart()"
+            >
                 {{likedItem.getVideo().getTitle()}}
                 <p class="mb-1">
                     {{likedItem.getSubText()}}

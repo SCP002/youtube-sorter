@@ -38,4 +38,15 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getPlaylistItems();
     }
 
+    public onDragOver(event: DragEvent): void {
+        event.preventDefault();
+    }
+
+    public onDrop(event: DragEvent, playlistItem: PlaylistItem): void {
+        event.preventDefault();
+
+        // TODO: This.
+        console.log('Drop over the ' + playlistItem.getPlaylist().getTitle());
+    }
+
 }

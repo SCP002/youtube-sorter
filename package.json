@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.2.0",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
+    "drag-drop-touch": "^1.3.0",
     "hoek": "^5.0.3",
     "ng-gapi": "0.0.51",
     "rxjs": "^6.0.0",
