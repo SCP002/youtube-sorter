@@ -18,7 +18,11 @@ export class LikedComponent implements OnInit {
         //
     }
 
-    public getCardSubTitle(): string { // TODO: Show total / visible / checked amount.
+    public getLikedItems(): LikedItem[] {
+        return this.likedSvc.getLikedItems();
+    }
+
+    public getCardSubTitle(): string {
         const loadStatus = this.likedSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.NOT_STARTED) {
@@ -30,12 +34,32 @@ export class LikedComponent implements OnInit {
         }
 
         if (loadStatus === LoadStatus.DONE) {
-            return this.getLikedItems().length + ' items';
+            let selectedCount = 0;
+            let visibleCount = 0;
+            let totalCount = 0;
+
+            for (const likedItem of this.getLikedItems()) {
+                totalCount++;
+
+                if (!likedItem.isHidden()) {
+                    visibleCount++;
+                }
+
+                if (likedItem.isSelected()) {
+                    selectedCount++;
+                }
+            }
+
+            return selectedCount + ' selected, ' + visibleCount + ' visible, ' + totalCount + ' total';
         }
     }
 
-    public getLikedItems(): LikedItem[] {
-        return this.likedSvc.getLikedItems();
+    public onShowSortedCBClick(show: boolean): void {
+        for (const likedItem of this.getLikedItems()) {
+            if (likedItem.isInPlaylist()) {
+                likedItem.setHidden(!show);
+            }
+        }
     }
 
 }
