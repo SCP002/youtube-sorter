@@ -45,7 +45,7 @@ export class PlaylistComponent implements OnInit {
     public onDrop(event: DragEvent, playlistItem: PlaylistItem): void {
         event.preventDefault();
 
-        // TODO: This.
+        // TODO: Add handler for this.
         console.log('Drop over the ' + playlistItem.getPlaylist().getTitle());
     }
 

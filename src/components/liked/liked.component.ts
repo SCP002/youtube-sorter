@@ -18,7 +18,7 @@ export class LikedComponent implements OnInit {
         //
     }
 
-    public getCardSubTitle(): string {
+    public getCardSubTitle(): string { // TODO: Show total / visible / checked amount.
         const loadStatus = this.likedSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.NOT_STARTED) {
