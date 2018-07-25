@@ -54,10 +54,10 @@ export class LikedComponent implements OnInit {
         }
     }
 
-    public onShowSortedCBClick(show: boolean): void {
+    public onShowSortedCBClick(checkbox: HTMLInputElement): void {
         for (const likedItem of this.getLikedItems()) {
             if (likedItem.isInPlaylist()) {
-                likedItem.setHidden(!show);
+                likedItem.setHidden(!checkbox.checked);
             }
         }
     }
