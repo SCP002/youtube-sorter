@@ -21,7 +21,15 @@ export class HeaderComponent implements OnInit {
     }
 
     public getSignInBtnText(): string {
-        return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign In';
+        return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
+    }
+
+    public getCardFooterText(): string {
+        if (!this.userSvc.isSignedIn()) {
+            return 'Sign-in to load data';
+        }
+
+        return '';
     }
 
     public signIn(): void {

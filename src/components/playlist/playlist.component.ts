@@ -18,18 +18,21 @@ export class PlaylistComponent implements OnInit {
         //
     }
 
-    public getCardSubtitle(): string {
-        const loadStatus = this.playlistSvc.getLoadStatus();
+    public isCardHidden(): boolean {
+        const loadStatus: LoadStatus = this.playlistSvc.getLoadStatus();
 
-        if (loadStatus === LoadStatus.NOT_STARTED) {
-            return 'Sign in to load data';
-        }
+        return loadStatus === LoadStatus.NOT_STARTED;
+    }
+
+    public getCardSubtitle(): string {
+        const loadStatus: LoadStatus = this.playlistSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.IN_PROCESS) {
             return 'Loading...';
         }
 
         if (loadStatus === LoadStatus.DONE) {
+            // TODO: Display detailed info, see liked.component.ts.
             return this.getPlaylistItems().length + ' items';
         }
     }

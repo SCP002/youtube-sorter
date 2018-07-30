@@ -1,7 +1,12 @@
-<div class="card">
+<div class="card"
+     [hidden]="isCardHidden()"
+>
     <div class="card-body">
         <h5 class="card-title">Playlists:</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{getCardSubtitle()}}</h6>
+
+        <!-- TODO: Add search input field. -->
+        <!-- TODO: Put post-subtitle / pre-list stuff into block and hide it if not loaded yet. -->
     </div>
 
     <ul class="list-group list-group-flush">

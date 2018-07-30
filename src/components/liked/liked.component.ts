@@ -18,16 +18,18 @@ export class LikedComponent implements OnInit {
         //
     }
 
+    public isCardHidden(): boolean {
+        const loadStatus: LoadStatus = this.likedSvc.getLoadStatus();
+
+        return loadStatus === LoadStatus.NOT_STARTED;
+    }
+
     public getLikedItems(): LikedItem[] {
         return this.likedSvc.getLikedItems();
     }
 
     public getCardSubTitle(): string {
-        const loadStatus = this.likedSvc.getLoadStatus();
-
-        if (loadStatus === LoadStatus.NOT_STARTED) {
-            return 'Sign in to load data';
-        }
+        const loadStatus: LoadStatus = this.likedSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.IN_PROCESS) {
             return 'Loading...';
