@@ -27,6 +27,10 @@
             (dragstart)="likedItem.onDragStart()"
         >
             {{likedItem.getVideo().getTitle()}}
+
+            <!-- TODO: Display channel video comes from. -->
+            <!-- TODO: Display [Deleted video] and [Private video] in the list, marked red. -->
+
             <p class="mb-1">
                 {{likedItem.getSubText()}}
             </p>
