@@ -19,9 +19,11 @@ export class LikedComponent implements OnInit {
     }
 
     public isCardHidden(): boolean {
-        const loadStatus: LoadStatus = this.likedSvc.getLoadStatus();
+        return this.likedSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
+    }
 
-        return loadStatus === LoadStatus.NOT_STARTED;
+    public isCardToolbarHidden(): boolean {
+        return this.likedSvc.getLoadStatus() !== LoadStatus.DONE;
     }
 
     public getLikedItems(): LikedItem[] {
