@@ -1,7 +1,6 @@
 export class Video {
 
-    public constructor(private readonly id: string,
-                       private readonly title: string) {
+    public constructor(private readonly id: string, private readonly title: string) {
         //
     }
 

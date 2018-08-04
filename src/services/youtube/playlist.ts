@@ -1,10 +1,8 @@
-import {Video} from './video';
+import { Video } from './video';
 
 export class Playlist {
 
-    public constructor(private readonly id: string,
-                       private readonly title: string,
-                       private readonly videos: Video[]) {
+    public constructor(private readonly id: string, private readonly title: string, private readonly videos: Video[]) {
         //
     }
 

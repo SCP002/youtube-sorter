@@ -1,4 +1,4 @@
-import {Video} from '../youtube/video';
+import { Video } from '../youtube/video';
 
 export class LikedItem {
 
@@ -9,8 +9,7 @@ export class LikedItem {
 
     private selected = false;
 
-    public constructor(private readonly video: Video,
-                       private readonly playlistName: string) {
+    public constructor(private readonly video: Video, private readonly playlistName: string) {
         this.inPlaylist = this.playlistName !== '';
         this.hidden = this.inPlaylist;
         this.subText = this.inPlaylist ? 'In playlist "' + playlistName + '"' : '';

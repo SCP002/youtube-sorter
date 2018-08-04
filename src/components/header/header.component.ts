@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {LikedService} from '../../services/liked/liked.service';
-import {PlaylistService} from '../../services/playlist/playlist.service';
-import {UserService} from '../../services/user/user.service';
+import { Component, OnInit } from '@angular/core';
+import { LikedService } from '../../services/liked/liked.service';
+import { PlaylistService } from '../../services/playlist/playlist.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
     selector: 'app-header',
@@ -10,10 +10,13 @@ import {UserService} from '../../services/user/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-    public constructor(private readonly userSvc: UserService,
-                       private readonly playlistSvc: PlaylistService,
-                       private readonly likedSvc: LikedService) {
+    public constructor(
+        private readonly userSvc: UserService,
+        private readonly playlistSvc: PlaylistService,
+        private readonly likedSvc: LikedService) {
+
         //
+
     }
 
     public ngOnInit(): void {

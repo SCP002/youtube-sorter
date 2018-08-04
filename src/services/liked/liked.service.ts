@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {LoadStatus} from '../youtube/load-status';
-import {Video} from '../youtube/video';
-import {YoutubeService} from '../youtube/youtube.service';
-import {LikedItem} from './liked-item';
+import { Injectable } from '@angular/core';
+import { LoadStatus } from '../youtube/load-status';
+import { Video } from '../youtube/video';
+import { YoutubeService } from '../youtube/youtube.service';
+import { LikedItem } from './liked-item';
 
 @Injectable({
     providedIn: 'root'

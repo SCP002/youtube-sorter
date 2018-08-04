@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {GoogleAuthService} from 'ng-gapi';
+import { Injectable } from '@angular/core';
+import { GoogleAuthService } from 'ng-gapi';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
@@ -27,7 +27,7 @@ export class UserService {
     public signIn(): Promise<GoogleUser> {
         // Logic partially moved to constructor to avoid 'popup_blocked_by_browser'.
         return this.googleAuth.then((auth: GoogleAuth) => {
-            return <Promise<GoogleUser>> auth.signIn();
+            return <Promise<GoogleUser>>auth.signIn();
         }).then((user: GoogleUser) => {
             this.token = user.getAuthResponse().access_token;
 

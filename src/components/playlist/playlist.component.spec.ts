@@ -1,5 +1,5 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {PlaylistComponent} from './playlist.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { PlaylistComponent } from './playlist.component';
 
 describe('PlaylistComponent', () => {
     let component: PlaylistComponent;

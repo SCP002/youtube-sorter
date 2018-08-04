@@ -1,4 +1,4 @@
-import {NgGapiClientConfig} from 'ng-gapi';
+import { NgGapiClientConfig } from 'ng-gapi';
 
 export class GApiConfig implements NgGapiClientConfig {
 

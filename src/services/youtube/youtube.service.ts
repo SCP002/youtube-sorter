@@ -1,7 +1,7 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {UserService} from '../user/user.service';
-import {Playlist} from './playlist';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { UserService } from '../user/user.service';
+import { Playlist } from './playlist';
 
 @Injectable({
     providedIn: 'root'
@@ -10,8 +10,7 @@ export class YoutubeService {
 
     private playlists: Playlist[] = [];
 
-    private constructor(private readonly httpClient: HttpClient,
-                        private readonly userSvc: UserService) {
+    private constructor(private readonly httpClient: HttpClient, private readonly userSvc: UserService) {
         //
     }
 

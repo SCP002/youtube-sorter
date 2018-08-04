@@ -1,6 +1,5 @@
 <div class="card"
-     [hidden]="isCardHidden()"
->
+     [hidden]="isCardHidden()">
     <div class="card-body">
         <h5 class="card-title">Liked videos:</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{getCardSubTitle()}}</h6>
@@ -9,11 +8,13 @@
         <!-- TODO: Add search input field. -->
         <!-- TODO: Put post-subtitle / pre-list stuff into block and hide it if not loaded yet. -->
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="show-sorted-cb"
+            <input type="checkbox"
+                   class="custom-control-input"
+                   id="show-sorted-cb"
                    #showSortedCB
-                   (click)="onShowSortedCBClick(showSortedCB)"
-            >
-            <label class="custom-control-label no-select" for="show-sorted-cb">Show sorted</label>
+                   (click)="onShowSortedCBClick(showSortedCB)">
+            <label class="custom-control-label no-select"
+                   for="show-sorted-cb">Show sorted</label>
         </div>
     </div>
 
@@ -24,8 +25,7 @@
             [hidden]="likedItem.isHidden()"
             [ngClass]="likedItem.getClasses()"
             (click)="likedItem.onClick()"
-            (dragstart)="likedItem.onDragStart()"
-        >
+            (dragstart)="likedItem.onDragStart()">
             {{likedItem.getVideo().getTitle()}}
 
             <!-- TODO: Display channel video comes from. -->

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {LikedItem} from '../../services/liked/liked-item';
-import {LikedService} from '../../services/liked/liked.service';
-import {LoadStatus} from '../../services/youtube/load-status';
+import { Component, OnInit } from '@angular/core';
+import { LikedItem } from '../../services/liked/liked-item';
+import { LikedService } from '../../services/liked/liked.service';
+import { LoadStatus } from '../../services/youtube/load-status';
 
 @Component({
     selector: 'app-liked',

@@ -1,5 +1,5 @@
-import {inject, TestBed} from '@angular/core/testing';
-import {LikedService} from './liked.service';
+import { inject, TestBed } from '@angular/core/testing';
+import { LikedService } from './liked.service';
 
 describe('LikedService', () => {
     beforeEach(() => {
