@@ -1,34 +1,44 @@
-<div class="card"
-     [hidden]="isCardHidden()">
+<div
+    class="card"
+    [hidden]="isCardHidden()"
+>
     <div class="card-body">
         <h5 class="card-title">Liked videos:</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{getCardSubTitle()}}</h6>
 
-        <div class="card-toolbar"
-             [hidden]="isCardToolbarHidden()">
+        <div
+            class="card-toolbar"
+            [hidden]="isCardToolbarHidden()"
+        >
             <!-- TODO: Add 'check all' checkbox. -->
             <!-- TODO: Add search input field. -->
 
             <div class="custom-control custom-checkbox">
-                <input type="checkbox"
-                       class="custom-control-input"
-                       id="show-sorted-cb"
-                       #showSortedCB
-                       (click)="onShowSortedCBClick(showSortedCB)">
-                <label class="custom-control-label no-select"
-                       for="show-sorted-cb">Show sorted</label>
+                <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="show-sorted-cb"
+                    #showSortedCB
+                    (click)="onShowSortedCBClick(showSortedCB)"
+                >
+                <label
+                    class="custom-control-label no-select"
+                    for="show-sorted-cb"
+                >Show sorted</label>
             </div>
         </div>
     </div>
 
     <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action flex-column align-items-start"
+        <li
+            class="list-group-item list-group-item-action flex-column align-items-start"
             *ngFor="let likedItem of getLikedItems()"
             [draggable]="true"
             [hidden]="likedItem.isHidden()"
             [ngClass]="likedItem.getClasses()"
             (click)="likedItem.onClick()"
-            (dragstart)="likedItem.onDragStart()">
+            (dragstart)="likedItem.onDragStart()"
+        >
             {{likedItem.getVideo().getTitle()}}
 
             <!-- TODO: Display channel video comes from. -->
