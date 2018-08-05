@@ -54,6 +54,8 @@ export class LikedComponent implements OnInit {
                 }
             }
 
+            // TODO: Replace term `total` with `available`.
+            // TODO: Add total count as response[x]['pageInfo']['totalResults'] (it will include deleted).
             return selectedCount + ' selected, ' + visibleCount + ' visible, ' + totalCount + ' total';
         }
     }
