@@ -27,26 +27,29 @@
                 >Show sorted</label>
             </div>
         </div>
+
+        <!-- TODO: Display [Deleted video] and [Private video] in the list, marked red. -->
+        <ul class="list-group">
+            <li
+                class="list-group-item list-group-item-action rounded my-2"
+                *ngFor="let likedItem of getLikedItems()"
+                [draggable]="true"
+                [hidden]="likedItem.isHidden()"
+                [ngClass]="likedItem.getNgClass()"
+                (click)="likedItem.onClick()"
+                (dragstart)="likedItem.onDragStart()"
+            >
+                {{likedItem.getVideo().getTitle()}}
+
+                <hr> {{likedItem.getVideo().getChannelTitle()}}
+
+                <div
+                    class="status-bar"
+                    [hidden]="likedItem.isStatusBarHidden()"
+                >
+                    <hr> In playlist "{{likedItem.getPlaylistName()}}"
+                </div>
+            </li>
+        </ul>
     </div>
-
-    <ul class="list-group list-group-flush">
-        <li
-            class="list-group-item list-group-item-action flex-column align-items-start"
-            *ngFor="let likedItem of getLikedItems()"
-            [draggable]="true"
-            [hidden]="likedItem.isHidden()"
-            [ngClass]="likedItem.getClasses()"
-            (click)="likedItem.onClick()"
-            (dragstart)="likedItem.onDragStart()"
-        >
-            {{likedItem.getVideo().getTitle()}}
-
-            <!-- TODO: Display channel video comes from. -->
-            <!-- TODO: Display [Deleted video] and [Private video] in the list, marked red. -->
-
-            <p class="mb-1">
-                {{likedItem.getSubText()}}
-            </p>
-        </li>
-    </ul>
 </div>

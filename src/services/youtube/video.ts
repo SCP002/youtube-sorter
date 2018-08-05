@@ -1,6 +1,6 @@
 export class Video {
 
-    public constructor(private readonly id: string, private readonly title: string) {
+    public constructor(private readonly id: string, private readonly title: string, private readonly channelTitle: string) {
         //
     }
 
@@ -10,6 +10,10 @@ export class Video {
 
     public getTitle(): string {
         return this.title;
+    }
+
+    public getChannelTitle(): string {
+        return this.channelTitle;
     }
 
 }

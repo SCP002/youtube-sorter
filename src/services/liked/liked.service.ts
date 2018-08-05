@@ -34,8 +34,9 @@ export class LikedService {
                 for (const item of response['items']) {
                     const id: string = item['id'];
                     const title: string = item['snippet']['title'];
+                    const channelTitle: string = item['snippet']['channelTitle'];
 
-                    const video: Video = new Video(id, title);
+                    const video: Video = new Video(id, title, channelTitle);
                     const playlistName = this.getPlaylistForVideo(video);
 
                     const likedItem = new LikedItem(video, playlistName);

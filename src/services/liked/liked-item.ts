@@ -3,7 +3,6 @@ import { Video } from '../youtube/video';
 export class LikedItem {
 
     private readonly inPlaylist: boolean;
-    private readonly subText: string;
 
     private hidden: boolean;
 
@@ -12,7 +11,6 @@ export class LikedItem {
     public constructor(private readonly video: Video, private readonly playlistName: string) {
         this.inPlaylist = this.playlistName !== '';
         this.hidden = this.inPlaylist;
-        this.subText = this.inPlaylist ? 'In playlist "' + playlistName + '"' : '';
     }
 
     public isInPlaylist(): boolean {
@@ -27,15 +25,19 @@ export class LikedItem {
         return this.selected;
     }
 
+    public isStatusBarHidden(): boolean {
+        return !this.inPlaylist;
+    }
+
     public getVideo(): Video {
         return this.video;
     }
 
-    public getSubText(): string {
-        return this.subText;
+    public getPlaylistName(): string {
+        return this.playlistName;
     }
 
-    public getClasses(): string {
+    public getNgClass(): string {
         if (this.selected) {
             return 'list-group-item-primary';
         }
@@ -44,7 +46,7 @@ export class LikedItem {
             return 'list-group-item-success';
         }
 
-        return '';
+        return 'bg-light';
     }
 
     public setHidden(value: boolean): void {

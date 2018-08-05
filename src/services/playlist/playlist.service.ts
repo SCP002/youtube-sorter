@@ -64,8 +64,9 @@ export class PlaylistService {
                     for (const item of response['items']) {
                         const id: string = item['snippet']['resourceId']['videoId'];
                         const title: string = item['snippet']['title'];
+                        const channelTitle: string = item['snippet']['channelTitle'];
 
-                        const video: Video = new Video(id, title);
+                        const video: Video = new Video(id, title, channelTitle);
 
                         videos.push(video);
                     }
