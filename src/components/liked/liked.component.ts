@@ -40,11 +40,8 @@ export class LikedComponent implements OnInit {
         if (loadStatus === LoadStatus.DONE) {
             let selectedCount = 0;
             let visibleCount = 0;
-            let totalCount = 0;
 
             for (const likedItem of this.getLikedItems()) {
-                totalCount++;
-
                 if (!likedItem.isHidden()) {
                     visibleCount++;
                 }
@@ -54,9 +51,8 @@ export class LikedComponent implements OnInit {
                 }
             }
 
-            // TODO: Replace term `total` with `available`.
-            // TODO: Add total count as response[x]['pageInfo']['totalResults'] (it will include deleted).
-            return selectedCount + ' selected, ' + visibleCount + ' visible, ' + totalCount + ' total';
+            return selectedCount + ' selected, ' + visibleCount + ' visible, ' +
+                this.getLikedItems().length + ' available, ' + this.likedSvc.getTotalCount() + ' total';
         }
     }
 

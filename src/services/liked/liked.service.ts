@@ -9,11 +9,16 @@ import { LikedItem } from './liked-item';
 })
 export class LikedService {
 
+    private totalCount = 0;
     private likedItems: LikedItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
     private constructor(private readonly youtubeSvc: YoutubeService) {
         //
+    }
+
+    public getTotalCount(): number {
+        return this.totalCount;
     }
 
     public getLikedItems(): LikedItem[] {
@@ -28,6 +33,8 @@ export class LikedService {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
         return this.youtubeSvc.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
+            this.totalCount = responses[0]['pageInfo']['totalResults'];
+
             this.likedItems = [];
 
             for (const response of responses) {
