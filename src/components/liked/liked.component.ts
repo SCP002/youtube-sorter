@@ -64,4 +64,12 @@ export class LikedComponent implements OnInit {
         }
     }
 
+    public onSelectAllCBClick(checkbox: HTMLInputElement): void {
+        for (const likedItem of this.getLikedItems()) {
+            if (!likedItem.isHidden()) {
+                likedItem.setSelected(checkbox.checked);
+            }
+        }
+    }
+
 }

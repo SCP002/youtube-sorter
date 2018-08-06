@@ -57,6 +57,10 @@ export class LikedItem {
         }
     }
 
+    public setSelected(value: boolean): void {
+        this.selected = value;
+    }
+
     public onClick(): void {
         this.selected = !this.selected;
     }
