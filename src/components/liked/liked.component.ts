@@ -12,6 +12,7 @@ export class LikedComponent implements OnInit {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
     @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef;
+    @ViewChild('selectAllCB') private readonly selectAllCBRef: ElementRef;
 
     public constructor(private readonly likedSvc: LikedService) {
         //
@@ -62,16 +63,16 @@ export class LikedComponent implements OnInit {
     public runFilter(): void {
         const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
         const showSorted: boolean = this.showSortedCBRef.nativeElement.checked;
+        const selectAll: boolean = this.selectAllCBRef.nativeElement.checked;
 
         for (const likedItem of this.getLikedItems()) {
             const videoTitle: string = likedItem.getVideo().getTitle().toLowerCase();
             const channelTitle: string = likedItem.getVideo().getChannelTitle().toLowerCase();
 
-            let hide: boolean;
+            // Set visibility.
+            let hide = false;
 
             if (videoTitle.includes(search) || channelTitle.includes(search)) {
-                hide = false;
-
                 if (likedItem.isInPlaylist()) {
                     hide = !showSorted;
                 }
@@ -80,13 +81,10 @@ export class LikedComponent implements OnInit {
             }
 
             likedItem.setHidden(hide);
-        }
-    }
 
-    public onSelectAllCBClick(checkbox: HTMLInputElement): void { // TODO: Make selectAll react to visibility.
-        for (const likedItem of this.getLikedItems()) {
-            if (!likedItem.isHidden()) {
-                likedItem.setSelected(checkbox.checked);
+            // Set selection.
+            if (!hide) {
+                likedItem.setSelected(selectAll);
             }
         }
     }
