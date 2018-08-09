@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
@@ -9,6 +9,9 @@ import { LoadStatus } from '../../services/youtube/load-status';
     styleUrls: ['./liked.component.css']
 })
 export class LikedComponent implements OnInit {
+
+    @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
+    @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef;
 
     public constructor(private readonly likedSvc: LikedService) {
         //
@@ -56,15 +59,31 @@ export class LikedComponent implements OnInit {
         }
     }
 
-    public onShowSortedCBClick(checkbox: HTMLInputElement): void {
+    public runFilter(): void {
+        const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
+        const showSorted: boolean = this.showSortedCBRef.nativeElement.checked;
+
         for (const likedItem of this.getLikedItems()) {
-            if (likedItem.isInPlaylist()) {
-                likedItem.setHidden(!checkbox.checked);
+            const videoTitle: string = likedItem.getVideo().getTitle().toLowerCase();
+            const channelTitle: string = likedItem.getVideo().getChannelTitle().toLowerCase();
+
+            let hide: boolean;
+
+            if (videoTitle.includes(search) || channelTitle.includes(search)) {
+                hide = false;
+
+                if (likedItem.isInPlaylist()) {
+                    hide = !showSorted;
+                }
+            } else {
+                hide = true;
             }
+
+            likedItem.setHidden(hide);
         }
     }
 
-    public onSelectAllCBClick(checkbox: HTMLInputElement): void {
+    public onSelectAllCBClick(checkbox: HTMLInputElement): void { // TODO: Make selectAll react to visibility.
         for (const likedItem of this.getLikedItems()) {
             if (!likedItem.isHidden()) {
                 likedItem.setSelected(checkbox.checked);
