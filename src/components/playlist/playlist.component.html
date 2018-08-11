@@ -10,14 +10,22 @@
             class="card-toolbar"
             [hidden]="isCardToolbarHidden()"
         >
-            <!-- TODO: Add search input field. -->
-
+            <div class="input-group mb-2">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                    #searchInput
+                    (keyup)="runFilter()"
+                >
+            </div>
         </div>
 
         <ul class="list-group">
             <li
                 class="list-group-item rounded my-2 bg-light"
                 *ngFor="let playlistItem of getPlaylistItems()"
+                [hidden]="playlistItem.isHidden()"
                 (dragover)="onDragOver($event)"
                 (drop)="onDrop($event, playlistItem)"
             >

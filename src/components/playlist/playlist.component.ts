@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { LoadStatus } from '../../services/youtube/load-status';
@@ -9,6 +9,8 @@ import { LoadStatus } from '../../services/youtube/load-status';
     styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent implements OnInit {
+
+    @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
 
     public constructor(private readonly playlistSvc: PlaylistService) {
         //
@@ -52,6 +54,23 @@ export class PlaylistComponent implements OnInit {
 
         // TODO: Add handler for this.
         console.log('Drop over the ' + playlistItem.getPlaylist().getTitle());
+    }
+
+    public runFilter(): void {
+        const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
+
+        for (const playlistItem of this.getPlaylistItems()) {
+            const playlistTitle: string = playlistItem.getPlaylist().getTitle().toLowerCase();
+
+            // Set visibility.
+            let hide = false;
+
+            if (!playlistTitle.includes(search)) {
+                hide = true;
+            }
+
+            playlistItem.setHidden(hide);
+        }
     }
 
 }
