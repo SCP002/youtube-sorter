@@ -24,11 +24,11 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
     }
 
-    public isCardToolbarHidden(): boolean {
+    public isCardFormHidden(): boolean {
         return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE;
     }
 
-    public getCardSubtitle(): string {
+    public getCardSubTitle(): string {
         const loadStatus: LoadStatus = this.playlistSvc.getLoadStatus();
 
         if (loadStatus === LoadStatus.IN_PROCESS) {

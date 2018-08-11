@@ -11,8 +11,8 @@ import { LoadStatus } from '../../services/youtube/load-status';
 export class LikedComponent implements OnInit {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
-    @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef;
     @ViewChild('selectAllCB') private readonly selectAllCBRef: ElementRef;
+    @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef;
 
     public constructor(private readonly likedSvc: LikedService) {
         //
@@ -26,7 +26,7 @@ export class LikedComponent implements OnInit {
         return this.likedSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
     }
 
-    public isCardToolbarHidden(): boolean {
+    public isCardFormHidden(): boolean {
         return this.likedSvc.getLoadStatus() !== LoadStatus.DONE;
     }
 
@@ -62,8 +62,8 @@ export class LikedComponent implements OnInit {
 
     public runFilter(): void {
         const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
-        const showSorted: boolean = this.showSortedCBRef.nativeElement.checked;
         const selectAll: boolean = this.selectAllCBRef.nativeElement.checked;
+        const showSorted: boolean = this.showSortedCBRef.nativeElement.checked;
 
         for (const likedItem of this.getLikedItems()) {
             const videoTitle: string = likedItem.getVideo().getTitle().toLowerCase();
