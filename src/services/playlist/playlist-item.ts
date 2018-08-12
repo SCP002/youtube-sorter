@@ -20,4 +20,8 @@ export class PlaylistItem {
         this.hidden = value;
     }
 
+    public onDragOver(event: DragEvent): void {
+        event.preventDefault();
+    }
+
 }

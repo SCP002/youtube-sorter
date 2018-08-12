@@ -54,15 +54,10 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getPlaylistItems();
     }
 
-    public onDragOver(event: DragEvent): void {
-        event.preventDefault();
-    }
-
-    public onDrop(event: DragEvent, playlistItem: PlaylistItem): void {
+    public onDropOverItem(event: DragEvent, playlistItem: PlaylistItem): void {
         event.preventDefault();
 
-        // TODO: Add handler for this.
-        console.log('Drop over the ' + playlistItem.getPlaylist().getTitle());
+        this.playlistSvc.addLikedToPlaylist(playlistItem);
     }
 
     public runFilter(): void {

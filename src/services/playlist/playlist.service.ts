@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LikedService } from '../liked/liked.service';
 import { LoadStatus } from '../youtube/load-status';
 import { Playlist } from '../youtube/playlist';
 import { Video } from '../youtube/video';
@@ -13,7 +14,7 @@ export class PlaylistService {
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
-    private constructor(private readonly youtubeSvc: YoutubeService) {
+    private constructor(private readonly youtubeSvc: YoutubeService, private readonly likedSvc: LikedService) {
         //
     }
 
@@ -23,6 +24,19 @@ export class PlaylistService {
 
     public getLoadStatus(): LoadStatus {
         return this.loadStatus;
+    }
+
+    // TODO: This. See https://developers.google.com/youtube/v3/guides/implementation/playlists
+    public addLikedToPlaylist(playlistItem: PlaylistItem): void {
+        console.log('Adding...');
+
+        for (const likedItem of this.likedSvc.getLikedItems()) {
+            if (likedItem.isSelected()) {
+                console.log('+ ' + likedItem.getVideo().getTitle());
+            }
+        }
+
+        console.log('To the ' + playlistItem.getPlaylist().getTitle());
     }
 
     public loadPlaylistItems(): Promise<PlaylistItem[]> {
