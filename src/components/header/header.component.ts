@@ -23,6 +23,8 @@ export class HeaderComponent implements OnInit {
         //
     }
 
+    // TODO: Add ability to change API key. See gapi.client.setApiKey?
+
     public getSignInBtnText(): string {
         return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
     }

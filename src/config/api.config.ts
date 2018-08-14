@@ -2,7 +2,7 @@ import { NgGapiClientConfig } from 'ng-gapi';
 
 export class GApiConfig implements NgGapiClientConfig {
 
-    public static readonly INSTANCE = new GApiConfig();
+    public static readonly INSTANCE = new GApiConfig(); // TODO: Just use {} with type of NgGapiClientConfig?
 
     private constructor() {
         //

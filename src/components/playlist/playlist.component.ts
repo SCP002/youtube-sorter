@@ -57,7 +57,7 @@ export class PlaylistComponent implements OnInit {
     public onDropOverItem(event: DragEvent, playlistItem: PlaylistItem): void {
         event.preventDefault();
 
-        this.playlistSvc.addLikedToPlaylist(playlistItem);
+        this.playlistSvc.addLikedToPlaylist(playlistItem.getPlaylist());
     }
 
     public runFilter(): void {

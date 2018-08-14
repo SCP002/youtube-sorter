@@ -1,10 +1,13 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpParamsOptions } from '@angular/common/http/src/params';
 import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
 import { LoadStatus } from '../youtube/load-status';
 import { Playlist } from '../youtube/playlist';
+import { PlaylistItem } from './playlist-item';
+import { UserService } from '../user/user.service';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
-import { PlaylistItem } from './playlist-item';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +17,14 @@ export class PlaylistService {
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
-    private constructor(private readonly youtubeSvc: YoutubeService, private readonly likedSvc: LikedService) {
+    private constructor(
+        private readonly httpClient: HttpClient,
+        private readonly likedSvc: LikedService,
+        private readonly userSvc: UserService,
+        private readonly youtubeSvc: YoutubeService) {
+
         //
+
     }
 
     public getPlaylistItems(): PlaylistItem[] {
@@ -26,17 +35,37 @@ export class PlaylistService {
         return this.loadStatus;
     }
 
-    // TODO: This. See https://developers.google.com/youtube/v3/guides/implementation/playlists
-    public addLikedToPlaylist(playlistItem: PlaylistItem): void {
-        console.log('Adding...');
+    public addLikedToPlaylist(playlist: Playlist): void { // TODO: Move partially to the youtube.service.ts.
+        const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+
+        const options: Object = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${this.userSvc.getToken()}`
+            }),
+            params: {
+                part: 'snippet'
+            } as HttpParamsOptions
+        };
+
+        const body: Object = {
+            snippet: {
+                playlistId: playlist.getId(),
+                resourceId: {
+                    kind: 'youtube#video',
+                    videoId: ''
+                }
+            }
+        };
 
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
-                console.log('+ ' + likedItem.getVideo().getTitle());
+                body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
+
+                this.httpClient.post(url, body, options).toPromise().then((response: Object) => {
+                    console.log(response); // TODO: Remove. Debug.
+                });
             }
         }
-
-        console.log('To the ' + playlistItem.getPlaylist().getTitle());
     }
 
     public loadPlaylistItems(): Promise<PlaylistItem[]> {

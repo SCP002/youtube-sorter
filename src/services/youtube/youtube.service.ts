@@ -29,7 +29,7 @@ export class YoutubeService {
     public requestAll(params: string): Promise<Object[]> {
         const apiUrl = 'https://www.googleapis.com/youtube/v3/';
 
-        const options = {
+        const options: Object = {
             headers: new HttpHeaders({
                 Authorization: `Bearer ${this.userSvc.getToken()}`
             })
