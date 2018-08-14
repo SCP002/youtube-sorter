@@ -1,7 +1,6 @@
-import { NG_GAPI_CONFIG, NgGapiClientConfig } from 'ng-gapi';
-import { Provider } from '@angular/core';
+import { NgGapiClientConfig } from 'ng-gapi';
 
-const config: NgGapiClientConfig = {
+export const gApiConfig: NgGapiClientConfig = {
 
     client_id: '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com',
 
@@ -9,10 +8,4 @@ const config: NgGapiClientConfig = {
 
     scope: ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ')
 
-};
-
-export const gApiConfigProvider: Provider = {
-    provide: NG_GAPI_CONFIG,
-
-    useValue: config
 };

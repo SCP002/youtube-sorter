@@ -26,7 +26,7 @@ export class YoutubeService {
         this.playlists.push(playlist);
     }
 
-    public requestAll(params: string): Promise<Object[]> {
+    public requestAll(params: string): Promise<Object[]> { // TODO: Move params to options object.
         const apiUrl = 'https://www.googleapis.com/youtube/v3/';
 
         const options: Object = {
