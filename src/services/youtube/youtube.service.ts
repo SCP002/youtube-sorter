@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserService } from '../user/user.service';
 import { Playlist } from './playlist';
+import { UserService } from '../user/user.service';
 
 @Injectable({
     providedIn: 'root'

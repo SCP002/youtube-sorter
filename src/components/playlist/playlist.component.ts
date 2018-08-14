@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoadStatus } from '../../services/youtube/load-status';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
-import { LoadStatus } from '../../services/youtube/load-status';
 
 @Component({
     selector: 'app-playlist',

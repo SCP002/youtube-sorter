@@ -1,14 +1,14 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
-import { GApiConfig } from '../../config/api.config';
-import { HeaderComponent } from '../header/header.component';
-import { LikedComponent } from '../liked/liked.component';
-import { PlaylistComponent } from '../playlist/playlist.component';
 import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { GApiConfig } from '../../config/api.config';
+import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
+import { HeaderComponent } from '../header/header.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LikedComponent } from '../liked/liked.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+import { PlaylistComponent } from '../playlist/playlist.component';
 
 @NgModule({
     declarations: [

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { GoogleAuthService } from 'ng-gapi';
+import { Injectable } from '@angular/core';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
