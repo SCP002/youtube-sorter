@@ -1,17 +1,18 @@
-import { NgGapiClientConfig } from 'ng-gapi';
+import { NG_GAPI_CONFIG, NgGapiClientConfig } from 'ng-gapi';
+import { Provider } from '@angular/core';
 
-export class GApiConfig implements NgGapiClientConfig {
+const config: NgGapiClientConfig = {
 
-    public static readonly INSTANCE = new GApiConfig(); // TODO: Just use {} with type of NgGapiClientConfig?
+    client_id: '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com',
 
-    private constructor() {
-        //
-    }
+    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
 
-    public readonly client_id = '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com';
+    scope: ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ')
 
-    public readonly discoveryDocs: string[] = ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'];
+};
 
-    public readonly scope: string = ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ');
+export const gApiConfigProvider: Provider = {
+    provide: NG_GAPI_CONFIG,
 
-}
+    useValue: config
+};
