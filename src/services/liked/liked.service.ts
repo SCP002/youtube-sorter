@@ -37,7 +37,7 @@ export class LikedService {
             part: 'snippet'
         };
 
-        return this.youtubeSvc.requestAll('videos', params).then((responses: Object[]) => {
+        return this.youtubeSvc.getAll('videos', params).then((responses: Object[]) => {
             this.totalCount = responses[0]['pageInfo']['totalResults'];
 
             this.likedItems = [];

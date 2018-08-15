@@ -8,6 +8,8 @@ import { UserService } from '../user/user.service';
 })
 export class YoutubeService {
 
+    private readonly apiUrl = 'https://www.googleapis.com/youtube/v3/';
+
     private playlists: Playlist[] = [];
 
     private constructor(private readonly httpClient: HttpClient, private readonly userSvc: UserService) {
@@ -26,12 +28,10 @@ export class YoutubeService {
         this.playlists.push(playlist);
     }
 
-    public requestAll(path: string, params: Object): Promise<Object[]> {
-        const url = 'https://www.googleapis.com/youtube/v3/' + path;
-
+    public getAll(path: string, params: Object): Promise<Object[]> {
         params['maxResults'] = '50';
 
-        const headers: HttpHeaders = new HttpHeaders({
+        const headers: HttpHeaders = new HttpHeaders({ // TODO: Not DRY.
             Authorization: `Bearer ${this.userSvc.getToken()}`
         });
 
@@ -52,7 +52,7 @@ export class YoutubeService {
                     delete params['pageToken'];
                 }
 
-                await this.httpClient.get(url, options).toPromise().then((response: Object) => {
+                await this.httpClient.get(this.apiUrl + path, options).toPromise().then((response: Object) => {
                     nextPageToken = response['nextPageToken'];
 
                     responses.push(response);
@@ -61,6 +61,19 @@ export class YoutubeService {
 
             resolve(responses);
         });
+    }
+
+    public post(path: string, params: Object, body: Object): Promise<Object> {
+        const headers: HttpHeaders = new HttpHeaders({ // TODO: Not DRY.
+            Authorization: `Bearer ${this.userSvc.getToken()}`
+        });
+
+        const options: Object = {
+            headers: headers,
+            params: params
+        };
+
+        return this.httpClient.post(this.apiUrl + path, body, options).toPromise();
     }
 
 }

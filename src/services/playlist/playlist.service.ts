@@ -1,10 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
 import { LoadStatus } from '../youtube/load-status';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from './playlist-item';
-import { UserService } from '../user/user.service';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
 
@@ -16,14 +14,8 @@ export class PlaylistService {
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
-    private constructor(
-        private readonly httpClient: HttpClient,
-        private readonly likedSvc: LikedService,
-        private readonly userSvc: UserService,
-        private readonly youtubeSvc: YoutubeService) {
-
+    private constructor(private readonly youtubeSvc: YoutubeService, private readonly likedSvc: LikedService) {
         //
-
     }
 
     public getPlaylistItems(): PlaylistItem[] {
@@ -34,16 +26,9 @@ export class PlaylistService {
         return this.loadStatus;
     }
 
-    public addLikedToPlaylist(playlist: Playlist): void { // TODO: Move partially to the youtube.service.ts.
-        const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
-
-        const options: Object = {
-            headers: new HttpHeaders({
-                Authorization: `Bearer ${this.userSvc.getToken()}`
-            }),
-            params: {
-                part: 'snippet'
-            }
+    public addLikedToPlaylist(playlist: Playlist): void {
+        const params: Object = {
+            part: 'snippet'
         };
 
         const body: Object = {
@@ -60,9 +45,7 @@ export class PlaylistService {
             if (likedItem.isSelected()) {
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
 
-                this.httpClient.post(url, body, options).toPromise().then((response: Object) => {
-                    console.log(response); // TODO: Remove. Debug.
-                });
+                this.youtubeSvc.post('playlistItems', params, body);
             }
         }
     }
@@ -75,7 +58,7 @@ export class PlaylistService {
             part: 'snippet'
         };
 
-        return this.youtubeSvc.requestAll('playlists', params).then(async (responses: Object[]) => {
+        return this.youtubeSvc.getAll('playlists', params).then(async (responses: Object[]) => {
             this.youtubeSvc.setPlaylists([]);
             this.playlistItems = [];
 
@@ -108,7 +91,7 @@ export class PlaylistService {
             part: 'snippet'
         };
 
-        return this.youtubeSvc.requestAll('playlistItems', params).then((responses: Object[]) => {
+        return this.youtubeSvc.getAll('playlistItems', params).then((responses: Object[]) => {
             const videos: Video[] = [];
 
             for (const response of responses) {
