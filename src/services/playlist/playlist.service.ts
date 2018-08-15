@@ -46,8 +46,14 @@ export class PlaylistService {
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
 
                 this.youtubeSvc.post('playlistItems', params, body);
+
+                // TODO: Add liked to playlist object.
+                // TODO: Set playlist in liked object.
             }
         }
+
+        // TODO: Run filter for playlists.
+        // TODO: Run filter for liked.
     }
 
     public loadPlaylistItems(): Promise<PlaylistItem[]> {

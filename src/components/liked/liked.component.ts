@@ -18,6 +18,7 @@ export class LikedComponent implements OnInit {
         //
     }
 
+    // TODO: Run filter after init.
     public ngOnInit(): void {
         //
     }

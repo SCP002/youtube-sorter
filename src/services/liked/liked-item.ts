@@ -10,7 +10,7 @@ export class LikedItem {
 
     public constructor(private readonly video: Video, private readonly playlistName: string) {
         this.inPlaylist = this.playlistName !== '';
-        this.hidden = this.inPlaylist;
+        this.hidden = this.inPlaylist; // TODO: Do not set strictly.
     }
 
     public isInPlaylist(): boolean {

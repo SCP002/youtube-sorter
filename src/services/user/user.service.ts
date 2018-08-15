@@ -6,7 +6,7 @@ import GoogleUser = gapi.auth2.GoogleUser;
 @Injectable({
     providedIn: 'root'
 })
-export class UserService {
+export class UserService { // TODO: Keep signed-in after page refresh.
 
     private token = '';
     private signedIn = false;
