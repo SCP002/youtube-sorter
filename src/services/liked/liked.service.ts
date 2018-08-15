@@ -32,7 +32,12 @@ export class LikedService {
     public loadLikedItems(): Promise<LikedItem[]> {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
-        return this.youtubeSvc.requestAll('videos?myRating=like&part=snippet').then((responses: Object[]) => {
+        const params: Object = {
+            myRating: 'like',
+            part: 'snippet'
+        };
+
+        return this.youtubeSvc.requestAll('videos', params).then((responses: Object[]) => {
             this.totalCount = responses[0]['pageInfo']['totalResults'];
 
             this.likedItems = [];

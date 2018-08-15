@@ -1,5 +1,4 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpParamsOptions } from '@angular/common/http/src/params';
 import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
 import { LoadStatus } from '../youtube/load-status';
@@ -44,7 +43,7 @@ export class PlaylistService {
             }),
             params: {
                 part: 'snippet'
-            } as HttpParamsOptions
+            }
         };
 
         const body: Object = {
@@ -71,7 +70,12 @@ export class PlaylistService {
     public loadPlaylistItems(): Promise<PlaylistItem[]> {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
-        return this.youtubeSvc.requestAll('playlists?mine=true&part=snippet').then(async (responses: Object[]) => {
+        const params: Object = {
+            mine: 'true',
+            part: 'snippet'
+        };
+
+        return this.youtubeSvc.requestAll('playlists', params).then(async (responses: Object[]) => {
             this.youtubeSvc.setPlaylists([]);
             this.playlistItems = [];
 
@@ -99,24 +103,28 @@ export class PlaylistService {
     }
 
     private loadPlaylistVideos(playlistId: string): Promise<Video[]> {
-        return this.youtubeSvc.requestAll('playlistItems?part=snippet&playlistId=' + playlistId)
-            .then((responses: Object[]) => {
-                const videos: Video[] = [];
+        const params: Object = {
+            playlistId: playlistId,
+            part: 'snippet'
+        };
 
-                for (const response of responses) {
-                    for (const item of response['items']) {
-                        const id: string = item['snippet']['resourceId']['videoId'];
-                        const title: string = item['snippet']['title'];
-                        const channelTitle: string = item['snippet']['channelTitle'];
+        return this.youtubeSvc.requestAll('playlistItems', params).then((responses: Object[]) => {
+            const videos: Video[] = [];
 
-                        const video: Video = new Video(id, title, channelTitle);
+            for (const response of responses) {
+                for (const item of response['items']) {
+                    const id: string = item['snippet']['resourceId']['videoId'];
+                    const title: string = item['snippet']['title'];
+                    const channelTitle: string = item['snippet']['channelTitle'];
 
-                        videos.push(video);
-                    }
+                    const video: Video = new Video(id, title, channelTitle);
+
+                    videos.push(video);
                 }
+            }
 
-                return videos;
-            });
+            return videos;
+        });
     }
 
 }

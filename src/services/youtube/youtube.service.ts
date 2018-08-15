@@ -26,13 +26,18 @@ export class YoutubeService {
         this.playlists.push(playlist);
     }
 
-    public requestAll(params: string): Promise<Object[]> { // TODO: Move params to options object.
-        const apiUrl = 'https://www.googleapis.com/youtube/v3/';
+    public requestAll(path: string, params: Object): Promise<Object[]> {
+        const url = 'https://www.googleapis.com/youtube/v3/' + path;
+
+        params['maxResults'] = '50';
+
+        const headers: HttpHeaders = new HttpHeaders({
+            Authorization: `Bearer ${this.userSvc.getToken()}`
+        });
 
         const options: Object = {
-            headers: new HttpHeaders({
-                Authorization: `Bearer ${this.userSvc.getToken()}`
-            })
+            headers: headers,
+            params: params
         };
 
         return new Promise<Object[]>(async (resolve: Function) => {
@@ -41,13 +46,11 @@ export class YoutubeService {
             let nextPageToken: string;
 
             do {
-                let postfix = '&maxResults=50';
-
                 if (typeof nextPageToken !== 'undefined') {
-                    postfix += '&pageToken=' + nextPageToken;
+                    params['pageToken'] = nextPageToken;
+                } else {
+                    delete params['pageToken'];
                 }
-
-                const url: string = apiUrl + params + postfix;
 
                 await this.httpClient.get(url, options).toPromise().then((response: Object) => {
                     nextPageToken = response['nextPageToken'];
