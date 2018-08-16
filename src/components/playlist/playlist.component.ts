@@ -3,7 +3,6 @@ import { LoadStatus } from '../../services/youtube/load-status';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 
-// TODO: Run filter after init. Implement AfterViewInit?
 @Component({
     selector: 'app-playlist',
     templateUrl: './playlist.component.html',

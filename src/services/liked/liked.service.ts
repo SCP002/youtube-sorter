@@ -70,6 +70,8 @@ export class LikedService {
 
             this.loadStatus = LoadStatus.DONE;
 
+            this.runFilter();
+
             console.log('Loaded ' + this.likedItems.length + ' liked items');
 
             return this.likedItems;

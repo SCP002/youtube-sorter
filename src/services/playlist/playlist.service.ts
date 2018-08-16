@@ -98,6 +98,8 @@ export class PlaylistService {
 
             this.loadStatus = LoadStatus.DONE;
 
+            this.runFilter();
+
             console.log('Loaded ' + this.playlistItems.length + ' playlist items');
 
             return this.playlistItems;

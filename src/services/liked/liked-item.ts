@@ -4,13 +4,10 @@ export class LikedItem {
 
     private inPlaylist: boolean;
     private hidden: boolean;
-
-    private selected = false;
+    private selected: boolean;
 
     public constructor(private readonly video: Video, private playlistName: string) {
         this.setInPlaylist();
-
-        this.hidden = this.inPlaylist; // TODO: Do not set strictly.
     }
 
     public isInPlaylist(): boolean {
