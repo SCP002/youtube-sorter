@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LikedItem } from './liked-item';
 import { LoadStatus } from '../youtube/load-status';
+import { Observable, Subject } from 'rxjs';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
 
@@ -9,12 +10,18 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class LikedService {
 
+    private readonly filterSub: Subject<void> = new Subject<void>();
+
     private totalCount = 0;
     private likedItems: LikedItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
     private constructor(private readonly youtubeSvc: YoutubeService) {
         //
+    }
+
+    public getFilterObs(): Observable<void> {
+        return this.filterSub.asObservable();
     }
 
     public getTotalCount(): number {
@@ -27,6 +34,10 @@ export class LikedService {
 
     public getLoadStatus(): LoadStatus {
         return this.loadStatus;
+    }
+
+    public runFilter(): void {
+        this.filterSub.next();
     }
 
     public loadLikedItems(): Promise<LikedItem[]> {

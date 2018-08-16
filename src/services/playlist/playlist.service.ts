@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
 import { LoadStatus } from '../youtube/load-status';
+import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from './playlist-item';
 import { Video } from '../youtube/video';
@@ -11,11 +12,17 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class PlaylistService {
 
+    private readonly filterSub: Subject<void> = new Subject<void>();
+
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
 
     private constructor(private readonly youtubeSvc: YoutubeService, private readonly likedSvc: LikedService) {
         //
+    }
+
+    public getFilterObs(): Observable<void> {
+        return this.filterSub.asObservable();
     }
 
     public getPlaylistItems(): PlaylistItem[] {
@@ -26,6 +33,11 @@ export class PlaylistService {
         return this.loadStatus;
     }
 
+    public runFilter(): void {
+        this.filterSub.next();
+    }
+
+    // FIXME: Not all videos added if many selected. Use async?
     public addLikedToPlaylist(playlist: Playlist): void {
         const params: Object = {
             part: 'snippet'
@@ -43,17 +55,18 @@ export class PlaylistService {
 
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
+                // Post request.
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
-
                 this.youtubeSvc.post('playlistItems', params, body);
 
-                // TODO: Add liked to playlist object.
-                // TODO: Set playlist in liked object.
+                // Update data locally.
+                playlist.addVideo(likedItem.getVideo());
+                likedItem.setPlaylistName(playlist.getTitle());
             }
         }
 
-        // TODO: Run filter for playlists.
-        // TODO: Run filter for liked.
+        this.runFilter();
+        this.likedSvc.runFilter();
     }
 
     public loadPlaylistItems(): Promise<PlaylistItem[]> {

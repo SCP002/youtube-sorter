@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
+// TODO: Keep signed-in after page refresh.
+// TODO: Auto sign-in on first load if was signed-in from another google service.
 @Injectable({
     providedIn: 'root'
 })
-export class UserService { // TODO: Keep signed-in after page refresh.
+export class UserService {
 
     private token = '';
     private signedIn = false;

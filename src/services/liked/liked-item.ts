@@ -2,14 +2,14 @@ import { Video } from '../youtube/video';
 
 export class LikedItem {
 
-    private readonly inPlaylist: boolean;
-
+    private inPlaylist: boolean;
     private hidden: boolean;
 
     private selected = false;
 
-    public constructor(private readonly video: Video, private readonly playlistName: string) {
-        this.inPlaylist = this.playlistName !== '';
+    public constructor(private readonly video: Video, private playlistName: string) {
+        this.setInPlaylist();
+
         this.hidden = this.inPlaylist; // TODO: Do not set strictly.
     }
 
@@ -61,12 +61,22 @@ export class LikedItem {
         this.selected = value;
     }
 
+    public setPlaylistName(value: string): void {
+        this.playlistName = value;
+
+        this.setInPlaylist();
+    }
+
     public onClick(): void {
         this.selected = !this.selected;
     }
 
     public onDragStart(): void {
         this.selected = true;
+    }
+
+    private setInPlaylist(): void {
+        this.inPlaylist = this.playlistName !== '';
     }
 
 }

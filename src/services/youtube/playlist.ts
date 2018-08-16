@@ -18,4 +18,8 @@ export class Playlist {
         return this.videos;
     }
 
+    public addVideo(video: Video): void {
+        this.videos.push(video);
+    }
+
 }

@@ -3,6 +3,7 @@ import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
 
+// TODO: Run filter after init. Implement AfterViewInit?
 @Component({
     selector: 'app-liked',
     templateUrl: './liked.component.html',
@@ -18,9 +19,10 @@ export class LikedComponent implements OnInit {
         //
     }
 
-    // TODO: Run filter after init.
     public ngOnInit(): void {
-        //
+        this.likedSvc.getFilterObs().subscribe(() => {
+            this.runFilter();
+        });
     }
 
     public isCardHidden(): boolean {
