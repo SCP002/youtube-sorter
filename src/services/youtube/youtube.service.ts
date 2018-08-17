@@ -28,7 +28,7 @@ export class YoutubeService {
         this.playlists.push(playlist);
     }
 
-    public getAll(path: string, params: Object): Promise<Object[]> {
+    public async getAll(path: string, params: Object): Promise<Object[]> {
         params['maxResults'] = '50';
 
         const headers: HttpHeaders = new HttpHeaders({ // TODO: Not DRY.
@@ -40,30 +40,28 @@ export class YoutubeService {
             params: params
         };
 
-        return new Promise<Object[]>(async (resolve: Function) => {
-            const responses: Object[] = [];
+        const responses: Object[] = [];
 
-            let nextPageToken: string;
+        let nextPageToken: string;
 
-            do {
-                if (typeof nextPageToken !== 'undefined') {
-                    params['pageToken'] = nextPageToken;
-                } else {
-                    delete params['pageToken'];
-                }
+        do {
+            if (typeof nextPageToken !== 'undefined') {
+                params['pageToken'] = nextPageToken;
+            } else {
+                delete params['pageToken'];
+            }
 
-                await this.httpClient.get(this.apiUrl + path, options).toPromise().then((response: Object) => {
-                    nextPageToken = response['nextPageToken'];
+            await this.httpClient.get(this.apiUrl + path, options).toPromise().then((response: Object) => {
+                nextPageToken = response['nextPageToken'];
 
-                    responses.push(response);
-                });
-            } while (typeof nextPageToken !== 'undefined');
+                responses.push(response);
+            });
+        } while (typeof nextPageToken !== 'undefined');
 
-            resolve(responses);
-        });
+        return responses;
     }
 
-    public post(path: string, params: Object, body: Object): Promise<Object> {
+    public async post(path: string, params: Object, body: Object): Promise<Object> {
         const headers: HttpHeaders = new HttpHeaders({ // TODO: Not DRY.
             Authorization: `Bearer ${this.userSvc.getToken()}`
         });

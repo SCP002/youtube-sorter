@@ -40,7 +40,7 @@ export class LikedService {
         this.filterSub.next();
     }
 
-    public loadLikedItems(): Promise<LikedItem[]> {
+    public async loadLikedItems(): Promise<LikedItem[]> {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
         const params: Object = {
