@@ -37,8 +37,7 @@ export class PlaylistService {
         this.filterSub.next();
     }
 
-    // FIXME: Not all videos added if many selected. Use async?
-    public addLikedToPlaylist(playlist: Playlist): void {
+    public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
         const params: Object = {
             part: 'snippet'
         };
@@ -55,9 +54,10 @@ export class PlaylistService {
 
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
-                // Post request.
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
-                this.youtubeSvc.post('playlistItems', params, body);
+
+                // Using await to give server a time to process each request.
+                await this.youtubeSvc.post('playlistItems', params, body);
 
                 // Update data locally.
                 playlist.addVideo(likedItem.getVideo());
@@ -77,6 +77,7 @@ export class PlaylistService {
             part: 'snippet'
         };
 
+        // TODO: Write comments for this section.
         return this.youtubeSvc.getAll('playlists', params).then(async (responses: Object[]) => {
             this.youtubeSvc.setPlaylists([]);
             this.playlistItems = [];
