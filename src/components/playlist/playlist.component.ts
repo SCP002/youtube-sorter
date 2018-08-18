@@ -26,7 +26,7 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
     }
 
-    public isCardFormHidden(): boolean {
+    public isCardContentHidden(): boolean {
         return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE;
     }
 

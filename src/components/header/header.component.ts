@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
+import { LoadStatus } from '../../services/youtube/load-status';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -20,6 +21,10 @@ export class HeaderComponent {
 
     }
 
+    public isRefreshBtnHidden(): boolean {
+        return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE || this.likedSvc.getLoadStatus() !== LoadStatus.DONE;
+    }
+
     public getSignInBtnText(): string {
         return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
     }
@@ -38,7 +43,7 @@ export class HeaderComponent {
         });
     }
 
-    private loadAll(): void {
+    public loadAll(): void {
         // Order is important there.
         this.playlistSvc.loadPlaylistItems().then(() => {
             return this.likedSvc.loadLikedItems();

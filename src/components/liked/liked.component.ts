@@ -28,7 +28,7 @@ export class LikedComponent implements OnInit {
         return this.likedSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
     }
 
-    public isCardFormHidden(): boolean {
+    public isCardContentHidden(): boolean {
         return this.likedSvc.getLoadStatus() !== LoadStatus.DONE;
     }
 

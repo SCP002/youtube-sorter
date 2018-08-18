@@ -6,7 +6,7 @@
         <h5 class="card-title">Playlists:</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{getCardSubTitle()}}</h6>
 
-        <form [hidden]="isCardFormHidden()">
+        <form [hidden]="isCardContentHidden()">
             <div class="form-row">
                 <div class="form-group col">
                     <input
@@ -22,7 +22,10 @@
             <!-- TODO: Add 'Create playlist' button. -->
         </form>
 
-        <ul class="list-group">
+        <ul
+            class="list-group"
+            [hidden]="isCardContentHidden()"
+        >
             <li
                 class="list-group-item rounded my-2 bg-light"
                 *ngFor="let playlistItem of getPlaylistItems()"

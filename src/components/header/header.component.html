@@ -1,9 +1,24 @@
 <div class="card">
     <div class="card-body">
-        <button (click)="signIn()">{{getSignInBtnText()}}</button>
-    </div>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-auto">
+                    <button
+                        class="btn btn-primary"
+                        (click)="signIn()"
+                    >{{getSignInBtnText()}}</button>
+                </div>
 
-    <!-- TODO: Add refresh button. -->
+                <div class="form-group col-auto">
+                    <button
+                        class="btn btn-primary"
+                        [hidden]="isRefreshBtnHidden()"
+                        (click)="loadAll()"
+                    >Refresh</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <div class="card-footer">
         {{getCardFooterText()}}
