@@ -7,7 +7,7 @@ import { HeaderComponent } from '../header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LikedComponent } from '../liked/liked.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgModule, Provider } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { PlaylistComponent } from '../playlist/playlist.component';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { PlaylistComponent } from '../playlist/playlist.component';
     imports: [
         BrowserModule,
         FormsModule,
-        GoogleApiModule.forRoot({ provide: NG_GAPI_CONFIG, useValue: gApiConfig } as Provider),
+        GoogleApiModule.forRoot({ provide: NG_GAPI_CONFIG, useValue: gApiConfig }),
         HttpClientModule,
         NgbModule.forRoot()
     ],
