@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
 import { PlaylistService } from '../../services/playlist/playlist.service';
@@ -10,7 +10,7 @@ import { UserService } from '../../services/user/user.service';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
     public constructor(
         private readonly userSvc: UserService,
@@ -19,6 +19,12 @@ export class HeaderComponent {
 
         //
 
+    }
+
+    public ngOnInit(): void {
+        this.userSvc.getSignInObs().subscribe(() => {
+            this.loadAll();
+        });
     }
 
     public isRefreshBtnHidden(): boolean {
@@ -38,13 +44,11 @@ export class HeaderComponent {
     }
 
     public signIn(): void {
-        this.userSvc.signIn().then(() => {
-            this.loadAll();
-        });
+        this.userSvc.signIn();
     }
 
     public loadAll(): void {
-        // Order is important there.
+        // Order is important.
         this.playlistSvc.loadPlaylistItems().then(() => {
             return this.likedSvc.loadLikedItems();
         });
