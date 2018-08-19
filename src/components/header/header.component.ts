@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.userSvc.getSignInObs().subscribe(() => {
+        this.userSvc.getUserObs().subscribe(() => {
             this.loadAll();
         });
     }
