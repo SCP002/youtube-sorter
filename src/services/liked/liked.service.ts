@@ -40,7 +40,7 @@ export class LikedService {
         this.filterSub.next();
     }
 
-    public async loadLikedItems(): Promise<LikedItem[]> {
+    public loadLikedItems(): void {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
         const params: Object = {
@@ -48,7 +48,7 @@ export class LikedService {
             part: 'snippet'
         };
 
-        return this.youtubeSvc.getAll('videos', params).then((responses: Object[]) => {
+        this.youtubeSvc.getAll('videos', params).then((responses: Object[]) => {
             this.totalCount = responses[0]['pageInfo']['totalResults'];
 
             this.likedItems = [];
@@ -73,8 +73,6 @@ export class LikedService {
             this.runFilter();
 
             console.log('Loaded ' + this.likedItems.length + ' liked items');
-
-            return this.likedItems;
         });
     }
 

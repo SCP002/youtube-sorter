@@ -69,7 +69,7 @@ export class PlaylistService {
         this.likedSvc.runFilter();
     }
 
-    public async loadPlaylistItems(): Promise<PlaylistItem[]> {
+    public async loadPlaylistItems(): Promise<void> {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
         const params: Object = {
@@ -78,7 +78,7 @@ export class PlaylistService {
         };
 
         // Additionaly setting playlists in youtube.service to use them to check if liked video is in playlist.
-        return this.youtubeSvc.getAll('playlists', params).then(async (responses: Object[]) => {
+        this.youtubeSvc.getAll('playlists', params).then(async (responses: Object[]) => {
             this.youtubeSvc.setPlaylists([]);
             this.playlistItems = [];
 
@@ -102,8 +102,6 @@ export class PlaylistService {
             this.runFilter();
 
             console.log('Loaded ' + this.playlistItems.length + ' playlist items');
-
-            return this.playlistItems;
         });
     }
 

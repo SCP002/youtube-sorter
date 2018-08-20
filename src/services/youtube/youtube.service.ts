@@ -10,10 +10,16 @@ export class YoutubeService {
 
     private readonly apiUrl = 'https://www.googleapis.com/youtube/v3/';
 
+    private headers: HttpHeaders;
+
     private playlists: Playlist[] = [];
 
     private constructor(private readonly httpClient: HttpClient, private readonly userSvc: UserService) {
-        //
+        this.userSvc.getSignInObs().subscribe(() => {
+            this.headers = new HttpHeaders({
+                Authorization: `Bearer ${this.userSvc.getToken()}`
+            });
+        });
     }
 
     public getPlaylists(): Playlist[] {
@@ -31,12 +37,8 @@ export class YoutubeService {
     public async getAll(path: string, params: Object): Promise<Object[]> {
         params['maxResults'] = '50';
 
-        const headers: HttpHeaders = new HttpHeaders({ // TODO: Not DRY.
-            Authorization: `Bearer ${this.userSvc.getToken()}`
-        });
-
         const options: Object = {
-            headers: headers,
+            headers: this.headers,
             params: params
         };
 
@@ -62,12 +64,8 @@ export class YoutubeService {
     }
 
     public async post(path: string, params: Object, body: Object): Promise<Object> {
-        const headers: HttpHeaders = new HttpHeaders({ // TODO: Not DRY.
-            Authorization: `Bearer ${this.userSvc.getToken()}`
-        });
-
         const options: Object = {
-            headers: headers,
+            headers: this.headers,
             params: params
         };
 
