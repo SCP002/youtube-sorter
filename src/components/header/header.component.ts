@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
 import { PlaylistService } from '../../services/playlist/playlist.service';
-import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
 
 // TODO: Add ability to change API key. See gapi.client.setApiKey?
@@ -16,8 +15,7 @@ export class HeaderComponent {
     public constructor(
         private readonly userSvc: UserService,
         private readonly playlistSvc: PlaylistService,
-        private readonly likedSvc: LikedService,
-        private readonly taskSvc: TaskService) {
+        private readonly likedSvc: LikedService) {
 
         //
 
@@ -41,12 +39,15 @@ export class HeaderComponent {
 
     public signIn(): void {
         this.userSvc.signIn().then(() => {
-            this.taskSvc.loadAll();
+            this.loadAll();
         });
     }
 
-    public refresh(): void {
-        this.taskSvc.loadAll();
+    public loadAll(): void {
+        // Order is important here.
+        this.playlistSvc.loadPlaylistItems().then(() => {
+            return this.likedSvc.loadLikedItems();
+        });
     }
 
 }

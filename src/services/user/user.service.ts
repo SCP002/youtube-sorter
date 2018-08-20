@@ -31,18 +31,14 @@ export class UserService {
         return this.googleAuth.then((auth: GoogleAuth) => {
             return auth.signIn() as Promise<GoogleUser>;
         }).then((user: GoogleUser) => {
-            this.onSignIn(user);
+            this.token = user.getAuthResponse().access_token;
+
+            this.signedIn = true;
+
+            console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
 
             return user;
         });
-    }
-
-    private onSignIn(user: GoogleUser): void {
-        this.token = user.getAuthResponse().access_token;
-
-        this.signedIn = true;
-
-        console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
     }
 
 }
