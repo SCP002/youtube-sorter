@@ -10,9 +10,9 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
+    private googleAuth: Promise<GoogleAuth>;
     private signedIn = false;
     private token = '';
-    private googleAuth: Promise<GoogleAuth>;
 
     private constructor(googleAuthSvc: GoogleAuthService) {
         this.googleAuth = googleAuthSvc.getAuth().toPromise();
@@ -27,15 +27,17 @@ export class UserService {
     }
 
     // Logic partially moved to constructor to avoid 'popup_blocked_by_browser'.
-    public async signIn(): Promise<void> {
+    public async signIn(): Promise<GoogleUser> {
         return this.googleAuth.then((auth: GoogleAuth) => {
-            return auth.signIn() as GoogleUser;
+            return auth.signIn() as Promise<GoogleUser>;
         }).then((user: GoogleUser) => {
             this.token = user.getAuthResponse().access_token;
 
             this.signedIn = true;
 
             console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
+
+            return user;
         });
     }
 

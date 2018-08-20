@@ -44,7 +44,7 @@ export class HeaderComponent {
     }
 
     public loadAll(): void {
-        // Order is important there.
+        // Order is important here.
         this.playlistSvc.loadPlaylistItems().then(() => {
             return this.likedSvc.loadLikedItems();
         });
