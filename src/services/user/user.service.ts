@@ -4,16 +4,17 @@ import { Observable, Subject } from 'rxjs';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
+// TODO: Try to simplify / improve code.
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
 
-    private readonly userSub: Subject<GoogleUser> = new Subject<GoogleUser>();
-
-    private googleAuth: Promise<GoogleAuth>;
+    private readonly signInSub: Subject<void> = new Subject<void>();
 
     private signedIn = false;
+    private token = '';
+    private googleAuth: Promise<GoogleAuth>;
 
     private constructor(googleAuthSvc: GoogleAuthService) {
         this.googleAuth = googleAuthSvc.getAuth().toPromise();
@@ -29,8 +30,12 @@ export class UserService {
         return this.signedIn;
     }
 
-    public getUserObs(): Observable<GoogleUser> {
-        return this.userSub.asObservable();
+    public getToken(): string {
+        return this.token;
+    }
+
+    public getSignInObs(): Observable<void> {
+        return this.signInSub.asObservable();
     }
 
     public signIn(): void {
@@ -42,9 +47,11 @@ export class UserService {
     }
 
     private onSignIn(user: GoogleUser): void {
+        this.token = user.getAuthResponse().access_token;
+
         this.signedIn = true;
 
-        this.userSub.next(user);
+        this.signInSub.next();
 
         console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
     }
