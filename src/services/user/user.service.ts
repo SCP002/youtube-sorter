@@ -1,6 +1,7 @@
 import { GoogleAuthService } from 'ng-gapi';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { TaskService } from '../task/task.service';
+import { YoutubeService } from '../youtube/youtube.service';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
@@ -9,13 +10,14 @@ import GoogleUser = gapi.auth2.GoogleUser;
 })
 export class UserService {
 
-    private readonly signInSub: Subject<void> = new Subject<void>();
-
     private googleAuth: Promise<GoogleAuth>;
     private signedIn = false;
-    private token = '';
 
-    private constructor(googleAuthSvc: GoogleAuthService) {
+    private constructor(
+        private readonly youtubeSvc: YoutubeService,
+        private readonly taskSvc: TaskService,
+        googleAuthSvc: GoogleAuthService) {
+
         this.googleAuth = googleAuthSvc.getAuth().toPromise();
 
         this.googleAuth.then((auth: GoogleAuth) => {
@@ -25,18 +27,11 @@ export class UserService {
                 this.onSignIn(user);
             }
         });
+
     }
 
     public isSignedIn(): boolean {
         return this.signedIn;
-    }
-
-    public getToken(): string {
-        return this.token;
-    }
-
-    public getSignInObs(): Observable<void> {
-        return this.signInSub.asObservable();
     }
 
     public signIn(): void {
@@ -48,11 +43,11 @@ export class UserService {
     }
 
     private onSignIn(user: GoogleUser): void {
-        this.token = user.getAuthResponse().access_token;
-
         this.signedIn = true;
 
-        this.signInSub.next();
+        this.youtubeSvc.setHeaders(user.getAuthResponse().access_token);
+
+        this.taskSvc.loadAll();
 
         console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
     }

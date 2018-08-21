@@ -12,7 +12,7 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class PlaylistService {
 
-    private readonly filterSub: Subject<void> = new Subject<void>();
+    private readonly filterSub: Subject<void> = new Subject<void>(); // TODO: Any way to avoid this using lifecycle hooks in component?
 
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
@@ -35,38 +35,6 @@ export class PlaylistService {
 
     public runFilter(): void {
         this.filterSub.next();
-    }
-
-    public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
-        const params: Object = {
-            part: 'snippet'
-        };
-
-        const body: Object = {
-            snippet: {
-                playlistId: playlist.getId(),
-                resourceId: {
-                    kind: 'youtube#video',
-                    videoId: ''
-                }
-            }
-        };
-
-        for (const likedItem of this.likedSvc.getLikedItems()) {
-            if (likedItem.isSelected()) {
-                body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
-
-                // Using await to give server a time to process each request.
-                await this.youtubeSvc.post('playlistItems', params, body);
-
-                // Update data locally.
-                playlist.addVideo(likedItem.getVideo());
-                likedItem.setPlaylistName(playlist.getTitle());
-            }
-        }
-
-        this.runFilter();
-        this.likedSvc.runFilter();
     }
 
     public async loadPlaylistItems(): Promise<void> {
@@ -103,6 +71,38 @@ export class PlaylistService {
 
             console.log('Loaded ' + this.playlistItems.length + ' playlist items');
         });
+    }
+
+    public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
+        const params: Object = {
+            part: 'snippet'
+        };
+
+        const body: Object = {
+            snippet: {
+                playlistId: playlist.getId(),
+                resourceId: {
+                    kind: 'youtube#video',
+                    videoId: ''
+                }
+            }
+        };
+
+        for (const likedItem of this.likedSvc.getLikedItems()) {
+            if (likedItem.isSelected()) {
+                body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
+
+                // Using await to give server a time to process each request.
+                await this.youtubeSvc.post('playlistItems', params, body);
+
+                // Update data locally.
+                playlist.addVideo(likedItem.getVideo());
+                likedItem.setPlaylistName(playlist.getTitle());
+            }
+        }
+
+        this.runFilter();
+        this.likedSvc.runFilter();
     }
 
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {

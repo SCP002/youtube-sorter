@@ -10,7 +10,7 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class LikedService {
 
-    private readonly filterSub: Subject<void> = new Subject<void>();
+    private readonly filterSub: Subject<void> = new Subject<void>(); // TODO: Any way to avoid this using lifecycle hooks in component?
 
     private totalCount = 0;
     private likedItems: LikedItem[] = [];

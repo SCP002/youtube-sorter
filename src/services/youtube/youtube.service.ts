@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Playlist } from './playlist';
-import { UserService } from '../user/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,16 +13,18 @@ export class YoutubeService {
 
     private playlists: Playlist[] = [];
 
-    private constructor(private readonly httpClient: HttpClient, private readonly userSvc: UserService) {
-        this.userSvc.getSignInObs().subscribe(() => {
-            this.headers = new HttpHeaders({
-                Authorization: `Bearer ${this.userSvc.getToken()}`
-            });
-        });
+    private constructor(private readonly httpClient: HttpClient) {
+        //
     }
 
     public getPlaylists(): Playlist[] {
         return this.playlists;
+    }
+
+    public setHeaders(token: string): void {
+        this.headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`
+        });
     }
 
     public setPlaylists(playlists: Playlist[]): void {

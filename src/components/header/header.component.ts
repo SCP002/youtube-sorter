@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
 import { PlaylistService } from '../../services/playlist/playlist.service';
+import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
 
 // TODO: Add ability to change API key. See gapi.client.setApiKey?
@@ -10,21 +11,16 @@ import { UserService } from '../../services/user/user.service';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
     public constructor(
         private readonly userSvc: UserService,
         private readonly playlistSvc: PlaylistService,
-        private readonly likedSvc: LikedService) {
+        private readonly likedSvc: LikedService,
+        private readonly taskSvc: TaskService) {
 
         //
 
-    }
-
-    public ngOnInit(): void {
-        this.userSvc.getSignInObs().subscribe(() => {
-            this.loadAll();
-        });
     }
 
     public isRefreshBtnHidden(): boolean {
@@ -47,11 +43,8 @@ export class HeaderComponent implements OnInit {
         this.userSvc.signIn();
     }
 
-    public loadAll(): void {
-        // Order is important here.
-        this.playlistSvc.loadPlaylistItems().then(() => {
-            this.likedSvc.loadLikedItems();
-        });
+    public refresh(): void {
+        this.taskSvc.loadAll();
     }
 
 }
