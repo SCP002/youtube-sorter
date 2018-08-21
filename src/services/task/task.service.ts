@@ -11,11 +11,10 @@ export class TaskService {
         //
     }
 
-    public loadAll(): void {
+    public async loadAll(): Promise<void> {
         // Order is important here.
-        this.playlistSvc.loadPlaylistItems().then(() => {
-            this.likedSvc.loadLikedItems();
-        });
+        await this.playlistSvc.loadPlaylistItems();
+        await this.likedSvc.loadLikedItems();
     }
 
 }

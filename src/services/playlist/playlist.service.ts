@@ -12,7 +12,7 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class PlaylistService {
 
-    private readonly filterSub: Subject<void> = new Subject<void>(); // TODO: Any way to avoid this using lifecycle hooks in component?
+    private readonly filterSub: Subject<void> = new Subject<void>();
 
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
@@ -37,7 +37,7 @@ export class PlaylistService {
         this.filterSub.next();
     }
 
-    public async loadPlaylistItems(): Promise<void> {
+    public async loadPlaylistItems(): Promise<PlaylistItem[]> {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
         const params: Object = {
@@ -45,32 +45,34 @@ export class PlaylistService {
             part: 'snippet'
         };
 
+        const responses: Object[] = await this.youtubeSvc.getAll('playlists', params);
+
         // Additionaly setting playlists in youtube.service to use them to check if liked video is in playlist.
-        this.youtubeSvc.getAll('playlists', params).then(async (responses: Object[]) => {
-            this.youtubeSvc.setPlaylists([]);
-            this.playlistItems = [];
+        this.youtubeSvc.setPlaylists([]);
+        this.playlistItems = [];
 
-            for (const response of responses) {
-                for (const item of response['items']) {
-                    const id: string = item['id'];
-                    const title: string = item['snippet']['title'];
+        for (const response of responses) {
+            for (const item of response['items']) {
+                const id: string = item['id'];
+                const title: string = item['snippet']['title'];
 
-                    await this.loadPlaylistVideos(id).then((videos: Video[]) => {
-                        const playlist: Playlist = new Playlist(id, title, videos);
-                        const playlistItem: PlaylistItem = new PlaylistItem(playlist);
+                const videos: Video[] = await this.loadPlaylistVideos(id);
 
-                        this.youtubeSvc.addPlaylist(playlist);
-                        this.playlistItems.push(playlistItem);
-                    });
-                }
+                const playlist: Playlist = new Playlist(id, title, videos);
+                const playlistItem: PlaylistItem = new PlaylistItem(playlist);
+
+                this.youtubeSvc.addPlaylist(playlist);
+                this.playlistItems.push(playlistItem);
             }
+        }
 
-            this.loadStatus = LoadStatus.DONE;
+        this.loadStatus = LoadStatus.DONE;
 
-            this.runFilter();
+        this.runFilter();
 
-            console.log('Loaded ' + this.playlistItems.length + ' playlist items');
-        });
+        console.log('Loaded ' + this.playlistItems.length + ' playlist items');
+
+        return this.playlistItems;
     }
 
     public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
@@ -111,23 +113,22 @@ export class PlaylistService {
             part: 'snippet'
         };
 
-        return this.youtubeSvc.getAll('playlistItems', params).then((responses: Object[]) => {
-            const videos: Video[] = [];
+        const responses: Object[] = await this.youtubeSvc.getAll('playlistItems', params);
+        const videos: Video[] = [];
 
-            for (const response of responses) {
-                for (const item of response['items']) {
-                    const id: string = item['snippet']['resourceId']['videoId'];
-                    const title: string = item['snippet']['title'];
-                    const channelTitle: string = item['snippet']['channelTitle'];
+        for (const response of responses) {
+            for (const item of response['items']) {
+                const id: string = item['snippet']['resourceId']['videoId'];
+                const title: string = item['snippet']['title'];
+                const channelTitle: string = item['snippet']['channelTitle'];
 
-                    const video: Video = new Video(id, title, channelTitle);
+                const video: Video = new Video(id, title, channelTitle);
 
-                    videos.push(video);
-                }
+                videos.push(video);
             }
+        }
 
-            return videos;
-        });
+        return videos;
     }
 
 }

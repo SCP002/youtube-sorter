@@ -54,11 +54,11 @@ export class YoutubeService {
                 delete params['pageToken'];
             }
 
-            await this.httpClient.get(this.apiUrl + path, options).toPromise().then((response: Object) => {
-                nextPageToken = response['nextPageToken'];
+            const response: Object = await this.httpClient.get(this.apiUrl + path, options).toPromise();
 
-                responses.push(response);
-            });
+            nextPageToken = response['nextPageToken'];
+
+            responses.push(response);
         } while (typeof nextPageToken !== 'undefined');
 
         return responses;
@@ -70,7 +70,7 @@ export class YoutubeService {
             params: params
         };
 
-        return this.httpClient.post(this.apiUrl + path, body, options).toPromise();
+        return await this.httpClient.post(this.apiUrl + path, body, options).toPromise();
     }
 
 }

@@ -10,7 +10,7 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class LikedService {
 
-    private readonly filterSub: Subject<void> = new Subject<void>(); // TODO: Any way to avoid this using lifecycle hooks in component?
+    private readonly filterSub: Subject<void> = new Subject<void>();
 
     private totalCount = 0;
     private likedItems: LikedItem[] = [];
@@ -40,7 +40,7 @@ export class LikedService {
         this.filterSub.next();
     }
 
-    public loadLikedItems(): void {
+    public async loadLikedItems(): Promise<LikedItem[]> {
         this.loadStatus = LoadStatus.IN_PROCESS;
 
         const params: Object = {
@@ -48,35 +48,37 @@ export class LikedService {
             part: 'snippet'
         };
 
-        this.youtubeSvc.getAll('videos', params).then((responses: Object[]) => {
-            this.totalCount = responses[0]['pageInfo']['totalResults'];
+        const responses: Object[] = await this.youtubeSvc.getAll('videos', params);
 
-            this.likedItems = [];
+        this.totalCount = responses[0]['pageInfo']['totalResults'];
 
-            for (const response of responses) {
-                for (const item of response['items']) {
-                    const id: string = item['id'];
-                    const title: string = item['snippet']['title'];
-                    const channelTitle: string = item['snippet']['channelTitle'];
+        this.likedItems = [];
 
-                    const video: Video = new Video(id, title, channelTitle);
-                    const playlistName = this.getPlaylistForVideo(video);
+        for (const response of responses) {
+            for (const item of response['items']) {
+                const id: string = item['id'];
+                const title: string = item['snippet']['title'];
+                const channelTitle: string = item['snippet']['channelTitle'];
 
-                    const likedItem = new LikedItem(video, playlistName);
+                const video: Video = new Video(id, title, channelTitle);
+                const playlistName = this.getPlaylistName(video);
 
-                    this.likedItems.push(likedItem);
-                }
+                const likedItem = new LikedItem(video, playlistName);
+
+                this.likedItems.push(likedItem);
             }
+        }
 
-            this.loadStatus = LoadStatus.DONE;
+        this.loadStatus = LoadStatus.DONE;
 
-            this.runFilter();
+        this.runFilter();
 
-            console.log('Loaded ' + this.likedItems.length + ' liked items');
-        });
+        console.log('Loaded ' + this.likedItems.length + ' liked items');
+
+        return this.likedItems;
     }
 
-    private getPlaylistForVideo(targetVideo: Video): string {
+    private getPlaylistName(targetVideo: Video): string {
         for (const playlist of this.youtubeSvc.getPlaylists()) {
             for (const currentVideo of playlist.getVideos()) {
                 if (targetVideo.getId() === currentVideo.getId()) {

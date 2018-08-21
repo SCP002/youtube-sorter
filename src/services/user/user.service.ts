@@ -5,6 +5,7 @@ import { YoutubeService } from '../youtube/youtube.service';
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 
+// Not able to use async / await properly here due to API design (GoogleAuth instance has it's own .then() function).
 @Injectable({
     providedIn: 'root'
 })
@@ -20,6 +21,7 @@ export class UserService {
 
         this.googleAuth = googleAuthSvc.getAuth().toPromise();
 
+        // Check if signed-in already.
         this.googleAuth.then((auth: GoogleAuth) => {
             const user: GoogleUser = auth.currentUser.get();
 
@@ -34,22 +36,24 @@ export class UserService {
         return this.signedIn;
     }
 
-    public signIn(): void {
-        this.googleAuth.then((auth: GoogleAuth) => {
+    public async signIn(): Promise<GoogleUser> {
+        const user: GoogleUser = await this.googleAuth.then((auth: GoogleAuth) => {
             return auth.signIn() as Promise<GoogleUser>;
-        }).then((user: GoogleUser) => {
-            this.onSignIn(user);
         });
+
+        this.onSignIn(user);
+
+        return user;
     }
 
-    private onSignIn(user: GoogleUser): void {
+    private async onSignIn(user: GoogleUser): Promise<void> {
+        console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
+
         this.signedIn = true;
 
         this.youtubeSvc.setHeaders(user.getAuthResponse().access_token);
 
-        this.taskSvc.loadAll();
-
-        console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
+        await this.taskSvc.loadAll();
     }
 
 }
