@@ -1,9 +1,11 @@
+<!-- Header card -->
 <div class="card">
     <div class="card-body">
         <form>
             <div class="form-row">
                 <div class="form-group col-auto">
                     <button
+                        type="button"
                         class="btn btn-primary"
                         (click)="signIn()"
                     >{{getSignInBtnText()}}</button>
@@ -11,10 +13,19 @@
 
                 <div class="form-group col-auto">
                     <button
+                        type="button"
                         class="btn btn-primary"
                         [hidden]="isRefreshBtnHidden()"
                         (click)="refresh()"
                     >Refresh</button>
+                </div>
+
+                <div class="form-group col-auto">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="openModal(apiKeyModal)"
+                    >Change API key</button>
                 </div>
             </div>
         </form>
@@ -24,3 +35,36 @@
         {{getCardFooterText()}}
     </div>
 </div>
+<!-- /Header card -->
+
+<!-- Api key modal -->
+<ng-template
+    #apiKeyModal
+    let-close="close('Close click')"
+    let-dismiss="dismiss('Cross click')"
+>
+    <div class="modal-header">
+        <h4 class="modal-title">Change API key</h4>
+        <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="dismiss"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p>Nothing to see here for now</p>
+    </div>
+
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-light"
+            (click)="close"
+        >Close</button>
+    </div>
+</ng-template>
+<!-- /Api key modal -->

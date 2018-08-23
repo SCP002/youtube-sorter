@@ -17,4 +17,9 @@ export class TaskService {
         await this.likedSvc.loadLikedItems();
     }
 
+    // TODO: This. Use sessionStorage and window.location.reload()
+    public changeApiKey(key: string): void {
+        //
+    }
+
 }

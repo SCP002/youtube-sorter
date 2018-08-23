@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
 
-// TODO: Add ability to change API key. See gapi.client.setApiKey?
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -14,6 +14,7 @@ import { UserService } from '../../services/user/user.service';
 export class HeaderComponent {
 
     public constructor(
+        private readonly modalSvc: NgbModal,
         private readonly userSvc: UserService,
         private readonly playlistSvc: PlaylistService,
         private readonly likedSvc: LikedService,
@@ -45,6 +46,10 @@ export class HeaderComponent {
 
     public refresh(): void {
         this.taskSvc.loadAll();
+    }
+
+    public openModal(modal: TemplateRef<any>): void {
+        this.modalSvc.open(modal);
     }
 
 }
