@@ -1,11 +1,21 @@
 import { NgGapiClientConfig } from 'ng-gapi';
 
-export const gApiConfig: NgGapiClientConfig = {
+export module ApiConfig {
 
-    client_id: '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com',
+    let apiKey: string = sessionStorage.getItem('apiKey');
 
-    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+    if (!apiKey) {
+        apiKey = '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com';
+    }
 
-    scope: ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ')
+    export const gApiConfig: NgGapiClientConfig = {
 
-};
+        client_id: apiKey,
+
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+
+        scope: ['https://www.googleapis.com/auth/youtube.force-ssl'].join(' ')
+
+    };
+
+}

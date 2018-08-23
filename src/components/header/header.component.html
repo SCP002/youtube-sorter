@@ -35,7 +35,7 @@
         {{getCardFooterText()}}
     </div>
 </div>
-<!-- /Header card -->
+
 
 <!-- Api key modal -->
 <ng-template
@@ -43,8 +43,9 @@
     let-close="close('Close click')"
     let-dismiss="dismiss('Cross click')"
 >
+    <!-- Modal header -->
     <div class="modal-header">
-        <h4 class="modal-title">Change API key</h4>
+        <h5 class="modal-title">Change API key</h5>
         <button
             type="button"
             class="close"
@@ -55,11 +56,38 @@
         </button>
     </div>
 
+    <!-- Modal body -->
     <div class="modal-body">
-        <p>Nothing to see here for now</p>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-9">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Paste your key here"
+                        #apiKeyInput
+                    >
+                </div>
+
+                <div class="form-group col-3">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="setApiKey(apiKeyInput)"
+                    >Change</button>
+                </div>
+            </div>
+        </form>
     </div>
 
+    <!-- Modal footer -->
     <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-primary"
+            (click)="setDefaultApiKey()"
+        >Set default</button>
+
         <button
             type="button"
             class="btn btn-light"
@@ -67,4 +95,3 @@
         >Close</button>
     </div>
 </ng-template>
-<!-- /Api key modal -->

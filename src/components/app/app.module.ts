@@ -1,7 +1,7 @@
+import { ApiConfig } from '../../config/api.config';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { gApiConfig } from '../../config/api.config';
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import { HeaderComponent } from '../header/header.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +20,7 @@ import { PlaylistComponent } from '../playlist/playlist.component';
     imports: [
         BrowserModule,
         FormsModule,
-        GoogleApiModule.forRoot({ provide: NG_GAPI_CONFIG, useValue: gApiConfig }),
+        GoogleApiModule.forRoot({ provide: NG_GAPI_CONFIG, useValue: ApiConfig.gApiConfig }),
         HttpClientModule,
         NgbModule.forRoot()
     ],
