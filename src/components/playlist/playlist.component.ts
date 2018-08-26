@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { LoadStatus } from '../../services/youtube/load-status';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 
@@ -12,7 +13,7 @@ export class PlaylistComponent implements OnInit {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
 
-    public constructor(private readonly playlistSvc: PlaylistService) {
+    public constructor(private readonly modalSvc: NgbModal, private readonly playlistSvc: PlaylistService) {
         //
     }
 
@@ -77,6 +78,10 @@ export class PlaylistComponent implements OnInit {
 
             playlistItem.setHidden(hide);
         }
+    }
+
+    public openModal(modal: TemplateRef<any>): void {
+        this.modalSvc.open(modal);
     }
 
 }

@@ -1,3 +1,4 @@
+<!-- Playlist card -->
 <div
     class="card"
     [hidden]="isCardHidden()"
@@ -19,7 +20,19 @@
                 </div>
             </div>
 
-            <!-- TODO: Add 'Create playlist' button. -->
+            <div class="form-row">
+                <div class="form-group col">
+                    <!-- TODO: Fix button alignment -->
+                    <!-- TODO: Add button click handler - open modal -->
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                    >
+                        <i class="fas fa-plus"></i>
+                        <span>&ensp;Create playlist</span>
+                    </button>
+                </div>
+            </div>
         </form>
 
         <ul
@@ -38,3 +51,6 @@
         </ul>
     </div>
 </div>
+
+<!-- Create playlist modal -->
+<!-- ... -->
