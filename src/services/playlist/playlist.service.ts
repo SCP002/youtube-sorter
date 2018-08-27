@@ -107,6 +107,10 @@ export class PlaylistService {
         this.likedSvc.runFilter();
     }
 
+    public async createPlaylist(name: string): Promise<void> { // TODO: This.
+        console.log('Create playlist: ' + name);
+    }
+
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {
         const params: Object = {
             playlistId: playlistId,

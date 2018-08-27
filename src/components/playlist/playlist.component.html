@@ -22,11 +22,11 @@
 
             <div class="form-row">
                 <div class="form-group col">
-                    <!-- TODO: Fix button alignment -->
-                    <!-- TODO: Add button click handler - open modal -->
+                    <!-- TODO: Fix button alignment. -->
                     <button
                         type="button"
                         class="btn btn-primary"
+                        (click)="openModal(createPlaylistModal)"
                     >
                         <i class="fas fa-plus"></i>
                         <span>&ensp;Create playlist</span>
@@ -53,4 +53,55 @@
 </div>
 
 <!-- Create playlist modal -->
-<!-- ... -->
+<ng-template
+    #createPlaylistModal
+    let-close="close('Close click')"
+    let-dismiss="dismiss('Cross click')"
+>
+    <!-- Modal header -->
+    <div class="modal-header">
+        <h5 class="modal-title">Create playlist</h5>
+        <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="dismiss"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+        <form>
+            <!-- TODO: Fix row alignment. -->
+            <div class="form-row">
+                <div class="form-group col-9">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Type playlist name here"
+                        #createPlaylistInput
+                    >
+                </div>
+
+                <div class="form-group col-3">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="createPlaylist(createPlaylistInput)"
+                    >Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="btn btn-light"
+            (click)="close"
+        >Close</button>
+    </div>
+</ng-template>
