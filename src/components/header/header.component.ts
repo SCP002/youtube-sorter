@@ -52,8 +52,8 @@ export class HeaderComponent {
         this.modalSvc.open(modal);
     }
 
-    public setApiKey(input: HTMLInputElement): void {
-        this.taskSvc.setApiKey(input.value);
+    public setApiKey(keyInput: HTMLInputElement): void {
+        this.taskSvc.setApiKey(keyInput.value);
     }
 
     public setDefaultApiKey(): void {

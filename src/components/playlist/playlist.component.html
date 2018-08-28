@@ -52,6 +52,7 @@
     </div>
 </div>
 
+
 <!-- Create playlist modal -->
 <ng-template
     #createPlaylistModal
@@ -74,23 +75,31 @@
     <!-- Modal body -->
     <div class="modal-body">
         <form>
-            <!-- TODO: Fix row alignment. -->
             <div class="form-row">
-                <div class="form-group col-9">
+                <div class="form-group col">
                     <input
                         type="text"
                         class="form-control"
                         placeholder="Type playlist name here"
-                        #createPlaylistInput
+                        #playlistNameInput
                     >
                 </div>
+            </div>
 
-                <div class="form-group col-3">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        (click)="createPlaylist(createPlaylistInput)"
-                    >Create</button>
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="custom-control custom-checkbox">
+                        <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="is-playlist-private-cb"
+                            #isPlaylistPrivateCB
+                        >
+                        <label
+                            class="custom-control-label no-select"
+                            for="is-playlist-private-cb"
+                        >Private</label>
+                    </div>
                 </div>
             </div>
         </form>
@@ -98,6 +107,13 @@
 
     <!-- Modal footer -->
     <div class="modal-footer">
+        <!-- TODO: Hide button if playlist name input is empty. -->
+        <button
+            type="button"
+            class="btn btn-primary"
+            (click)="createPlaylist(playlistNameInput, isPlaylistPrivateCB)"
+        >Create</button>
+
         <button
             type="button"
             class="btn btn-light"

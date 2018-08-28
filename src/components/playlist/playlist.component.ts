@@ -84,8 +84,8 @@ export class PlaylistComponent implements OnInit {
         this.modalSvc.open(modal);
     }
 
-    public async createPlaylist(input: HTMLInputElement): Promise<void> {
-        await this.playlistSvc.createPlaylist(input.value);
+    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<void> {
+        await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
     }
 
 }

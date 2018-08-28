@@ -67,15 +67,17 @@
                 (click)="likedItem.onClick()"
                 (dragstart)="likedItem.onDragStart()"
             >
-                {{likedItem.getVideo().getTitle()}}
+                <span>{{likedItem.getVideo().getTitle()}}</span>
 
-                <hr> {{likedItem.getVideo().getChannelTitle()}}
+                <hr>
+                <span>{{likedItem.getVideo().getChannelTitle()}}</span>
 
                 <div
                     class="status-bar"
                     [hidden]="likedItem.isStatusBarHidden()"
                 >
-                    <hr> In playlist "{{likedItem.getPlaylistName()}}"
+                    <hr>
+                    <span>In playlist "{{likedItem.getPlaylistName()}}"</span>
                 </div>
             </li>
         </ul>

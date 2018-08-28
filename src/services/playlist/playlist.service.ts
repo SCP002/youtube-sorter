@@ -107,8 +107,9 @@ export class PlaylistService {
         this.likedSvc.runFilter();
     }
 
-    public async createPlaylist(name: string): Promise<void> { // TODO: This.
-        console.log('Create playlist: ' + name);
+    // TODO: This. See https://developers.google.com/youtube/v3/guides/implementation/playlists#playlists-insert
+    public async createPlaylist(name: string, isPrivate: boolean): Promise<void> {
+        console.log('Create playlist: ' + name + ', private: ' + isPrivate);
     }
 
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {
