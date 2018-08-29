@@ -11,7 +11,7 @@ import { PlaylistService } from '../../services/playlist/playlist.service';
 })
 export class PlaylistComponent implements OnInit {
 
-    @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
+    @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
 
     public constructor(private readonly modalSvc: NgbModal, private readonly playlistSvc: PlaylistService) {
         //

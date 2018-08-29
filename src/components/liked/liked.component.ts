@@ -10,9 +10,9 @@ import { LoadStatus } from '../../services/youtube/load-status';
 })
 export class LikedComponent implements OnInit {
 
-    @ViewChild('searchInput') private readonly searchInputRef: ElementRef;
-    @ViewChild('selectAllCB') private readonly selectAllCBRef: ElementRef;
-    @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef;
+    @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
+    @ViewChild('selectAllCB') private readonly selectAllCBRef: ElementRef<HTMLInputElement>;
+    @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef<HTMLInputElement>;
 
     public constructor(private readonly likedSvc: LikedService) {
         //
