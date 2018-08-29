@@ -8,3 +8,7 @@
     -webkit-user-select: none;
     user-select: none;
 }
+
+.h-2-rem {
+    height: 2rem;
+}
