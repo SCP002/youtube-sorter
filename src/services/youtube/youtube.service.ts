@@ -48,7 +48,7 @@ export class YoutubeService {
         let nextPageToken: string;
 
         do {
-            if (typeof nextPageToken !== 'undefined') {
+            if (nextPageToken) {
                 params['pageToken'] = nextPageToken;
             } else {
                 delete params['pageToken'];
@@ -59,7 +59,7 @@ export class YoutubeService {
             nextPageToken = response['nextPageToken'];
 
             responses.push(response);
-        } while (typeof nextPageToken !== 'undefined');
+        } while (nextPageToken);
 
         return responses;
     }
