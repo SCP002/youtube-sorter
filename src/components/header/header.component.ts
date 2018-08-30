@@ -1,7 +1,7 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
 import { LoadStatus } from '../../services/youtube/load-status';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
@@ -12,6 +12,8 @@ import { UserService } from '../../services/user/user.service';
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+    @ViewChild('apiKeyModal') private readonly apiKeyModalRef: NgbModalRef;
 
     public constructor(
         private readonly modalSvc: NgbModal,
@@ -48,8 +50,8 @@ export class HeaderComponent {
         this.taskSvc.loadAll();
     }
 
-    public openModal(modal: TemplateRef<any>): void {
-        this.modalSvc.open(modal);
+    public openApiKeyModal(): void {
+        this.modalSvc.open(this.apiKeyModalRef);
     }
 
     public setApiKey(keyInput: HTMLInputElement): void {

@@ -24,7 +24,7 @@
                     <button
                         type="button"
                         class="btn btn-primary"
-                        (click)="openModal(apiKeyModal)"
+                        (click)="openApiKeyModal()"
                     >Change API key</button>
                 </div>
             </div>
@@ -38,6 +38,10 @@
 
 
 <!-- Api key modal -->
+<!--
+    Due to difficuly of getting DOM variables (#someElement) from ng-bootstrap modal in component,
+    using these variables as arguments to function calls.
+-->
 <ng-template
     #apiKeyModal
     let-close="close('Close click')"
