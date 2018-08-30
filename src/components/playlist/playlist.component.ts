@@ -13,7 +13,7 @@ export class PlaylistComponent implements OnInit {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
 
-    @ViewChild('createPlaylistModal') private readonly createPlaylistModalRef: NgbModalRef;
+    private activeModal: NgbModalRef;
 
     public constructor(private readonly modalSvc: NgbModal, private readonly playlistSvc: PlaylistService) {
         //
@@ -31,6 +31,10 @@ export class PlaylistComponent implements OnInit {
 
     public isCardContentHidden(): boolean {
         return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE;
+    }
+
+    public isCreateBtnHidden(nameInput: HTMLInputElement): boolean { // TODO: Return true if input is empty.
+        return false;
     }
 
     public getCardSubTitle(): string {
@@ -82,11 +86,13 @@ export class PlaylistComponent implements OnInit {
         }
     }
 
-    public openCreatePlaylistModal(): void {
-        this.modalSvc.open(this.createPlaylistModalRef);
+    public openModal(modal: NgbModalRef): void {
+        this.activeModal = this.modalSvc.open(modal);
     }
 
     public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<void> {
+        this.activeModal.close();
+
         await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
     }
 
