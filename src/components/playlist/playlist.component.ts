@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadStatus } from '../../services/youtube/load-status';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 
@@ -12,6 +12,8 @@ import { PlaylistService } from '../../services/playlist/playlist.service';
 export class PlaylistComponent implements OnInit {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
+
+    @ViewChild('createPlaylistModal') private readonly createPlaylistModalRef: NgbModalRef;
 
     public constructor(private readonly modalSvc: NgbModal, private readonly playlistSvc: PlaylistService) {
         //
@@ -80,8 +82,8 @@ export class PlaylistComponent implements OnInit {
         }
     }
 
-    public openModal(modal: TemplateRef<any>): void {
-        this.modalSvc.open(modal);
+    public openCreatePlaylistModal(): void {
+        this.modalSvc.open(this.createPlaylistModalRef);
     }
 
     public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<void> {
