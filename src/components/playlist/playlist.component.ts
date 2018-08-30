@@ -33,7 +33,11 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE;
     }
 
-    public isCreateBtnHidden(nameInput: HTMLInputElement): boolean { // TODO: Return true if input is empty.
+    public isCreateBtnHidden(nameInput: HTMLInputElement): boolean {
+        if (!nameInput.value) {
+            return true;
+        }
+
         return false;
     }
 
