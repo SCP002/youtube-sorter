@@ -107,9 +107,35 @@ export class PlaylistService {
         this.likedSvc.runFilter();
     }
 
-    // TODO: This. See https://developers.google.com/youtube/v3/guides/implementation/playlists#playlists-insert
-    public async createPlaylist(name: string, isPrivate: boolean): Promise<void> {
-        console.log('Create playlist: ' + name + ', private: ' + isPrivate);
+    public async createPlaylist(name: string, isPrivate: boolean): Promise<Playlist> {
+        const params: Object = {
+            part: 'snippet,status'
+        };
+
+        const body: Object = {
+            snippet: {
+                title: name
+            },
+            status: {
+                privacyStatus: isPrivate ? 'private' : 'public'
+            }
+        };
+
+        const response: Object = await this.youtubeSvc.post('playlists', params, body);
+
+        // Update data locally.
+        const id: string = response['id'];
+        const videos: Video[] = [];
+
+        const playlist: Playlist = new Playlist(id, name, videos);
+        const playlistItem: PlaylistItem = new PlaylistItem(playlist);
+
+        this.youtubeSvc.addPlaylist(playlist);
+        this.playlistItems.unshift(playlistItem);
+
+        this.runFilter();
+
+        return playlist;
     }
 
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {
