@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LoadStatus } from '../../services/youtube/load-status';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Playlist } from '../../services/youtube/playlist';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
+import { TaskStatus } from '../../services/task/task-status';
 
 @Component({
     selector: 'app-playlist',
@@ -27,11 +27,11 @@ export class PlaylistComponent implements OnInit {
     }
 
     public isCardHidden(): boolean {
-        return this.playlistSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
+        return this.playlistSvc.getLoadStatus() === TaskStatus.NOT_STARTED;
     }
 
     public isCardContentHidden(): boolean {
-        return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE;
+        return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 
     public isCreateBtnHidden(nameInput: HTMLInputElement): boolean {
@@ -43,13 +43,13 @@ export class PlaylistComponent implements OnInit {
     }
 
     public getCardSubTitle(): string {
-        const loadStatus: LoadStatus = this.playlistSvc.getLoadStatus();
+        const loadStatus: TaskStatus = this.playlistSvc.getLoadStatus();
 
-        if (loadStatus === LoadStatus.IN_PROCESS) {
+        if (loadStatus === TaskStatus.IN_PROCESS) {
             return 'Loading...';
         }
 
-        if (loadStatus === LoadStatus.DONE) {
+        if (loadStatus === TaskStatus.DONE) {
             const playlistItems: PlaylistItem[] = this.getPlaylistItems();
 
             let visibleCount = 0;

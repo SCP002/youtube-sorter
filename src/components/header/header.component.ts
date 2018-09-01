@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
-import { LoadStatus } from '../../services/youtube/load-status';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskService } from '../../services/task/task.service';
+import { TaskStatus } from '../../services/task/task-status';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -25,14 +25,14 @@ export class HeaderComponent {
     }
 
     public isRefreshBtnHidden(): boolean {
-        return this.playlistSvc.getLoadStatus() !== LoadStatus.DONE || this.likedSvc.getLoadStatus() !== LoadStatus.DONE;
+        return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE || this.likedSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 
     public getSignInBtnText(): string {
         return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
     }
 
-    public getCardFooterText(): string {
+    public getCardFooterText(): string { // TODO: Indicate adding liked to playlist.
         if (!this.userSvc.isSignedIn()) {
             return 'Sign-in to load data';
         }

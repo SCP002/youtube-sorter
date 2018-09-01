@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
-import { LoadStatus } from '../../services/youtube/load-status';
+import { TaskStatus } from '../../services/task/task-status';
 
 @Component({
     selector: 'app-liked',
@@ -25,11 +25,11 @@ export class LikedComponent implements OnInit {
     }
 
     public isCardHidden(): boolean {
-        return this.likedSvc.getLoadStatus() === LoadStatus.NOT_STARTED;
+        return this.likedSvc.getLoadStatus() === TaskStatus.NOT_STARTED;
     }
 
     public isCardContentHidden(): boolean {
-        return this.likedSvc.getLoadStatus() !== LoadStatus.DONE;
+        return this.likedSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 
     public getLikedItems(): LikedItem[] {
@@ -37,13 +37,13 @@ export class LikedComponent implements OnInit {
     }
 
     public getCardSubTitle(): string {
-        const loadStatus: LoadStatus = this.likedSvc.getLoadStatus();
+        const loadStatus: TaskStatus = this.likedSvc.getLoadStatus();
 
-        if (loadStatus === LoadStatus.IN_PROCESS) {
+        if (loadStatus === TaskStatus.IN_PROCESS) {
             return 'Loading...';
         }
 
-        if (loadStatus === LoadStatus.DONE) {
+        if (loadStatus === TaskStatus.DONE) {
             const likedItems: LikedItem[] = this.getLikedItems();
 
             let selectedCount = 0;

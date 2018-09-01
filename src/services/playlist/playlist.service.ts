@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
-import { LoadStatus } from '../youtube/load-status';
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from './playlist-item';
+import { TaskStatus } from '../task/task-status';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
 
@@ -15,7 +15,7 @@ export class PlaylistService {
     private readonly filterSub: Subject<void> = new Subject<void>();
 
     private playlistItems: PlaylistItem[] = [];
-    private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
+    private loadStatus: TaskStatus = TaskStatus.NOT_STARTED;
 
     private constructor(private readonly youtubeSvc: YoutubeService, private readonly likedSvc: LikedService) {
         //
@@ -29,7 +29,7 @@ export class PlaylistService {
         return this.playlistItems;
     }
 
-    public getLoadStatus(): LoadStatus {
+    public getLoadStatus(): TaskStatus {
         return this.loadStatus;
     }
 
@@ -38,7 +38,7 @@ export class PlaylistService {
     }
 
     public async loadPlaylistItems(): Promise<PlaylistItem[]> {
-        this.loadStatus = LoadStatus.IN_PROCESS;
+        this.loadStatus = TaskStatus.IN_PROCESS;
 
         const params: Object = {
             mine: 'true',
@@ -66,7 +66,7 @@ export class PlaylistService {
             }
         }
 
-        this.loadStatus = LoadStatus.DONE;
+        this.loadStatus = TaskStatus.DONE;
 
         this.runFilter();
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LikedItem } from './liked-item';
-import { LoadStatus } from '../youtube/load-status';
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
+import { TaskStatus } from '../task/task-status';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
 
@@ -15,7 +15,7 @@ export class LikedService {
 
     private totalCount = 0;
     private likedItems: LikedItem[] = [];
-    private loadStatus: LoadStatus = LoadStatus.NOT_STARTED;
+    private loadStatus: TaskStatus = TaskStatus.NOT_STARTED;
 
     private playlists: Playlist[] = [];
 
@@ -35,7 +35,7 @@ export class LikedService {
         return this.likedItems;
     }
 
-    public getLoadStatus(): LoadStatus {
+    public getLoadStatus(): TaskStatus {
         return this.loadStatus;
     }
 
@@ -52,7 +52,7 @@ export class LikedService {
     }
 
     public async loadLikedItems(): Promise<LikedItem[]> {
-        this.loadStatus = LoadStatus.IN_PROCESS;
+        this.loadStatus = TaskStatus.IN_PROCESS;
 
         const params: Object = {
             myRating: 'like',
@@ -80,7 +80,7 @@ export class LikedService {
             }
         }
 
-        this.loadStatus = LoadStatus.DONE;
+        this.loadStatus = TaskStatus.DONE;
 
         this.runFilter();
 
