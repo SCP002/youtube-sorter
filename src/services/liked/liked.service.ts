@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LikedItem } from './liked-item';
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
+import { PlaylistService } from '../playlist/playlist.service';
 import { TaskStatus } from '../task/task-status';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
@@ -17,9 +18,7 @@ export class LikedService {
     private likedItems: LikedItem[] = [];
     private loadStatus: TaskStatus = TaskStatus.NOT_STARTED;
 
-    private playlists: Playlist[] = [];
-
-    private constructor(private readonly youtubeSvc: YoutubeService) {
+    private constructor(private readonly youtubeSvc: YoutubeService, private readonly playlistSvc: PlaylistService) {
         //
     }
 
@@ -37,14 +36,6 @@ export class LikedService {
 
     public getLoadStatus(): TaskStatus {
         return this.loadStatus;
-    }
-
-    public setPlaylists(playlists: Playlist[]): void {
-        this.playlists = playlists;
-    }
-
-    public addPlaylist(playlist: Playlist): void {
-        this.playlists.push(playlist);
     }
 
     public runFilter(): void {
@@ -90,7 +81,9 @@ export class LikedService {
     }
 
     private getPlaylistName(targetVideo: Video): string {
-        for (const playlist of this.playlists) {
+        for (const playlistItem of this.playlistSvc.getPlaylistItems()) {
+            const playlist: Playlist = playlistItem.getPlaylist();
+
             for (const currentVideo of playlist.getVideos()) {
                 if (targetVideo.getId() === currentVideo.getId()) {
                     return playlist.getTitle();

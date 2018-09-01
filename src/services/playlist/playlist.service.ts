@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LikedService } from '../liked/liked.service'; // TODO: Try to avoid it here. Get playlists from liked.service.
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from './playlist-item';
@@ -17,7 +16,7 @@ export class PlaylistService {
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: TaskStatus = TaskStatus.NOT_STARTED;
 
-    private constructor(private readonly youtubeSvc: YoutubeService, private readonly likedSvc: LikedService) {
+    private constructor(private readonly youtubeSvc: YoutubeService) {
         //
     }
 
@@ -47,8 +46,6 @@ export class PlaylistService {
 
         const responses: Object[] = await this.youtubeSvc.getAll('playlists', params);
 
-        // Additionaly setting playlists in liked.service to check if liked video is in playlist.
-        this.likedSvc.setPlaylists([]);
         this.playlistItems = [];
 
         for (const response of responses) {
@@ -61,7 +58,6 @@ export class PlaylistService {
                 const playlist: Playlist = new Playlist(id, title, videos);
                 const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
-                this.likedSvc.addPlaylist(playlist);
                 this.playlistItems.push(playlistItem);
             }
         }
@@ -98,8 +94,6 @@ export class PlaylistService {
         const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
         // Update data locally.
-        // Additionaly setting playlists in liked.service to check if liked video is in playlist.
-        this.likedSvc.addPlaylist(playlist);
         this.playlistItems.unshift(playlistItem);
 
         this.runFilter();
