@@ -47,8 +47,8 @@ export class PlaylistService {
 
         const responses: Object[] = await this.youtubeSvc.getAll('playlists', params);
 
-        // Additionaly setting playlists in youtube.service to use them to check if liked video is in playlist.
-        this.youtubeSvc.setPlaylists([]);
+        // Additionaly setting playlists in liked.service to check if liked video is in playlist.
+        this.likedSvc.setPlaylists([]);
         this.playlistItems = [];
 
         for (const response of responses) {
@@ -61,7 +61,7 @@ export class PlaylistService {
                 const playlist: Playlist = new Playlist(id, title, videos);
                 const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
-                this.youtubeSvc.addPlaylist(playlist);
+                this.likedSvc.addPlaylist(playlist);
                 this.playlistItems.push(playlistItem);
             }
         }
@@ -123,14 +123,15 @@ export class PlaylistService {
 
         const response: Object = await this.youtubeSvc.post('playlists', params, body);
 
-        // Update data locally.
         const id: string = response['id'];
         const videos: Video[] = [];
 
         const playlist: Playlist = new Playlist(id, name, videos);
         const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
-        this.youtubeSvc.addPlaylist(playlist);
+        // Update data locally.
+        // Additionaly setting playlists in liked.service to check if liked video is in playlist.
+        this.likedSvc.addPlaylist(playlist);
         this.playlistItems.unshift(playlistItem);
 
         this.runFilter();

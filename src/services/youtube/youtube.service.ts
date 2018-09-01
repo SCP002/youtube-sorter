@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Playlist } from './playlist';
 
 @Injectable({
     providedIn: 'root'
@@ -11,28 +10,14 @@ export class YoutubeService {
 
     private headers: HttpHeaders;
 
-    private playlists: Playlist[] = [];
-
     private constructor(private readonly httpClient: HttpClient) {
         //
-    }
-
-    public getPlaylists(): Playlist[] {
-        return this.playlists;
     }
 
     public setHeaders(token: string): void {
         this.headers = new HttpHeaders({
             Authorization: `Bearer ${token}`
         });
-    }
-
-    public setPlaylists(playlists: Playlist[]): void {
-        this.playlists = playlists;
-    }
-
-    public addPlaylist(playlist: Playlist): void {
-        this.playlists.push(playlist);
     }
 
     public async getAll(path: string, params: Object): Promise<Object[]> {

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadStatus } from '../../services/youtube/load-status';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Playlist } from '../../services/youtube/playlist';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 
@@ -94,10 +95,12 @@ export class PlaylistComponent implements OnInit {
         this.activeModal = this.modalSvc.open(modal);
     }
 
-    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<void> {
+    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<Playlist> {
         this.activeModal.close();
 
-        await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
+        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
+
+        return playlist;
     }
 
 }
