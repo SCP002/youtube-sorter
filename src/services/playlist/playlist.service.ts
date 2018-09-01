@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LikedService } from '../liked/liked.service';
+import { LikedService } from '../liked/liked.service'; // TODO: Try to avoid it here. Get playlists from liked.service.
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from './playlist-item';
@@ -73,38 +73,6 @@ export class PlaylistService {
         console.log('Loaded ' + this.playlistItems.length + ' playlist items');
 
         return this.playlistItems;
-    }
-
-    public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
-        const params: Object = {
-            part: 'snippet'
-        };
-
-        const body: Object = {
-            snippet: {
-                playlistId: playlist.getId(),
-                resourceId: {
-                    kind: 'youtube#video',
-                    videoId: ''
-                }
-            }
-        };
-
-        for (const likedItem of this.likedSvc.getLikedItems()) {
-            if (likedItem.isSelected()) {
-                body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
-
-                // Using await to give server a time to process each request.
-                await this.youtubeSvc.post('playlistItems', params, body);
-
-                // Update data locally.
-                playlist.addVideo(likedItem.getVideo());
-                likedItem.setPlaylistName(playlist.getTitle());
-            }
-        }
-
-        this.runFilter();
-        this.likedSvc.runFilter();
     }
 
     public async createPlaylist(name: string, isPrivate: boolean): Promise<Playlist> {

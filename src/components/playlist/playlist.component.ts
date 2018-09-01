@@ -3,6 +3,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Playlist } from '../../services/youtube/playlist';
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
+import { TaskService } from '../../services/task/task.service';
 import { TaskStatus } from '../../services/task/task-status';
 
 @Component({
@@ -16,8 +17,13 @@ export class PlaylistComponent implements OnInit {
 
     private activeModal: NgbModalRef;
 
-    public constructor(private readonly modalSvc: NgbModal, private readonly playlistSvc: PlaylistService) {
+    public constructor(
+        private readonly modalSvc: NgbModal,
+        private readonly taskSvc: TaskService,
+        private readonly playlistSvc: PlaylistService) {
+
         //
+
     }
 
     public ngOnInit(): void {
@@ -71,7 +77,7 @@ export class PlaylistComponent implements OnInit {
     public onDropOverItem(event: DragEvent, playlistItem: PlaylistItem): void {
         event.preventDefault();
 
-        this.playlistSvc.addLikedToPlaylist(playlistItem.getPlaylist());
+        this.taskSvc.addLikedToPlaylist(playlistItem.getPlaylist());
     }
 
     public runFilter(): void {
