@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistService } from '../playlist/playlist.service';
+import { TaskStatus } from './task-status';
 import { YoutubeService } from '../youtube/youtube.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TaskService {
+
+    private addStatus: TaskStatus = TaskStatus.NOT_STARTED;
+    private addedCount = 0;
 
     private constructor(
         private readonly youtubeSvc: YoutubeService,
@@ -16,6 +20,14 @@ export class TaskService {
 
         //
 
+    }
+
+    public getAddStatus(): TaskStatus {
+        return this.addStatus;
+    }
+
+    public getAddedCount(): number {
+        return this.addedCount;
     }
 
     public async loadAll(): Promise<void> {
@@ -35,6 +47,9 @@ export class TaskService {
     }
 
     public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
+        this.addStatus = TaskStatus.IN_PROCESS;
+        this.addedCount = 0;
+
         const params: Object = {
             part: 'snippet'
         };
@@ -59,8 +74,12 @@ export class TaskService {
                 // Update data locally.
                 playlist.addVideo(likedItem.getVideo());
                 likedItem.setPlaylistName(playlist.getTitle());
+
+                this.addedCount++;
             }
         }
+
+        this.addStatus = TaskStatus.DONE;
 
         this.playlistSvc.runFilter();
         this.likedSvc.runFilter();

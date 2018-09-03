@@ -32,9 +32,16 @@ export class HeaderComponent {
         return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
     }
 
-    public getCardFooterText(): string { // TODO: Indicate adding liked to playlist.
+    public getCardFooterText(): string {
         if (!this.userSvc.isSignedIn()) {
             return 'Sign-in to load data';
+        }
+
+        if (this.taskSvc.getAddStatus() === TaskStatus.IN_PROCESS) {
+            const selected: number = this.likedSvc.getSelectedCount();
+            const added: number = this.taskSvc.getAddedCount();
+
+            return '[' + added + ' / ' + selected + '] Adding selected videos to playlist...';
         }
 
         return '';

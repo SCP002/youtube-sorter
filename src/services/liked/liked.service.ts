@@ -26,16 +26,44 @@ export class LikedService {
         return this.filterSub.asObservable();
     }
 
-    public getTotalCount(): number {
-        return this.totalCount;
-    }
-
     public getLikedItems(): LikedItem[] {
         return this.likedItems;
     }
 
     public getLoadStatus(): TaskStatus {
         return this.loadStatus;
+    }
+
+    public getSelectedCount(): number {
+        let count = 0;
+
+        for (const likedItem of this.likedItems) {
+            if (likedItem.isSelected()) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public getVisibleCount(): number {
+        let count = 0;
+
+        for (const likedItem of this.likedItems) {
+            if (!likedItem.isHidden()) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public getAvailableCount(): number {
+        return this.likedItems.length;
+    }
+
+    public getTotalCount(): number {
+        return this.totalCount;
     }
 
     public runFilter(): void {

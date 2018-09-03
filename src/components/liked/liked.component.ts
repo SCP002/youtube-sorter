@@ -44,23 +44,12 @@ export class LikedComponent implements OnInit {
         }
 
         if (loadStatus === TaskStatus.DONE) {
-            const likedItems: LikedItem[] = this.getLikedItems();
+            const selected: number = this.likedSvc.getSelectedCount();
+            const visible: number = this.likedSvc.getVisibleCount();
+            const available: number = this.likedSvc.getAvailableCount();
+            const total: number = this.likedSvc.getTotalCount();
 
-            let selectedCount = 0;
-            let visibleCount = 0;
-
-            for (const likedItem of likedItems) {
-                if (!likedItem.isHidden()) {
-                    visibleCount++;
-                }
-
-                if (likedItem.isSelected()) {
-                    selectedCount++;
-                }
-            }
-
-            return selectedCount + ' selected, ' + visibleCount + ' visible, ' +
-                likedItems.length + ' available, ' + this.likedSvc.getTotalCount() + ' total';
+            return selected + ' selected, ' + visible + ' visible, ' + available + ' available, ' + total + ' total';
         }
     }
 
