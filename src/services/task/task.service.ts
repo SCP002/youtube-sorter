@@ -64,6 +64,7 @@ export class TaskService {
             }
         };
 
+        // Not using batch requests here because YouTube API v3 does not support it.
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();

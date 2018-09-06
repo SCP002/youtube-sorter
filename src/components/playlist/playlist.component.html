@@ -45,6 +45,7 @@
                 (dragover)="playlistItem.onDragOver($event)"
                 (drop)="onDropOverItem($event, playlistItem)"
             >
+                <!-- TODO: Add delete button. -->
                 {{playlistItem.getPlaylist().getTitle()}}
             </li>
         </ul>

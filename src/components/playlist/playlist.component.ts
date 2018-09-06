@@ -51,6 +51,7 @@ export class PlaylistComponent implements OnInit {
     public getCardSubTitle(): string {
         const loadStatus: TaskStatus = this.playlistSvc.getLoadStatus();
 
+        // TODO: Show loaded / total amount.
         if (loadStatus === TaskStatus.IN_PROCESS) {
             return 'Loading...';
         }

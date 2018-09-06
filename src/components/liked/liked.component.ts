@@ -39,6 +39,7 @@ export class LikedComponent implements OnInit {
     public getCardSubTitle(): string {
         const loadStatus: TaskStatus = this.likedSvc.getLoadStatus();
 
+        // TODO: Show loaded / total amount.
         if (loadStatus === TaskStatus.IN_PROCESS) {
             return 'Loading...';
         }
