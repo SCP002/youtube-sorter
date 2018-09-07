@@ -57,17 +57,10 @@ export class PlaylistComponent implements OnInit {
         }
 
         if (loadStatus === TaskStatus.DONE) {
-            const playlistItems: PlaylistItem[] = this.getPlaylistItems();
+            const visible: number = this.playlistSvc.getVisibleCount();
+            const total: number = this.playlistSvc.getTotalCount();
 
-            let visibleCount = 0;
-
-            for (const playlistItem of playlistItems) {
-                if (!playlistItem.isHidden()) {
-                    visibleCount++;
-                }
-            }
-
-            return visibleCount + ' visible, ' + playlistItems.length + ' total';
+            return visible + ' visible, ' + total + ' total';
         }
     }
 

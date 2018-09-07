@@ -9,6 +9,10 @@
     user-select: none;
 }
 
+.c-pointer {
+    cursor: pointer;
+}
+
 .h-2-5-rem {
     height: 2.5rem;
 }

@@ -32,6 +32,22 @@ export class PlaylistService {
         return this.loadStatus;
     }
 
+    public getVisibleCount(): number {
+        let count = 0;
+
+        for (const playlistItem of this.playlistItems) {
+            if (!playlistItem.isHidden()) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public getTotalCount(): number {
+        return this.playlistItems.length;
+    }
+
     public runFilter(): void {
         this.filterSub.next();
     }
