@@ -64,7 +64,8 @@ export class TaskService {
             }
         };
 
-        // Not using batch requests here because YouTube API v3 does not support it.
+        // Not using batch requests here because YouTube API v3 does not support batch insertion.
+        // See https://developers.google.com/youtube/v3/revision_history#march-11-2015, batch processing section.
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();

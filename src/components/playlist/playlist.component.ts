@@ -51,16 +51,16 @@ export class PlaylistComponent implements OnInit {
     public getCardSubTitle(): string {
         const loadStatus: TaskStatus = this.playlistSvc.getLoadStatus();
 
-        // TODO: Show loaded / total amount.
         if (loadStatus === TaskStatus.IN_PROCESS) {
             return 'Loading...';
         }
 
         if (loadStatus === TaskStatus.DONE) {
             const visible: number = this.playlistSvc.getVisibleCount();
+            const available: number = this.playlistSvc.getAvailableCount();
             const total: number = this.playlistSvc.getTotalCount();
 
-            return visible + ' visible, ' + total + ' total';
+            return visible + ' visible, ' + available + ' available, ' + total + ' total';
         }
     }
 

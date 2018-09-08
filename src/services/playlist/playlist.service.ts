@@ -13,6 +13,7 @@ export class PlaylistService {
 
     private readonly filterSub: Subject<void> = new Subject<void>();
 
+    private totalCount = 0;
     private playlistItems: PlaylistItem[] = [];
     private loadStatus: TaskStatus = TaskStatus.NOT_STARTED;
 
@@ -44,8 +45,12 @@ export class PlaylistService {
         return count;
     }
 
-    public getTotalCount(): number {
+    public getAvailableCount(): number {
         return this.playlistItems.length;
+    }
+
+    public getTotalCount(): number {
+        return this.totalCount;
     }
 
     public runFilter(): void {
@@ -61,6 +66,8 @@ export class PlaylistService {
         };
 
         const responses: Object[] = await this.youtubeSvc.getAll('playlists', params);
+
+        this.totalCount = responses[0]['pageInfo']['totalResults'];
 
         this.playlistItems = [];
 
@@ -82,7 +89,7 @@ export class PlaylistService {
 
         this.runFilter();
 
-        console.log('Loaded ' + this.playlistItems.length + ' playlist items');
+        console.log('Loaded ' + this.getAvailableCount() + ' playlist items');
 
         return this.playlistItems;
     }
