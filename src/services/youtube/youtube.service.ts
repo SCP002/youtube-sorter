@@ -58,4 +58,13 @@ export class YoutubeService {
         return await this.httpClient.post(this.apiUrl + path, body, options).toPromise();
     }
 
+    public async delete(path: string, params: Object): Promise<Object> {
+        const options: Object = {
+            headers: this.headers,
+            params: params
+        };
+
+        return await this.httpClient.delete(this.apiUrl + path, options).toPromise();
+    }
+
 }

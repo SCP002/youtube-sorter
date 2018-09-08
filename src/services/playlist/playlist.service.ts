@@ -124,6 +124,18 @@ export class PlaylistService {
         return playlist;
     }
 
+    // TODO: Pass string id?
+    public async deletePlaylist(playlist: Playlist): Promise<void> {
+        const params: Object = {
+            id: playlist.getId(),
+        };
+
+        await this.youtubeSvc.delete('playlists', params);
+
+        // Update data locally.
+        // TODO: This.
+    }
+
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {
         const params: Object = {
             playlistId: playlistId,

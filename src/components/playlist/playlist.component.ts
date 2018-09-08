@@ -68,10 +68,28 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getPlaylistItems();
     }
 
-    public onDropOverItem(event: DragEvent, playlistItem: PlaylistItem): void {
+    public async onDropOverItem(event: DragEvent, playlistItem: PlaylistItem): Promise<void> {
         event.preventDefault();
 
-        this.taskSvc.addLikedToPlaylist(playlistItem.getPlaylist());
+        await this.taskSvc.addLikedToPlaylist(playlistItem.getPlaylist());
+    }
+
+    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<Playlist> {
+        this.activeModal.close();
+
+        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
+
+        return playlist;
+    }
+
+    public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
+        const title: string = playlistItem.getPlaylist().getTitle();
+
+        const sure: boolean = confirm('Are you sure you want to delete playlist "' + title + '"?');
+
+        if (sure) {
+            await this.playlistSvc.deletePlaylist(playlistItem.getPlaylist());
+        }
     }
 
     public runFilter(): void {
@@ -93,14 +111,6 @@ export class PlaylistComponent implements OnInit {
 
     public openModal(modal: NgbModalRef): void {
         this.activeModal = this.modalSvc.open(modal);
-    }
-
-    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<Playlist> {
-        this.activeModal.close();
-
-        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
-
-        return playlist;
     }
 
 }
