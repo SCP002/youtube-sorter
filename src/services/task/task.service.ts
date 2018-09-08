@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LikedService } from '../liked/liked.service';
 import { Playlist } from '../youtube/playlist';
+import { PlaylistItem } from '../playlist/playlist-item';
 import { PlaylistService } from '../playlist/playlist.service';
 import { TaskStatus } from './task-status';
 import { YoutubeService } from '../youtube/youtube.service';
@@ -82,6 +83,22 @@ export class TaskService {
         }
 
         this.addStatus = TaskStatus.DONE;
+
+        this.playlistSvc.runFilter();
+        this.likedSvc.runFilter();
+    }
+
+    public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
+        const params: Object = {
+            id: playlistItem.getPlaylist().getId(),
+        };
+
+        await this.youtubeSvc.delete('playlists', params);
+
+        // Update data locally.
+        this.playlistSvc.deletePlaylistItem(playlistItem);
+
+        // TODO: Refresh data in liked service.
 
         this.playlistSvc.runFilter();
         this.likedSvc.runFilter();

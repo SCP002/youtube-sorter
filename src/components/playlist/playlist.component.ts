@@ -88,7 +88,7 @@ export class PlaylistComponent implements OnInit {
         const sure: boolean = confirm('Are you sure you want to delete playlist "' + title + '"?');
 
         if (sure) {
-            await this.playlistSvc.deletePlaylist(playlistItem.getPlaylist());
+            await this.taskSvc.deletePlaylist(playlistItem);
         }
     }
 
