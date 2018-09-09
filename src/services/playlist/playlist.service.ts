@@ -53,7 +53,7 @@ export class PlaylistService {
         return this.totalCount;
     }
 
-    public deletePlaylistItem(playlistItem: PlaylistItem): void {
+    public removePlaylistItem(playlistItem: PlaylistItem): void {
         const index: number = this.playlistItems.indexOf(playlistItem);
 
         this.playlistItems.splice(index, 1);
@@ -126,6 +126,7 @@ export class PlaylistService {
 
         // Update data locally.
         this.playlistItems.unshift(playlistItem);
+        this.totalCount++;
 
         this.runFilter();
 

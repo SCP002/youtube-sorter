@@ -91,9 +91,9 @@ export class LikedService {
                 const channelTitle: string = item['snippet']['channelTitle'];
 
                 const video: Video = new Video(id, title, channelTitle);
-                const playlistName = this.getPlaylistName(video);
+                const playlist: Playlist = this.getPlaylistForVideo(video);
 
-                const likedItem = new LikedItem(video, playlistName);
+                const likedItem = new LikedItem(video, playlist);
 
                 this.likedItems.push(likedItem);
             }
@@ -108,18 +108,26 @@ export class LikedService {
         return this.likedItems;
     }
 
-    private getPlaylistName(targetVideo: Video): string {
+    public removePlaylist(targetPlaylist: Playlist): void { // TODO: Should compare by ID?
+        for (const likedItem of this.likedItems) {
+            if (likedItem.isInPlaylist() && likedItem.getPlaylist().getId() === targetPlaylist.getId()) {
+                likedItem.setPlaylist(null);
+            }
+        }
+    }
+
+    private getPlaylistForVideo(targetVideo: Video): Playlist | null { // TODO: Should compare by ID?
         for (const playlistItem of this.playlistSvc.getPlaylistItems()) {
             const playlist: Playlist = playlistItem.getPlaylist();
 
             for (const currentVideo of playlist.getVideos()) {
                 if (targetVideo.getId() === currentVideo.getId()) {
-                    return playlist.getTitle();
+                    return playlist;
                 }
             }
         }
 
-        return '';
+        return null;
     }
 
 }

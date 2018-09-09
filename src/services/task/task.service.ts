@@ -76,7 +76,7 @@ export class TaskService {
 
                 // Update data locally.
                 playlist.addVideo(likedItem.getVideo());
-                likedItem.setPlaylistName(playlist.getTitle());
+                likedItem.setPlaylist(playlist);
 
                 this.addedCount++;
             }
@@ -96,9 +96,9 @@ export class TaskService {
         await this.youtubeSvc.delete('playlists', params);
 
         // Update data locally.
-        this.playlistSvc.deletePlaylistItem(playlistItem);
+        this.playlistSvc.removePlaylistItem(playlistItem);
 
-        // TODO: Refresh data in liked service.
+        this.likedSvc.removePlaylist(playlistItem.getPlaylist());
 
         this.playlistSvc.runFilter();
         this.likedSvc.runFilter();

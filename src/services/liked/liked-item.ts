@@ -1,3 +1,4 @@
+import { Playlist } from '../youtube/playlist';
 import { Video } from '../youtube/video';
 
 export class LikedItem {
@@ -6,7 +7,7 @@ export class LikedItem {
     private hidden: boolean;
     private selected: boolean;
 
-    public constructor(private readonly video: Video, private playlistName: string) {
+    public constructor(private readonly video: Video, private playlist: Playlist | null) {
         this.setInPlaylist();
     }
 
@@ -30,8 +31,12 @@ export class LikedItem {
         return this.video;
     }
 
+    public getPlaylist(): Playlist | null {
+        return this.playlist;
+    }
+
     public getPlaylistName(): string {
-        return this.playlistName;
+        return this.inPlaylist ? this.playlist.getTitle() : '';
     }
 
     public getNgClass(): string {
@@ -58,8 +63,8 @@ export class LikedItem {
         this.selected = value;
     }
 
-    public setPlaylistName(value: string): void {
-        this.playlistName = value;
+    public setPlaylist(playlist: Playlist | null): void {
+        this.playlist = playlist;
 
         this.setInPlaylist();
     }
@@ -73,7 +78,7 @@ export class LikedItem {
     }
 
     private setInPlaylist(): void {
-        this.inPlaylist = this.playlistName !== '';
+        this.inPlaylist = this.playlist !== null;
     }
 
 }
