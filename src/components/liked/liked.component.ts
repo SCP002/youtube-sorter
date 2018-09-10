@@ -56,7 +56,7 @@ export class LikedComponent implements OnInit {
     public async removeLikedRating(likedItem: LikedItem): Promise<void> {
         const title: string = likedItem.getVideo().getTitle();
 
-        const sure: boolean = confirm('Are you sure you want to remove liked rating from video "' + title + '"?');
+        const sure: boolean = confirm('Are you sure you want to remove liked rating from the video "' + title + '"?');
 
         if (sure) {
             await this.likedSvc.removeLikedRating(likedItem.getVideo());

@@ -69,6 +69,8 @@ export class TaskService {
         // See https://developers.google.com/youtube/v3/revision_history#march-11-2015, batch processing section.
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
+                // TODO: If video is already in playlist, remove it from this playlist first.
+
                 body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
 
                 // Using await to give server a time to process each request.
