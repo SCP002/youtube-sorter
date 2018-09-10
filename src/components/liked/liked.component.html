@@ -68,6 +68,14 @@
                 (click)="likedItem.onClick()"
                 (dragstart)="likedItem.onDragStart()"
             >
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm float-right"
+                    (click)="removeLikedRating(likedItem)"
+                >
+                    <i class="far fa-trash-alt"></i>
+                </button>
+
                 <span>{{likedItem.getVideo().getTitle()}}</span>
 
                 <hr>
@@ -80,8 +88,6 @@
                     <hr>
                     <span>In playlist "{{likedItem.getPlaylistName()}}"</span>
                 </div>
-
-                <!-- TODO: Add delete button. -->
             </li>
         </ul>
     </div>

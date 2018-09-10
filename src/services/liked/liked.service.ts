@@ -70,6 +70,11 @@ export class LikedService {
         this.filterSub.next();
     }
 
+    /*
+     * Requesting liked videos from actual playlist (playlistItems.list) will return all videos
+     * (including deleted), but will not conain information about channel it comes from.
+     * For that reason using videos.list method here.
+     */
     public async loadLikedItems(): Promise<LikedItem[]> {
         this.loadStatus = TaskStatus.IN_PROCESS;
 
@@ -108,7 +113,12 @@ export class LikedService {
         return this.likedItems;
     }
 
-    public removePlaylist(targetPlaylist: Playlist): void { // TODO: Should compare by ID?
+    // TODO: This. See https://developers.google.com/youtube/v3/docs/videos/rate
+    public async removeLikedRating(video: Video): Promise<void> {
+        console.log('Remove liked rating from ' + video.getTitle());
+    }
+
+    public removePlaylist(targetPlaylist: Playlist): void {
         for (const likedItem of this.likedItems) {
             if (likedItem.isInPlaylist() && likedItem.getPlaylist().getId() === targetPlaylist.getId()) {
                 likedItem.setPlaylist(null);
@@ -116,7 +126,7 @@ export class LikedService {
         }
     }
 
-    private getPlaylistForVideo(targetVideo: Video): Playlist | null { // TODO: Should compare by ID?
+    private getPlaylistForVideo(targetVideo: Video): Playlist | null {
         for (const playlistItem of this.playlistSvc.getPlaylistItems()) {
             const playlist: Playlist = playlistItem.getPlaylist();
 

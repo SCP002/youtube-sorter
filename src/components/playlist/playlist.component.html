@@ -45,7 +45,6 @@
                 (dragover)="playlistItem.onDragOver($event)"
                 (drop)="onDropOverItem($event, playlistItem)"
             >
-                <span>{{playlistItem.getPlaylist().getTitle()}}</span>
                 <button
                     type="button"
                     class="btn btn-outline-secondary btn-sm float-right"
@@ -53,6 +52,8 @@
                 >
                     <i class="far fa-trash-alt"></i>
                 </button>
+
+                <span>{{playlistItem.getPlaylist().getTitle()}}</span>
             </li>
         </ul>
     </div>
