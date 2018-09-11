@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LikedItem } from '../liked/liked-item';
 import { LikedService } from '../liked/liked.service';
 import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from '../playlist/playlist-item';
@@ -88,6 +89,20 @@ export class TaskService {
 
         this.playlistSvc.runFilter();
         this.likedSvc.runFilter();
+    }
+
+    public async removeLikedFromPlaylist(likedItem: LikedItem): Promise<void> {
+        // TODO: 1: Get proper playlistItem id (not video id):
+        // > responses = await this.youtubeSvc.getAll('playlistItems', { playlistId: playlistId, part: 'snippet' })
+        // > id = responses[0]['items'][indexOfItemWhichMatchesVideoId]['id']
+
+        // TODO: 2: Send request:
+        // > See https://developers.google.com/youtube/v3/docs/playlistItems/delete
+
+        // TODO: 3: Update data locally:
+        // > Remove video from videos array in playlist object
+        // > Set playlist to null in liked item object
+        // > Run this.likedSvc.runFilter();
     }
 
     public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {

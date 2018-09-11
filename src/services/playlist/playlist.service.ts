@@ -143,6 +143,8 @@ export class PlaylistService {
         const videos: Video[] = [];
 
         for (const response of responses) {
+            console.log(response); // TODO: Remove; Debug.
+
             for (const item of response['items']) {
                 const id: string = item['snippet']['resourceId']['videoId'];
                 const title: string = item['snippet']['title'];

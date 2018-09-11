@@ -83,9 +83,9 @@ export class PlaylistComponent implements OnInit {
     }
 
     public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
-        const title: string = playlistItem.getPlaylist().getTitle();
-
-        const sure: boolean = confirm('Are you sure you want to delete playlist "' + title + '"?');
+        const sure: boolean = confirm('Are you sure you want to delete the playlist\n"' +
+            playlistItem.getPlaylist().getTitle() +
+            '"?');
 
         if (sure) {
             await this.taskSvc.deletePlaylist(playlistItem);

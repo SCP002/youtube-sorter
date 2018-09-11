@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
+import { TaskService } from '../../services/task/task.service';
 import { TaskStatus } from '../../services/task/task-status';
 
 @Component({
@@ -14,7 +15,7 @@ export class LikedComponent implements OnInit {
     @ViewChild('selectAllCB') private readonly selectAllCBRef: ElementRef<HTMLInputElement>;
     @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef<HTMLInputElement>;
 
-    public constructor(private readonly likedSvc: LikedService) {
+    public constructor(private readonly taskSvc: TaskService, private readonly likedSvc: LikedService) {
         //
     }
 
@@ -53,13 +54,15 @@ export class LikedComponent implements OnInit {
         }
     }
 
-    public async removeLikedRating(likedItem: LikedItem): Promise<void> {
-        const title: string = likedItem.getVideo().getTitle();
-
-        const sure: boolean = confirm('Are you sure you want to remove liked rating from the video "' + title + '"?');
+    public async removeFromPlaylist(likedItem: LikedItem): Promise<void> {
+        const sure: boolean = confirm('Are you sure you want to remove the video\n"' +
+            likedItem.getVideo().getTitle() +
+            '"\nfrom the playlist\n"' +
+            likedItem.getPlaylistName() +
+            '"?');
 
         if (sure) {
-            await this.likedSvc.removeLikedRating(likedItem.getVideo());
+            await this.taskSvc.removeLikedFromPlaylist(likedItem);
         }
     }
 

@@ -113,11 +113,6 @@ export class LikedService {
         return this.likedItems;
     }
 
-    // TODO: This. See https://developers.google.com/youtube/v3/docs/videos/rate
-    public async removeLikedRating(video: Video): Promise<void> {
-        console.log('Remove liked rating from ' + video.getTitle());
-    }
-
     public removePlaylist(targetPlaylist: Playlist): void {
         for (const likedItem of this.likedItems) {
             if (likedItem.isInPlaylist() && likedItem.getPlaylist().getId() === targetPlaylist.getId()) {
