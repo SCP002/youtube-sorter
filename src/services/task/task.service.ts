@@ -92,17 +92,19 @@ export class TaskService {
     }
 
     public async removeLikedFromPlaylist(likedItem: LikedItem): Promise<void> {
-        // TODO: 1: Get proper playlistItem id (not video id):
-        // > responses = await this.youtubeSvc.getAll('playlistItems', { playlistId: playlistId, part: 'snippet' })
-        // > id = responses[0]['items'][indexOfItemWhichMatchesVideoId]['id']
+        const playlistItemId: string = await this.fetchPlaylistItemId(likedItem);
 
-        // TODO: 2: Send request:
-        // > See https://developers.google.com/youtube/v3/docs/playlistItems/delete
+        const params: Object = {
+            id: playlistItemId,
+        };
 
-        // TODO: 3: Update data locally:
-        // > Remove video from videos array in playlist object
-        // > Set playlist to null in liked item object
-        // > Run this.likedSvc.runFilter();
+        await this.youtubeSvc.delete('playlistItems', params);
+
+        // Update data locally.
+        this.playlistSvc.removeFromPlaylist(likedItem.getVideo(), likedItem.getPlaylist());
+        likedItem.setPlaylist(null);
+
+        this.likedSvc.runFilter();
     }
 
     public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
@@ -114,11 +116,22 @@ export class TaskService {
 
         // Update data locally.
         this.playlistSvc.removePlaylistItem(playlistItem);
-
         this.likedSvc.removePlaylist(playlistItem.getPlaylist());
 
         this.playlistSvc.runFilter();
         this.likedSvc.runFilter();
+    }
+
+    private async fetchPlaylistItemId(likedItem: LikedItem): Promise<string> {
+        const params: Object = {
+            playlistId: likedItem.getPlaylist().getId(),
+            videoId: likedItem.getVideo().getId(),
+            part: 'snippet'
+        };
+
+        const responses: Object[] = await this.youtubeSvc.getAll('playlistItems', params);
+
+        return responses[0]['items'][0]['id'];
     }
 
 }

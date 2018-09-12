@@ -22,4 +22,10 @@ export class Playlist {
         this.videos.push(video);
     }
 
+    public removeVideo(video: Video): void {
+        const index: number = this.videos.indexOf(video);
+
+        this.videos.splice(index, 1);
+    }
+
 }

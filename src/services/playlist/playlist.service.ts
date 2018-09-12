@@ -61,6 +61,16 @@ export class PlaylistService {
         this.totalCount--;
     }
 
+    public removeFromPlaylist(targetVideo: Video, targetPlaylist: Playlist): void {
+        for (const playlistItem of this.playlistItems) {
+            const currentPlaylist: Playlist = playlistItem.getPlaylist();
+
+            if (currentPlaylist.getId() === targetPlaylist.getId()) {
+                currentPlaylist.removeVideo(targetVideo);
+            }
+        }
+    }
+
     public runFilter(): void {
         this.filterSub.next();
     }
@@ -143,8 +153,6 @@ export class PlaylistService {
         const videos: Video[] = [];
 
         for (const response of responses) {
-            console.log(response); // TODO: Remove; Debug.
-
             for (const item of response['items']) {
                 const id: string = item['snippet']['resourceId']['videoId'];
                 const title: string = item['snippet']['title'];
