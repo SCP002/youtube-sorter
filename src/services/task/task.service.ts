@@ -101,7 +101,7 @@ export class TaskService {
         await this.youtubeSvc.delete('playlistItems', params);
 
         // Update data locally.
-        this.playlistSvc.removeFromPlaylist(likedItem.getVideo(), likedItem.getPlaylist());
+        likedItem.getPlaylist().removeVideo(likedItem.getVideo());
         likedItem.setPlaylist(null);
 
         this.likedSvc.runFilter();

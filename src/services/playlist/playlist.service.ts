@@ -53,24 +53,6 @@ export class PlaylistService {
         return this.totalCount;
     }
 
-    public removePlaylistItem(playlistItem: PlaylistItem): void {
-        const index: number = this.playlistItems.indexOf(playlistItem);
-
-        this.playlistItems.splice(index, 1);
-
-        this.totalCount--;
-    }
-
-    public removeFromPlaylist(targetVideo: Video, targetPlaylist: Playlist): void {
-        for (const playlistItem of this.playlistItems) {
-            const currentPlaylist: Playlist = playlistItem.getPlaylist();
-
-            if (currentPlaylist.getId() === targetPlaylist.getId()) {
-                currentPlaylist.removeVideo(targetVideo);
-            }
-        }
-    }
-
     public runFilter(): void {
         this.filterSub.next();
     }
@@ -141,6 +123,14 @@ export class PlaylistService {
         this.runFilter();
 
         return playlist;
+    }
+
+    public removePlaylistItem(playlistItem: PlaylistItem): void {
+        const index: number = this.playlistItems.indexOf(playlistItem);
+
+        this.playlistItems.splice(index, 1);
+
+        this.totalCount--;
     }
 
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {
