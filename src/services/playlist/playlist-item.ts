@@ -3,6 +3,7 @@ import { Playlist } from '../youtube/playlist';
 export class PlaylistItem {
 
     private hidden: boolean;
+    private borderVisible = false;
 
     public constructor(private readonly playlist: Playlist) {
         //
@@ -20,8 +21,22 @@ export class PlaylistItem {
         this.hidden = value;
     }
 
+    public getNgClass(): string {
+        if (this.borderVisible) {
+            return 'border border-primary';
+        }
+
+        return '';
+    }
+
+    public hideBorder(): void {
+        this.borderVisible = false;
+    }
+
     public onDragOver(event: DragEvent): void {
         event.preventDefault();
+
+        this.borderVisible = true;
     }
 
 }

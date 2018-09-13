@@ -71,6 +71,8 @@ export class PlaylistComponent implements OnInit {
     public async onDropOverItem(event: DragEvent, playlistItem: PlaylistItem): Promise<void> {
         event.preventDefault();
 
+        playlistItem.hideBorder();
+
         await this.taskSvc.addLikedToPlaylist(playlistItem.getPlaylist());
     }
 
