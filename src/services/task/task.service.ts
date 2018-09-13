@@ -5,6 +5,7 @@ import { Playlist } from '../youtube/playlist';
 import { PlaylistItem } from '../playlist/playlist-item';
 import { PlaylistService } from '../playlist/playlist.service';
 import { TaskStatus } from './task-status';
+import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
 
 @Injectable({
@@ -70,15 +71,19 @@ export class TaskService {
         // See https://developers.google.com/youtube/v3/revision_history#march-11-2015, batch processing section.
         for (const likedItem of this.likedSvc.getLikedItems()) {
             if (likedItem.isSelected()) {
-                // TODO: If video is already in playlist, remove it from this playlist first.
+                const video: Video = likedItem.getVideo();
 
-                body['snippet']['resourceId']['videoId'] = likedItem.getVideo().getId();
+                if (likedItem.isInPlaylist()) {
+                    await this.removeLikedFromPlaylist(likedItem);
+                }
+
+                body['snippet']['resourceId']['videoId'] = video.getId();
 
                 // Using await to give server a time to process each request.
                 await this.youtubeSvc.post('playlistItems', params, body);
 
                 // Update data locally.
-                playlist.addVideo(likedItem.getVideo());
+                playlist.addVideo(video);
                 likedItem.setPlaylist(playlist);
 
                 this.addedCount++;
@@ -101,6 +106,7 @@ export class TaskService {
         await this.youtubeSvc.delete('playlistItems', params);
 
         // Update data locally.
+        // Remove video from playlist.service array by reference.
         likedItem.getPlaylist().removeVideo(likedItem.getVideo());
         likedItem.setPlaylist(null);
 
