@@ -115,7 +115,8 @@ export class LikedService {
 
     public removePlaylist(targetPlaylist: Playlist): void {
         for (const likedItem of this.likedItems) {
-            if (likedItem.isInPlaylist() && likedItem.getPlaylist().getId() === targetPlaylist.getId()) {
+            if (likedItem.isInPlaylist() &&
+                likedItem.getPlaylist().getPlaylistInfo().getId() === targetPlaylist.getPlaylistInfo().getId()) {
                 likedItem.setPlaylist(null);
             }
         }

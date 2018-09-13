@@ -1,17 +1,14 @@
+import { PlaylistInfo } from './playlist-info';
 import { Video } from './video';
 
 export class Playlist {
 
-    public constructor(private readonly id: string, private readonly title: string, private readonly videos: Video[]) {
+    public constructor(private readonly playlistInfo: PlaylistInfo, private readonly videos: Video[]) {
         //
     }
 
-    public getId(): string {
-        return this.id;
-    }
-
-    public getTitle(): string {
-        return this.title;
+    public getPlaylistInfo(): PlaylistInfo {
+        return this.playlistInfo;
     }
 
     public getVideos(): Video[] {

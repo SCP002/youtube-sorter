@@ -7,6 +7,7 @@ export class LikedItem {
     private hidden: boolean;
     private selected: boolean;
 
+    // TODO: Hold PlaylistInfo instead of Playlist.
     public constructor(private readonly video: Video, private playlist: Playlist | null) {
         this.setInPlaylist();
     }
@@ -36,7 +37,7 @@ export class LikedItem {
     }
 
     public getPlaylistName(): string {
-        return this.inPlaylist ? this.playlist.getTitle() : '';
+        return this.inPlaylist ? this.playlist.getPlaylistInfo().getTitle() : '';
     }
 
     public getNgClass(): string {

@@ -84,7 +84,7 @@ export class PlaylistComponent implements OnInit {
 
     public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
         const sure: boolean = confirm('Are you sure you want to delete the playlist\n"' +
-            playlistItem.getPlaylist().getTitle() +
+            playlistItem.getPlaylist().getPlaylistInfo().getTitle() +
             '"?');
 
         if (sure) {
@@ -96,7 +96,7 @@ export class PlaylistComponent implements OnInit {
         const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
 
         for (const playlistItem of this.getPlaylistItems()) {
-            const playlistTitle: string = playlistItem.getPlaylist().getTitle().toLowerCase();
+            const playlistTitle: string = playlistItem.getPlaylist().getPlaylistInfo().getTitle().toLowerCase();
 
             // Set visibility.
             let hide = false;
