@@ -54,7 +54,9 @@ export class LikedComponent implements OnInit {
         }
     }
 
-    public async removeFromPlaylist(likedItem: LikedItem): Promise<void> {
+    public async removeFromPlaylist(event: MouseEvent, likedItem: LikedItem): Promise<void> {
+        event.stopPropagation();
+
         const sure: boolean = confirm('Are you sure you want to remove the video\n"' +
             likedItem.getVideo().getTitle() +
             '"\nfrom the playlist\n"' +
