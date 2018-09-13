@@ -58,7 +58,7 @@ export class TaskService {
 
         const body: Object = {
             snippet: {
-                playlistId: playlist.getPlaylistInfo().getId(),
+                playlistId: playlist.getId(),
                 resourceId: {
                     kind: 'youtube#video',
                     videoId: ''
@@ -109,7 +109,7 @@ export class TaskService {
 
     public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
         const params: Object = {
-            id: playlistItem.getPlaylist().getPlaylistInfo().getId(),
+            id: playlistItem.getPlaylist().getId(),
         };
 
         await this.youtubeSvc.delete('playlists', params);
@@ -124,7 +124,7 @@ export class TaskService {
 
     private async fetchPlaylistItemId(likedItem: LikedItem): Promise<string> {
         const params: Object = {
-            playlistId: likedItem.getPlaylist().getPlaylistInfo().getId(),
+            playlistId: likedItem.getPlaylist().getId(),
             videoId: likedItem.getVideo().getId(),
             part: 'snippet'
         };

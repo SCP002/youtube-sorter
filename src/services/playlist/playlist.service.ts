@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../youtube/playlist';
-import { PlaylistInfo } from '../youtube/playlist-info';
 import { PlaylistItem } from './playlist-item';
 import { TaskStatus } from '../task/task-status';
 import { Video } from '../youtube/video';
@@ -79,8 +78,7 @@ export class PlaylistService {
 
                 const videos: Video[] = await this.loadPlaylistVideos(id);
 
-                const playlistInfo: PlaylistInfo = new PlaylistInfo(id, title);
-                const playlist: Playlist = new Playlist(playlistInfo, videos);
+                const playlist: Playlist = new Playlist(id, title, videos);
                 const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
                 this.playlistItems.push(playlistItem);
@@ -115,8 +113,7 @@ export class PlaylistService {
         const id: string = response['id'];
         const videos: Video[] = [];
 
-        const playlistInfo: PlaylistInfo = new PlaylistInfo(id, name);
-        const playlist: Playlist = new Playlist(playlistInfo, videos);
+        const playlist: Playlist = new Playlist(id, name, videos);
         const playlistItem: PlaylistItem = new PlaylistItem(playlist);
 
         // Update data locally.
