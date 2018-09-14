@@ -68,6 +68,8 @@
                 [ngClass]="likedItem.getNgClass()"
                 (click)="likedItem.onClick()"
                 (dragstart)="likedItem.onDragStart()"
+                (mouseleave)="likedItem.hideBorder()"
+                (mouseover)="likedItem.showBorder()"
             >
                 <span>{{likedItem.getVideo().getTitle()}}</span>
 

@@ -6,6 +6,7 @@ export class LikedItem {
     private inPlaylist: boolean;
     private hidden: boolean;
     private selected: boolean;
+    private borderVisible: boolean;
 
     public constructor(private readonly video: Video, private playlist: Playlist | null) {
         this.setInPlaylist();
@@ -40,15 +41,28 @@ export class LikedItem {
     }
 
     public getNgClass(): string {
+        const classes: string[] = [];
+
+        if (this.borderVisible) {
+            classes.push('border');
+            classes.push('border-primary');
+        }
+
         if (this.selected) {
-            return 'list-group-item-primary';
+            classes.push('list-group-item-primary');
+
+            return classes.join(' ');
         }
 
         if (this.inPlaylist) {
-            return 'list-group-item-success';
+            classes.push('list-group-item-success');
+
+            return classes.join(' ');
         }
 
-        return 'bg-light';
+        classes.push('bg-light');
+
+        return classes.join(' ');
     }
 
     public setHidden(value: boolean): void {
@@ -75,6 +89,14 @@ export class LikedItem {
 
     public onDragStart(): void {
         this.selected = true;
+    }
+
+    public hideBorder(): void {
+        this.borderVisible = false;
+    }
+
+    public showBorder(): void {
+        this.borderVisible = true;
     }
 
     private setInPlaylist(): void {

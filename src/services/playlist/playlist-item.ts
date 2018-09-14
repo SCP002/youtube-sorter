@@ -3,7 +3,7 @@ import { Playlist } from '../youtube/playlist';
 export class PlaylistItem {
 
     private hidden: boolean;
-    private borderVisible = false;
+    private borderVisible: boolean;
 
     public constructor(private readonly playlist: Playlist) {
         //
@@ -22,11 +22,14 @@ export class PlaylistItem {
     }
 
     public getNgClass(): string {
+        const classes: string[] = [];
+
         if (this.borderVisible) {
-            return 'border border-primary';
+            classes.push('border');
+            classes.push('border-primary');
         }
 
-        return '';
+        return classes.join(' ');
     }
 
     public hideBorder(): void {
