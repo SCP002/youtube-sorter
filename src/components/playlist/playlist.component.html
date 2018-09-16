@@ -42,11 +42,15 @@
                 class="list-group-item rounded my-2 bg-light"
                 *ngFor="let playlistItem of getPlaylistItems()"
                 [hidden]="playlistItem.isHidden()"
-                [ngClass]="playlistItem.getNgClass()"
-                (dragleave)="playlistItem.hideBorder()"
-                (dragover)="playlistItem.onDragOver($event)"
-                (drop)="onDropOverItem($event, playlistItem)"
             >
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm float-left"
+                    (click)="addLikedToPlaylist(playlistItem)"
+                >
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
                 <button
                     type="button"
                     class="btn btn-outline-secondary btn-sm float-right"

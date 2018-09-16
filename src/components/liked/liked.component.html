@@ -63,11 +63,9 @@
             <li
                 class="list-group-item list-group-item-action my-2 rounded c-pointer"
                 *ngFor="let likedItem of getLikedItems()"
-                [draggable]="true"
                 [hidden]="likedItem.isHidden()"
                 [ngClass]="likedItem.getNgClass()"
                 (click)="likedItem.onClick()"
-                (dragstart)="likedItem.onDragStart()"
                 (mouseleave)="likedItem.hideBorder()"
                 (mouseover)="likedItem.showBorder()"
             >

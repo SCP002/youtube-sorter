@@ -87,10 +87,6 @@ export class LikedItem {
         this.selected = !this.selected;
     }
 
-    public onDragStart(): void {
-        this.selected = true;
-    }
-
     public hideBorder(): void {
         this.borderVisible = false;
     }
