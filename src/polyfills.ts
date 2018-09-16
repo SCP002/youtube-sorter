@@ -76,5 +76,3 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-
-import 'node_modules/drag-drop-touch/DragDropTouch.js';
