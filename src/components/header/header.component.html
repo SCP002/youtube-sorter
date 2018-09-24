@@ -1,35 +1,26 @@
 <!-- Header card -->
 <div class="card">
-    <div class="card-body">
+    <div class="card-body d-flex justify-content-center align-items-center">
         <form>
-            <div class="form-row">
-                <div class="form-group col-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        (click)="signIn()"
-                    >{{getSignInBtnText()}}</button>
-                </div>
+            <button
+                type="button"
+                class="btn btn-primary mx-1"
+                (click)="signIn()"
+            >{{getSignInBtnText()}}</button>
 
-                <div class="form-group col-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        [hidden]="isRefreshBtnHidden()"
-                        (click)="refresh()"
-                    >Refresh</button>
-                </div>
+            <button
+                type="button"
+                class="btn btn-primary mx-1"
+                [hidden]="isRefreshBtnHidden()"
+                (click)="refresh()"
+            >Refresh</button>
 
-                <div class="form-group col-auto">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        (click)="openModal(apiKeyModal)"
-                    >Change API key</button>
-                </div>
-
-                <!-- TODO: Add 'About' button. -->
-            </div>
+            <button
+                type="button"
+                class="btn btn-primary mx-1"
+                (click)="openModal(apiKeyModal)"
+            >Change API key</button>
+            <!-- TODO: Add 'About' button. -->
         </form>
     </div>
 

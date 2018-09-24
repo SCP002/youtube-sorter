@@ -61,7 +61,7 @@
         >
             <!-- TODO: Play video on double click. -->
             <li
-                class="list-group-item list-group-item-action my-2 rounded c-pointer"
+                class="list-group-item list-group-item-action my-2 px-2 rounded c-pointer"
                 *ngFor="let likedItem of getLikedItems()"
                 [hidden]="likedItem.isHidden()"
                 [ngClass]="likedItem.getNgClass()"
