@@ -39,27 +39,27 @@
             [hidden]="isCardContentHidden()"
         >
             <li
-                class="list-group-item rounded my-2 bg-light"
+                class="list-group-item d-flex justify-content-between my-2 px-2 rounded bg-light"
                 *ngFor="let playlistItem of getPlaylistItems()"
                 [hidden]="playlistItem.isHidden()"
             >
                 <button
                     type="button"
-                    class="btn btn-outline-secondary btn-sm float-left"
+                    class="btn btn-outline-secondary btn-sm"
                     (click)="addLikedToPlaylist(playlistItem)"
                 >
                     <i class="fas fa-arrow-right"></i>
                 </button>
 
+                <span class="mx-1">{{playlistItem.getPlaylist().getTitle()}}</span>
+
                 <button
                     type="button"
-                    class="btn btn-outline-secondary btn-sm float-right"
+                    class="btn btn-outline-secondary btn-sm"
                     (click)="deletePlaylist(playlistItem)"
                 >
                     <i class="far fa-trash-alt"></i>
                 </button>
-
-                <span>{{playlistItem.getPlaylist().getTitle()}}</span>
             </li>
         </ul>
     </div>
