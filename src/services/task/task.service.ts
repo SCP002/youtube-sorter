@@ -33,6 +33,10 @@ export class TaskService {
         return this.addedCount;
     }
 
+    public getSelectedCount(): number {
+        return this.likedSvc.getSelectedCount();
+    }
+
     public async loadAll(): Promise<void> {
         // Order is important here.
         await this.playlistSvc.loadPlaylistItems();

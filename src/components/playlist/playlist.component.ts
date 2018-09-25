@@ -40,6 +40,10 @@ export class PlaylistComponent implements OnInit {
         return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 
+    public isAddBtnDisabled(): boolean {
+        return this.taskSvc.getSelectedCount() === 0;
+    }
+
     public isCreateBtnHidden(nameInput: HTMLInputElement): boolean {
         if (!nameInput.value) {
             return true;

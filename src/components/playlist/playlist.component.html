@@ -43,10 +43,10 @@
                 *ngFor="let playlistItem of getPlaylistItems()"
                 [hidden]="playlistItem.isHidden()"
             >
-                <!-- TODO: Hide button if no videos selected. -->
                 <button
                     type="button"
                     class="btn btn-outline-secondary btn-sm"
+                    [disabled]="isAddBtnDisabled()"
                     (click)="addLikedToPlaylist(playlistItem)"
                 >
                     <i class="fas fa-arrow-right"></i>
