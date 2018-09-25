@@ -5,7 +5,7 @@
 >
     <div class="card-body">
         <h5 class="card-title">Playlists:</h5>
-        <h6 class="card-subtitle mb-2 text-muted h-2-5-rem">{{getCardSubTitle()}}</h6>
+        <h6 class="card-subtitle text-muted mb-2 h-2-5-rem">{{getCardSubTitle()}}</h6>
 
         <form [hidden]="isCardContentHidden()">
             <div class="form-row">
@@ -20,8 +20,8 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col h-2-5-rem">
+            <div class="form-row h-2-5-rem">
+                <div class="col">
                     <button
                         type="button"
                         class="btn btn-primary btn-sm"
@@ -43,6 +43,7 @@
                 *ngFor="let playlistItem of getPlaylistItems()"
                 [hidden]="playlistItem.isHidden()"
             >
+                <!-- TODO: Hide button if no videos selected. -->
                 <button
                     type="button"
                     class="btn btn-outline-secondary btn-sm"
@@ -66,11 +67,11 @@
 </div>
 
 
-<!-- Create playlist modal -->
 <!--
     Due to difficuly of getting DOM variables (#someElement) from ng-bootstrap modal in component,
     using these variables as arguments to function calls.
 -->
+<!-- Create playlist modal -->
 <ng-template
     #createPlaylistModal
     let-close="close('Close click')"
@@ -104,7 +105,7 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col">
+                <div class="col">
                     <div class="custom-control custom-checkbox">
                         <input
                             type="checkbox"

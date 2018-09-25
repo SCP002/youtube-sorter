@@ -1,40 +1,39 @@
 <!-- Header card -->
 <div class="card">
     <div class="card-body d-flex justify-content-center align-items-center">
-        <form>
-            <button
-                type="button"
-                class="btn btn-primary mx-1"
-                (click)="signIn()"
-            >{{getSignInBtnText()}}</button>
+        <button
+            type="button"
+            class="btn btn-primary mx-1"
+            (click)="signIn()"
+        >{{getSignInBtnText()}}</button>
 
-            <button
-                type="button"
-                class="btn btn-primary mx-1"
-                [hidden]="isRefreshBtnHidden()"
-                (click)="refresh()"
-            >Refresh</button>
+        <button
+            type="button"
+            class="btn btn-primary mx-1"
+            [hidden]="isRefreshBtnHidden()"
+            (click)="refresh()"
+        >Refresh</button>
 
-            <button
-                type="button"
-                class="btn btn-primary mx-1"
-                (click)="openModal(apiKeyModal)"
-            >Change API key</button>
-            <!-- TODO: Add 'About' button. -->
-        </form>
+        <button
+            type="button"
+            class="btn btn-primary mx-1"
+            (click)="openModal(apiKeyModal)"
+        >Change API key</button>
+
+        <!-- TODO: Add 'About' button. -->
     </div>
 
-    <div class="card-footer h-3-rem">
+    <div class="card-footer text-center h-3-rem">
         {{getCardFooterText()}}
     </div>
 </div>
 
 
-<!-- Api key modal -->
 <!--
     Due to difficuly of getting DOM variables (#someElement) from ng-bootstrap modal in component,
     using these variables as arguments to function calls.
 -->
+<!-- Api key modal -->
 <ng-template
     #apiKeyModal
     let-close="close('Close click')"
@@ -58,18 +57,12 @@
         <!-- TODO: Add description and warning text. -->
         <!-- TODO: Display current API key. -->
 
-        <form>
-            <div class="form-row">
-                <div class="form-group col">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Paste your key here"
-                        #apiKeyInput
-                    >
-                </div>
-            </div>
-        </form>
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Paste your key here"
+            #apiKeyInput
+        >
     </div>
 
     <!-- Modal footer -->
