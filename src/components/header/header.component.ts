@@ -24,7 +24,7 @@ export class HeaderComponent {
 
     }
 
-    public isRefreshBtnHidden(): boolean {
+    public isRefreshBtnDisabled(): boolean {
         return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE || this.likedSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 

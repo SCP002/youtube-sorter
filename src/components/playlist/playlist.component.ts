@@ -45,7 +45,7 @@ export class PlaylistComponent implements OnInit {
         return this.taskSvc.getSelectedCount() === 0;
     }
 
-    public isCreateBtnHidden(nameInput: HTMLInputElement): boolean {
+    public isCreateBtnDisabled(nameInput: HTMLInputElement): boolean {
         if (!nameInput.value) {
             return true;
         }
