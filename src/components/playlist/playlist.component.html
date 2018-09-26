@@ -20,8 +20,8 @@
                 </div>
             </div>
 
-            <div class="form-row h-2-5-rem">
-                <div class="col">
+            <div class="form-row">
+                <div class="form-group col-auto">
                     <button
                         type="button"
                         class="btn btn-primary btn-sm"
@@ -105,19 +105,11 @@
             </div>
 
             <div class="form-row">
-                <div class="col">
-                    <div class="custom-control custom-checkbox">
-                        <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            id="is-playlist-private-cb"
-                            #isPlaylistPrivateCB
-                        >
-                        <label
-                            class="custom-control-label no-select"
-                            for="is-playlist-private-cb"
-                        >Private</label>
-                    </div>
+                <div class="col-auto">
+                    <app-checkbox
+                        #isPlaylistPrivateCB
+                        text="Private"
+                    ></app-checkbox>
                 </div>
             </div>
         </form>

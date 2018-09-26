@@ -1,12 +1,9 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-.no-select {
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
+.btn:focus, .btn:active {
+    box-shadow: none;
+    outline: none !important;
 }
 
 .c-pointer {

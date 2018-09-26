@@ -1,6 +1,7 @@
 import { ApiConfig } from '../../config/api.config';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { FormsModule } from '@angular/forms';
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import { HeaderComponent } from '../header/header.component';
@@ -13,6 +14,7 @@ import { PlaylistComponent } from '../playlist/playlist.component';
 @NgModule({
     declarations: [
         AppComponent,
+        CheckboxComponent,
         HeaderComponent,
         LikedComponent,
         PlaylistComponent

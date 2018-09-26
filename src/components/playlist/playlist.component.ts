@@ -1,3 +1,4 @@
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Playlist } from '../../services/youtube/playlist';
@@ -76,10 +77,10 @@ export class PlaylistComponent implements OnInit {
         await this.taskSvc.addLikedToPlaylist(playlistItem.getPlaylist());
     }
 
-    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: HTMLInputElement): Promise<Playlist> {
+    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: CheckboxComponent): Promise<Playlist> {
         this.activeModal.close();
 
-        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.checked);
+        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.isChecked());
 
         return playlist;
     }

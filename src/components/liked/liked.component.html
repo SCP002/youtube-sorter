@@ -20,37 +20,21 @@
                 </div>
             </div>
 
-            <div class="form-row h-2-5-rem">
-                <div class="col">
-                    <div class="custom-control custom-checkbox">
-                        <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            id="select-all-cb"
-                            #selectAllCB
-                            (click)="runFilter()"
-                        >
-                        <label
-                            class="custom-control-label no-select"
-                            for="select-all-cb"
-                        >Select all</label>
-                    </div>
+            <div class="form-row">
+                <div class="form-group col-auto">
+                    <app-checkbox
+                        #selectAllCB
+                        text="Select all"
+                        (click)="runFilter()"
+                    ></app-checkbox>
                 </div>
 
-                <div class="col">
-                    <div class="custom-control custom-checkbox">
-                        <input
-                            type="checkbox"
-                            class="custom-control-input"
-                            id="show-sorted-cb"
-                            #showSortedCB
-                            (click)="runFilter()"
-                        >
-                        <label
-                            class="custom-control-label no-select"
-                            for="show-sorted-cb"
-                        >Show sorted</label>
-                    </div>
+                <div class="form-group col-auto">
+                    <app-checkbox
+                        #showSortedCB
+                        text="Show sorted"
+                        (click)="runFilter()"
+                    ></app-checkbox>
                 </div>
             </div>
         </form>

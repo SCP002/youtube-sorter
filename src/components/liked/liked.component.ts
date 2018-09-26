@@ -1,3 +1,4 @@
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
@@ -12,8 +13,8 @@ import { TaskStatus } from '../../services/task/task-status';
 export class LikedComponent implements OnInit {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
-    @ViewChild('selectAllCB') private readonly selectAllCBRef: ElementRef<HTMLInputElement>;
-    @ViewChild('showSortedCB') private readonly showSortedCBRef: ElementRef<HTMLInputElement>;
+    @ViewChild('selectAllCB') private readonly selectAllCB: CheckboxComponent;
+    @ViewChild('showSortedCB') private readonly showSortedCB: CheckboxComponent;
 
     public constructor(private readonly taskSvc: TaskService, private readonly likedSvc: LikedService) {
         //
@@ -70,8 +71,8 @@ export class LikedComponent implements OnInit {
 
     public runFilter(): void {
         const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
-        const selectAll: boolean = this.selectAllCBRef.nativeElement.checked;
-        const showSorted: boolean = this.showSortedCBRef.nativeElement.checked;
+        const selectAll: boolean = this.selectAllCB.isChecked();
+        const showSorted: boolean = this.showSortedCB.isChecked();
 
         for (const likedItem of this.getLikedItems()) {
             const videoTitle: string = likedItem.getVideo().getTitle().toLowerCase();
