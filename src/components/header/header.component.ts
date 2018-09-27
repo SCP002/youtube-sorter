@@ -1,3 +1,4 @@
+import { ApiConfig } from '../../config/api.config';
 import { Component } from '@angular/core';
 import { LikedService } from '../../services/liked/liked.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -48,7 +49,15 @@ export class HeaderComponent {
     }
 
     public getApiKey(): string {
-        return this.taskSvc.getApiKey();
+        return ApiConfig.apiKey;
+    }
+
+    public getDiscoveryDocs(): string[] {
+        return ApiConfig.discoveryDocs;
+    }
+
+    public getAccessScopes(): string[] {
+        return ApiConfig.scopes;
     }
 
     public setApiKey(keyInput: HTMLInputElement): void {

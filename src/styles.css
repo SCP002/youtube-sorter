@@ -6,6 +6,10 @@
     outline: none !important;
 }
 
+.text-wrap-break {
+    word-wrap: break-word;
+}
+
 .c-pointer {
     cursor: pointer;
 }

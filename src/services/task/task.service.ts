@@ -37,10 +37,6 @@ export class TaskService {
         return this.likedSvc.getSelectedCount();
     }
 
-    public getApiKey(): string {
-        return sessionStorage.getItem('apiKey');
-    }
-
     public setApiKey(key: string): void {
         sessionStorage.setItem('apiKey', key);
         location.reload();

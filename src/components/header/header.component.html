@@ -54,43 +54,69 @@
 
     <!-- Modal body -->
     <div class="modal-body">
-        <!-- TODO: Add description and warning text. -->
+        <span>
+            If you encounter some problems with quota limit or authorized domains,
+            you can create your own project that uses <b>YouTube Data API</b> and change
+            this application <b>API key</b> to your own.
+            <br>
+        </span>
 
-        <form>
-            <div class="form-row">
-                <div class="form-group col">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Paste your key here"
-                        #apiKeyInput
-                    >
-                </div>
-            </div>
+        <a href="https://developers.google.com/youtube/v3/guides/auth/client-side-web-apps">Read the documentation</a>.
 
-            <div class="form-row">
-                <div class="col">
-                    <label for="currentKeyInput">Current key:</label>
-                    <input
-                        id="currentKeyInput"
-                        type="text"
-                        class="form-control"
-                        readonly
-                        [value]="getApiKey()"
-                    >
-                </div>
-            </div>
-        </form>
+        <hr>
+
+        <p>Current key:</p>
+        <div
+            class="alert alert-info text-wrap-break"
+            role="alert"
+        >
+            {{getApiKey()}}
+        </div>
+
+        <p>Discovery docs used in this application:</p>
+        <div
+            class="alert alert-info"
+            role="alert"
+        >
+            <ul class="mb-0 pl-1 text-wrap-break">
+                <li *ngFor="let doc of getDiscoveryDocs()">
+                    {{doc}}
+                </li>
+            </ul>
+        </div>
+
+        <p>Access scopes used in this application:</p>
+        <div
+            class="alert alert-info"
+            role="alert"
+        >
+            <ul class="mb-0 pl-1 text-wrap-break">
+                <li *ngFor="let scope of getAccessScopes()">
+                    {{scope}}
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Paste your key here"
+            #apiKeyInput
+        >
     </div>
 
     <!-- Modal footer -->
     <div class="modal-footer">
+        <!-- TODO: Disable button if key is empty or is the same as current. -->
         <button
             type="button"
             class="btn btn-primary"
             (click)="setApiKey(apiKeyInput)"
         >Change</button>
 
+        <!-- TODO: Disable button if current key is the same as default. -->
         <button
             type="button"
             class="btn btn-primary"
