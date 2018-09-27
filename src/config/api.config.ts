@@ -6,6 +6,8 @@ export module ApiConfig {
 
     if (!apiKey) {
         apiKey = '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com';
+
+        sessionStorage.setItem('apiKey', apiKey);
     }
 
     export const gApiConfig: NgGapiClientConfig = {

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-checkbox',
@@ -35,7 +35,7 @@ export class CheckboxComponent {
         return classes.join(' ');
     }
 
-    @HostListener('click') private onClick(): void {
+    public inverseCheck(): void {
         this.checked = !this.checked;
     }
 

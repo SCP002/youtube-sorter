@@ -47,6 +47,18 @@ export class HeaderComponent {
         return '';
     }
 
+    public getApiKey(): string {
+        return this.taskSvc.getApiKey();
+    }
+
+    public setApiKey(keyInput: HTMLInputElement): void {
+        this.taskSvc.setApiKey(keyInput.value);
+    }
+
+    public setDefaultApiKey(): void {
+        this.taskSvc.setDefaultApiKey();
+    }
+
     public signIn(): void {
         this.userSvc.signIn();
     }
@@ -57,14 +69,6 @@ export class HeaderComponent {
 
     public openModal(modal: NgbModalRef): void {
         this.modalSvc.open(modal);
-    }
-
-    public setApiKey(keyInput: HTMLInputElement): void {
-        this.taskSvc.setApiKey(keyInput.value);
-    }
-
-    public setDefaultApiKey(): void {
-        this.taskSvc.setDefaultApiKey();
     }
 
 }

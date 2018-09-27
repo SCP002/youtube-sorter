@@ -55,14 +55,32 @@
     <!-- Modal body -->
     <div class="modal-body">
         <!-- TODO: Add description and warning text. -->
-        <!-- TODO: Display current API key. -->
 
-        <input
-            type="text"
-            class="form-control"
-            placeholder="Paste your key here"
-            #apiKeyInput
-        >
+        <form>
+            <div class="form-row">
+                <div class="form-group col">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Paste your key here"
+                        #apiKeyInput
+                    >
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="currentKeyInput">Current key:</label>
+                    <input
+                        id="currentKeyInput"
+                        type="text"
+                        class="form-control"
+                        readonly
+                        [value]="getApiKey()"
+                    >
+                </div>
+            </div>
+        </form>
     </div>
 
     <!-- Modal footer -->

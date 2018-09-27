@@ -37,10 +37,8 @@ export class TaskService {
         return this.likedSvc.getSelectedCount();
     }
 
-    public async loadAll(): Promise<void> {
-        // Order is important here.
-        await this.playlistSvc.loadPlaylistItems();
-        await this.likedSvc.loadLikedItems();
+    public getApiKey(): string {
+        return sessionStorage.getItem('apiKey');
     }
 
     public setApiKey(key: string): void {
@@ -51,6 +49,12 @@ export class TaskService {
     public setDefaultApiKey(): void {
         sessionStorage.removeItem('apiKey');
         location.reload();
+    }
+
+    public async loadAll(): Promise<void> {
+        // Order is important here.
+        await this.playlistSvc.loadPlaylistItems();
+        await this.likedSvc.loadLikedItems();
     }
 
     public async addLikedToPlaylist(playlist: Playlist): Promise<void> {
