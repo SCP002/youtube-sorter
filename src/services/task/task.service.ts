@@ -38,12 +38,12 @@ export class TaskService {
     }
 
     public setClientId(id: string): void {
-        sessionStorage.setItem('clientId', id);
+        localStorage.setItem('clientId', id);
         location.reload();
     }
 
     public setDefaultClientId(): void {
-        sessionStorage.removeItem('clientId');
+        localStorage.removeItem('clientId');
         location.reload();
     }
 
