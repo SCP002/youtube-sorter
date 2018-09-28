@@ -48,8 +48,8 @@ export class HeaderComponent {
         return '';
     }
 
-    public getApiKey(): string {
-        return ApiConfig.apiKey;
+    public getClientId(): string {
+        return ApiConfig.clientId;
     }
 
     public getDiscoveryDocs(): string[] {
@@ -60,12 +60,12 @@ export class HeaderComponent {
         return ApiConfig.scopes;
     }
 
-    public setApiKey(keyInput: HTMLInputElement): void {
-        this.taskSvc.setApiKey(keyInput.value);
+    public setClientId(idInput: HTMLInputElement): void {
+        this.taskSvc.setClientId(idInput.value);
     }
 
-    public setDefaultApiKey(): void {
-        this.taskSvc.setDefaultApiKey();
+    public setDefaultClientId(): void {
+        this.taskSvc.setDefaultClientId();
     }
 
     public signIn(): void {

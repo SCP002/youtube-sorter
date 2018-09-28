@@ -17,8 +17,8 @@
         <button
             type="button"
             class="btn btn-primary mx-1"
-            (click)="openModal(apiKeyModal)"
-        >Change API key</button>
+            (click)="openModal(clientIdModal)"
+        >Change Client ID</button>
 
         <!-- TODO: Add 'About' button. -->
     </div>
@@ -33,15 +33,15 @@
     Due to difficuly of getting DOM variables (#someElement) from ng-bootstrap modal in component,
     using these variables as arguments to function calls.
 -->
-<!-- Api key modal -->
+<!-- Client ID modal -->
 <ng-template
-    #apiKeyModal
+    #clientIdModal
     let-close="close('Close click')"
     let-dismiss="dismiss('Cross click')"
 >
     <!-- Modal header -->
     <div class="modal-header">
-        <h5 class="modal-title">Change API key</h5>
+        <h5 class="modal-title">Change Client ID</h5>
         <button
             type="button"
             class="close"
@@ -57,7 +57,7 @@
         <span>
             If you encounter some problems with quota limit or authorized domains,
             you can create your own project that uses <b>YouTube Data API</b> and change
-            this application <b>API key</b> to your own.
+            this application <b>Client ID</b> to your own.
             <br>
         </span>
 
@@ -65,12 +65,12 @@
 
         <hr>
 
-        <p>Current key:</p>
+        <p>Current Client ID:</p>
         <div
             class="alert alert-info text-wrap-break"
             role="alert"
         >
-            {{getApiKey()}}
+            {{getClientId()}}
         </div>
 
         <p>Discovery docs used in this application:</p>
@@ -102,25 +102,25 @@
         <input
             type="text"
             class="form-control"
-            placeholder="Paste your key here"
-            #apiKeyInput
+            placeholder="Paste your Client ID here"
+            #clientIdInput
         >
     </div>
 
     <!-- Modal footer -->
     <div class="modal-footer">
-        <!-- TODO: Disable button if key is empty or is the same as current. -->
+        <!-- TODO: Disable button if id is empty or is the same as current. -->
         <button
             type="button"
             class="btn btn-primary"
-            (click)="setApiKey(apiKeyInput)"
+            (click)="setClientId(clientIdInput)"
         >Change</button>
 
-        <!-- TODO: Disable button if current key is the same as default. -->
+        <!-- TODO: Disable button if current id is the same as default. -->
         <button
             type="button"
             class="btn btn-primary"
-            (click)="setDefaultApiKey()"
+            (click)="setDefaultClientId()"
         >Set default</button>
 
         <button

@@ -37,13 +37,13 @@ export class TaskService {
         return this.likedSvc.getSelectedCount();
     }
 
-    public setApiKey(key: string): void {
-        sessionStorage.setItem('apiKey', key);
+    public setClientId(id: string): void {
+        sessionStorage.setItem('clientId', id);
         location.reload();
     }
 
-    public setDefaultApiKey(): void {
-        sessionStorage.removeItem('apiKey');
+    public setDefaultClientId(): void {
+        sessionStorage.removeItem('clientId');
         location.reload();
     }
 
