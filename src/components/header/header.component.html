@@ -99,27 +99,29 @@
 
         <hr>
 
+        <!-- Using keyup to run change update detection in time. -->
         <input
             type="text"
             class="form-control"
             placeholder="Paste your Client ID here"
             #clientIdInput
+            (keyup)="true"
         >
     </div>
 
     <!-- Modal footer -->
     <div class="modal-footer">
-        <!-- TODO: Disable button if id is empty or is the same as current. -->
         <button
             type="button"
             class="btn btn-primary"
+            [disabled]="isSetClientIdBtnDisabled(clientIdInput)"
             (click)="setClientId(clientIdInput)"
         >Change</button>
 
-        <!-- TODO: Disable button if current id is the same as default. -->
         <button
             type="button"
             class="btn btn-primary"
+            [disabled]="isSetDefaultClientIdBtnDisabled(clientIdInput)"
             (click)="setDefaultClientId()"
         >Set default</button>
 

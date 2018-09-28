@@ -29,6 +29,18 @@ export class HeaderComponent {
         return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE || this.likedSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 
+    public isSetClientIdBtnDisabled(idInput: HTMLInputElement): boolean {
+        if (!idInput.value || idInput.value === this.getClientId()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public isSetDefaultClientIdBtnDisabled(idInput: HTMLInputElement): boolean {
+        return idInput.value === ApiConfig.defaultClientId;
+    }
+
     public getSignInBtnText(): string {
         return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
     }
