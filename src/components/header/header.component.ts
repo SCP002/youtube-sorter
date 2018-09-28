@@ -37,8 +37,8 @@ export class HeaderComponent {
         return false;
     }
 
-    public isSetDefaultClientIdBtnDisabled(idInput: HTMLInputElement): boolean {
-        return idInput.value === ApiConfig.defaultClientId;
+    public isSetDefaultClientIdBtnDisabled(): boolean {
+        return this.getClientId() === ApiConfig.defaultClientId;
     }
 
     public getSignInBtnText(): string {
