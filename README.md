@@ -2,7 +2,7 @@
 
 > Web application to sort liked videos into playlists. https://scp002.github.io/youtube-sorter/dist/
 
-## What it does
+## What it does?
 
 It connects to your youtube account.
 
@@ -10,8 +10,41 @@ Then it displays list of liked videos that does not exist in any of your
 custom playlists on the left side of the screen and list of playlists on 
 the right side of the screen.
 
-Next all you need to do is to drag liked video from the left side to the 
-proper playlist on the right side.
+Next, all you need to do is to select liked videos on the left side and 
+click arrow button of the proper playlist on the right side.
+
+Also, this application can:
+* Filter results with search query.
+* Display or hide videos which is already in playlists.
+* Create new playlists.
+* Delete existing playlists.
+* Remove liked videos from playlists.
+* Move liked video from one playlist to another (no manual actions 
+  required).
+* Play liked video on double click at list element.
+* Change application 'client id' (used by google api).
+
+---
+**Warnings**:
+
+* Fetching playlists and liked videos can take a (relatively) long time.
+> The more liked videos and playlists you have, the more time load 
+> process will take. Under the some conditions - exponentially more.
+> 
+> A reason for that is a google api design (it has limitation in 50 items 
+> for each response) and this application design (for multiple reasons).
+
+* Moving multiple videos to the playlist can take a long time, too.
+> The more videos you select to move, the more time moving process will
+> take.
+> 
+> A reason for that is a google api design (if send a bunch of requests
+> without waiting for previous to finish, server will skip some videos
+> and add them in the wrong order).
+
+* If you want to use this application on the mobile device - turn on
+  lanscape orientation.
+> This application can not be displayed properly on width less than 490px.
 
 ## Why?
 

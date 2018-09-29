@@ -88,6 +88,10 @@ export class HeaderComponent {
         this.taskSvc.loadAll();
     }
 
+    public showAbout(): void {
+        // TODO: Display alert with link to the README.md.
+    }
+
     public openModal(modal: NgbModalRef): void {
         this.modalSvc.open(modal);
     }
