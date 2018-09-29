@@ -79,8 +79,8 @@ export class LikedService {
         this.loadStatus = TaskStatus.IN_PROCESS;
 
         const params: Object = {
-            myRating: 'like',
-            part: 'snippet'
+            part: 'snippet',
+            myRating: 'like'
         };
 
         const responses: Object[] = await this.youtubeSvc.getAll('videos', params);

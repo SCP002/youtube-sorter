@@ -134,9 +134,9 @@ export class TaskService {
 
     private async fetchPlaylistItemId(likedItem: LikedItem): Promise<string> {
         const params: Object = {
+            part: 'snippet',
             playlistId: likedItem.getPlaylist().getId(),
-            videoId: likedItem.getVideo().getId(),
-            part: 'snippet'
+            videoId: likedItem.getVideo().getId()
         };
 
         const responses: Object[] = await this.youtubeSvc.getAll('playlistItems', params);

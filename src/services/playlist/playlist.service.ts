@@ -61,8 +61,8 @@ export class PlaylistService {
         this.loadStatus = TaskStatus.IN_PROCESS;
 
         const params: Object = {
-            mine: 'true',
-            part: 'snippet'
+            part: 'snippet',
+            mine: 'true'
         };
 
         const responses: Object[] = await this.youtubeSvc.getAll('playlists', params);
@@ -135,8 +135,8 @@ export class PlaylistService {
 
     private async loadPlaylistVideos(playlistId: string): Promise<Video[]> {
         const params: Object = {
-            playlistId: playlistId,
-            part: 'snippet'
+            part: 'snippet',
+            playlistId: playlistId
         };
 
         const responses: Object[] = await this.youtubeSvc.getAll('playlistItems', params);
