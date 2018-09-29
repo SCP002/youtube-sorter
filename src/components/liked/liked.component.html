@@ -49,7 +49,7 @@
                 *ngFor="let likedItem of getLikedItems()"
                 [hidden]="likedItem.isHidden()"
                 [ngClass]="likedItem.getNgClass()"
-                (click)="likedItem.onClick()"
+                (click)="likedItem.invertSelect()"
                 (mouseleave)="likedItem.hideBorder()"
                 (mouseover)="likedItem.showBorder()"
             >

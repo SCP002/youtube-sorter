@@ -83,7 +83,7 @@ export class LikedItem {
         this.setInPlaylist();
     }
 
-    public onClick(): void {
+    public invertSelect(): void {
         this.selected = !this.selected;
     }
 

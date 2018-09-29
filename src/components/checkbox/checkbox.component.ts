@@ -35,7 +35,7 @@ export class CheckboxComponent {
         return classes.join(' ');
     }
 
-    public inverseCheck(): void {
+    public invertCheck(): void {
         this.checked = !this.checked;
     }
 
