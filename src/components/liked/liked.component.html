@@ -11,10 +11,10 @@
             <div class="form-row">
                 <div class="form-group col">
                     <input
+                        #searchInput
                         type="text"
                         class="form-control"
                         placeholder="Search"
-                        #searchInput
                         (keyup)="runFilter()"
                     >
                 </div>
@@ -47,8 +47,8 @@
             <li
                 class="list-group-item list-group-item-action my-2 px-2 rounded c-pointer"
                 *ngFor="let likedItem of getLikedItems()"
-                [hidden]="likedItem.isHidden()"
                 [ngClass]="likedItem.getNgClass()"
+                [hidden]="likedItem.isHidden()"
                 (click)="likedItem.invertSelect()"
                 (mouseleave)="likedItem.hideBorder()"
                 (mouseover)="likedItem.showBorder()"

@@ -11,10 +11,10 @@
             <div class="form-row">
                 <div class="form-group col">
                     <input
+                        #searchInput
                         type="text"
                         class="form-control"
                         placeholder="Search"
-                        #searchInput
                         (keyup)="runFilter()"
                     >
                 </div>
@@ -97,10 +97,10 @@
                 <div class="form-group col">
                     <!-- Using keyup to run change update detection in time. -->
                     <input
+                        #playlistNameInput
                         type="text"
                         class="form-control"
                         placeholder="Type playlist name here"
-                        #playlistNameInput
                         (keyup)="true"
                     >
                 </div>

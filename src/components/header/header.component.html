@@ -67,16 +67,16 @@
 
         <p>Current Client ID:</p>
         <div
-            class="alert alert-info word-wrap-break"
             role="alert"
+            class="alert alert-info word-wrap-break"
         >
             {{getClientId()}}
         </div>
 
         <p>Discovery docs used in this application:</p>
         <div
-            class="alert alert-info"
             role="alert"
+            class="alert alert-info"
         >
             <ul class="mb-0 pl-1 word-wrap-break">
                 <li *ngFor="let doc of getDiscoveryDocs()">
@@ -87,8 +87,8 @@
 
         <p>Access scopes used in this application:</p>
         <div
-            class="alert alert-info"
             role="alert"
+            class="alert alert-info"
         >
             <ul class="mb-0 pl-1 word-wrap-break">
                 <li *ngFor="let scope of getAccessScopes()">
@@ -101,10 +101,10 @@
 
         <!-- Using keyup to run change update detection in time. -->
         <input
+            #clientIdInput
             type="text"
             class="form-control"
             placeholder="Paste your Client ID here"
-            #clientIdInput
             (keyup)="true"
         >
     </div>
