@@ -16,8 +16,8 @@ export class PlaylistItem {
         return this.hidden;
     }
 
-    public setHidden(value: boolean): void {
-        this.hidden = value;
+    public setHidden(hidden: boolean): void {
+        this.hidden = hidden;
     }
 
 }

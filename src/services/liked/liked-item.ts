@@ -65,16 +65,16 @@ export class LikedItem {
         return classes.join(' ');
     }
 
-    public setHidden(value: boolean): void {
-        this.hidden = value;
+    public setHidden(hidden: boolean): void {
+        this.hidden = hidden;
 
-        if (value) {
+        if (hidden) {
             this.selected = false;
         }
     }
 
-    public setSelected(value: boolean): void {
-        this.selected = value;
+    public setSelected(selected: boolean): void {
+        this.selected = selected;
     }
 
     public setPlaylist(playlist: Playlist | null): void {
