@@ -24,7 +24,7 @@
                 <div class="form-group col-auto">
                     <button
                         type="button"
-                        class="btn btn-primary btn-sm"
+                        class="btn btn-primary btn-sm no-glow"
                         (click)="openModal(createPlaylistModal)"
                     >
                         <i class="fas fa-plus"></i>
@@ -45,7 +45,7 @@
             >
                 <button
                     type="button"
-                    class="btn btn-outline-secondary btn-sm"
+                    class="btn btn-outline-secondary btn-sm no-glow"
                     [disabled]="isAddBtnDisabled()"
                     (click)="addLikedToPlaylist(playlistItem)"
                 >
@@ -56,7 +56,7 @@
 
                 <button
                     type="button"
-                    class="btn btn-outline-secondary btn-sm"
+                    class="btn btn-outline-secondary btn-sm no-glow"
                     (click)="deletePlaylist(playlistItem)"
                 >
                     <i class="far fa-trash-alt"></i>
@@ -121,14 +121,14 @@
     <div class="modal-footer">
         <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary no-glow"
             [disabled]="isCreateBtnDisabled(playlistNameInput)"
             (click)="createPlaylist(playlistNameInput, isPlaylistPrivateCB)"
         >Create</button>
 
         <button
             type="button"
-            class="btn btn-light"
+            class="btn btn-light no-glow"
             (click)="close"
         >Close</button>
     </div>

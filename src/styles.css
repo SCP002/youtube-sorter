@@ -1,12 +1,12 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-.btn:focus, .btn:active {
+.no-glow:active, .no-glow:focus {
     box-shadow: none;
     outline: none !important;
 }
 
-.text-wrap-break {
+.word-wrap-break {
     word-wrap: break-word;
 }
 
