@@ -43,7 +43,11 @@
             class="list-group"
             [hidden]="isCardContentHidden()"
         >
-            <!-- TODO: Play video on double click. -->
+            <!--
+                TODO: Play video on double click.
+                Check https://stackoverflow.com/questions/42439060/how-to-embed-a-youtube-video-in-angular2.
+                Check https://www.npmjs.com/package/ngx-youtube-player.
+            -->
             <li
                 class="list-group-item list-group-item-action my-2 px-2 rounded c-pointer"
                 *ngFor="let likedItem of getLikedItems()"
