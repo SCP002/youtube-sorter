@@ -69,6 +69,12 @@ export class LikedComponent implements OnInit {
         }
     }
 
+    public playVideo(event: MouseEvent, likedItem: LikedItem): void {
+        event.stopPropagation();
+
+        console.log('playVideo: ' + likedItem.getVideo().getTitle()); // TODO: This.
+    }
+
     public runFilter(): void {
         const search: string = this.searchInputRef.nativeElement.value.toLowerCase().trim();
         const selectAll: boolean = this.selectAllCB.isChecked();

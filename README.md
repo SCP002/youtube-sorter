@@ -19,9 +19,9 @@ Also, this application can:
 * Create new playlists.
 * Delete existing playlists.
 * Remove liked videos from playlists.
-* Move liked video from one playlist to another (no manual actions 
+* Move liked videos from one playlist to another (no manual actions 
   required).
-* Play liked video on double click at list element.
+* Play liked videos.
 * Change application 'client id' (used by google api).
 
 ---

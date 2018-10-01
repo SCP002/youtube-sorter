@@ -43,11 +43,6 @@
             class="list-group"
             [hidden]="isCardContentHidden()"
         >
-            <!--
-                TODO: Play video on double click.
-                Check https://stackoverflow.com/questions/42439060/how-to-embed-a-youtube-video-in-angular2.
-                Check https://www.npmjs.com/package/ngx-youtube-player.
-            -->
             <li
                 class="list-group-item list-group-item-action my-2 px-2 rounded c-pointer"
                 *ngFor="let likedItem of getLikedItems()"
@@ -57,26 +52,40 @@
                 (mouseleave)="likedItem.hideBorder()"
                 (mouseover)="likedItem.showBorder()"
             >
-                <span>{{likedItem.getVideo().getTitle()}}</span>
+                <div class="row no-gutters">
+                    <div class="col-auto d-flex mr-2">
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm no-glow"
+                            (click)="playVideo($event, likedItem)"
+                        >
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
 
-                <hr>
-                <span>{{likedItem.getVideo().getChannelTitle()}}</span>
+                    <div class="col">
+                        <span>{{likedItem.getVideo().getTitle()}}</span>
 
-                <div
-                    class="status-bar"
-                    [hidden]="likedItem.isStatusBarHidden()"
-                >
-                    <hr>
+                        <hr>
+                        <span>{{likedItem.getVideo().getChannelTitle()}}</span>
 
-                    <button
-                        type="button"
-                        class="btn btn-outline-secondary btn-sm float-right no-glow"
-                        (click)="removeFromPlaylist($event, likedItem)"
-                    >
-                        <i class="fas fa-times"></i>
-                    </button>
+                        <div
+                            class="status-bar"
+                            [hidden]="likedItem.isStatusBarHidden()"
+                        >
+                            <hr>
 
-                    <span>In playlist "{{likedItem.getPlaylistName()}}"</span>
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm float-right no-glow"
+                                (click)="removeFromPlaylist($event, likedItem)"
+                            >
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <span>In playlist "{{likedItem.getPlaylistName()}}"</span>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>
