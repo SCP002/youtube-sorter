@@ -2,6 +2,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
+import { PlayerComponent } from '../player/player.component';
 import { TaskService } from '../../services/task/task.service';
 import { TaskStatus } from '../../services/task/task-status';
 
@@ -15,6 +16,8 @@ export class LikedComponent implements OnInit {
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
     @ViewChild('selectAllCB') private readonly selectAllCB: CheckboxComponent;
     @ViewChild('showSortedCB') private readonly showSortedCB: CheckboxComponent;
+
+    @ViewChild('player') private readonly player: PlayerComponent;
 
     public constructor(private readonly taskSvc: TaskService, private readonly likedSvc: LikedService) {
         //
@@ -72,7 +75,7 @@ export class LikedComponent implements OnInit {
     public playVideo(event: MouseEvent, likedItem: LikedItem): void {
         event.stopPropagation();
 
-        console.log('playVideo: ' + likedItem.getVideo().getTitle()); // TODO: This.
+        this.player.playVideo(likedItem.getVideo());
     }
 
     public runFilter(): void {

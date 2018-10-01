@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LikedComponent } from '../liked/liked.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
+import { PlayerComponent } from '../player/player.component';
 import { PlaylistComponent } from '../playlist/playlist.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { PlaylistComponent } from '../playlist/playlist.component';
         CheckboxComponent,
         HeaderComponent,
         LikedComponent,
+        PlayerComponent,
         PlaylistComponent
     ],
     imports: [
