@@ -1,7 +1,8 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-.no-glow:active, .no-glow:focus {
+.no-glow:active,
+.no-glow:focus {
     box-shadow: none;
     outline: none !important;
 }
