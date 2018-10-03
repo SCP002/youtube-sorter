@@ -2,7 +2,7 @@ import { NgGapiClientConfig } from 'ng-gapi';
 
 export module ApiConfig {
 
-    export const defaultClientId = '1095635279865-a1vo0tio21qstdg6gqmj6h6488uhjovj.apps.googleusercontent.com';
+    export const defaultClientId = '776628692021-pukfvrnc950b0hnvcsd0l7d2um5q1geo.apps.googleusercontent.com';
 
     export let clientId: string = localStorage.getItem('clientId');
 
