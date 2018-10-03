@@ -1,11 +1,12 @@
-import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Playlist } from '../../services/youtube/playlist';
+
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
-import { TaskService } from '../../services/task/task.service';
 import { TaskStatus } from '../../services/task/task-status';
+import { TaskService } from '../../services/task/task.service';
+import { Playlist } from '../../services/youtube/playlist';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
     selector: 'app-playlist',

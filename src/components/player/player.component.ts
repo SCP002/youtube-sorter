@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 import { Video } from '../../services/youtube/video';
 
 @Component({

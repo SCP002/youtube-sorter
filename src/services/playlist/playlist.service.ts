@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Playlist } from '../youtube/playlist';
-import { PlaylistItem } from './playlist-item';
+
+import { Injectable } from '@angular/core';
+
 import { TaskStatus } from '../task/task-status';
+import { Playlist } from '../youtube/playlist';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
+import { PlaylistItem } from './playlist-item';
 
 @Injectable({
     providedIn: 'root'

@@ -1,10 +1,11 @@
-import { ApiConfig } from '../../config/api.config';
 import { Component } from '@angular/core';
-import { LikedService } from '../../services/liked/liked.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { ApiConfig } from '../../config/api.config';
+import { LikedService } from '../../services/liked/liked.service';
 import { PlaylistService } from '../../services/playlist/playlist.service';
-import { TaskService } from '../../services/task/task.service';
 import { TaskStatus } from '../../services/task/task-status';
+import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
 
 @Component({

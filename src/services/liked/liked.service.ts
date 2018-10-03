@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
-import { LikedItem } from './liked-item';
 import { Observable, Subject } from 'rxjs';
-import { Playlist } from '../youtube/playlist';
+
+import { Injectable } from '@angular/core';
+
 import { PlaylistService } from '../playlist/playlist.service';
 import { TaskStatus } from '../task/task-status';
+import { Playlist } from '../youtube/playlist';
 import { Video } from '../youtube/video';
 import { YoutubeService } from '../youtube/youtube.service';
+import { LikedItem } from './liked-item';
 
 @Injectable({
     providedIn: 'root'

@@ -1,7 +1,10 @@
 import { GoogleAuthService } from 'ng-gapi';
+
 import { Injectable } from '@angular/core';
+
 import { TaskService } from '../task/task.service';
 import { YoutubeService } from '../youtube/youtube.service';
+
 import GoogleAuth = gapi.auth2.GoogleAuth;
 import GoogleUser = gapi.auth2.GoogleUser;
 

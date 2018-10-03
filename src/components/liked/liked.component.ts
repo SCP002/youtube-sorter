@@ -1,10 +1,11 @@
-import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
-import { PlayerComponent } from '../player/player.component';
-import { TaskService } from '../../services/task/task.service';
 import { TaskStatus } from '../../services/task/task-status';
+import { TaskService } from '../../services/task/task.service';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { PlayerComponent } from '../player/player.component';
 
 @Component({
     selector: 'app-liked',
