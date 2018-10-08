@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApiConfig } from '../../config/api.config';
 import { LikedService } from '../../services/liked/liked.service';
@@ -90,7 +90,11 @@ export class HeaderComponent {
     }
 
     public openModal(modal: NgbModalRef): void {
-        this.modalSvc.open(modal);
+        const modalOptions: NgbModalOptions = {
+            size: 'lg'
+        };
+
+        this.modalSvc.open(modal, modalOptions);
     }
 
 }

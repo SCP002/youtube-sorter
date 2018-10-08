@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
@@ -114,7 +114,11 @@ export class PlaylistComponent implements OnInit {
     }
 
     public openModal(modal: NgbModalRef): void {
-        this.activeModal = this.modalSvc.open(modal);
+        const modalOptions: NgbModalOptions = {
+            size: 'lg'
+        };
+
+        this.activeModal = this.modalSvc.open(modal, modalOptions);
     }
 
 }
