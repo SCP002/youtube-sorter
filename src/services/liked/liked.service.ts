@@ -72,11 +72,6 @@ export class LikedService {
         this.filterSub.next();
     }
 
-    /*
-     * Requesting liked videos from actual playlist (playlistItems.list) will return all videos
-     * (including deleted), but will not conain information about channel it comes from.
-     * For that reason using videos.list method here.
-     */
     public async loadLikedItems(): Promise<LikedItem[]> {
         this.loadStatus = TaskStatus.IN_PROCESS;
 
