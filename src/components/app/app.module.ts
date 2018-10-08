@@ -1,4 +1,5 @@
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
+import { YoutubePlayerModule } from 'ngx-youtube-player';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -28,7 +29,8 @@ import { AppComponent } from './app.component';
         FormsModule,
         GoogleApiModule.forRoot({ provide: NG_GAPI_CONFIG, useValue: ApiConfig.gApiConfig }),
         HttpClientModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        YoutubePlayerModule
     ],
     providers: [
         //

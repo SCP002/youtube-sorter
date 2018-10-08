@@ -16,10 +16,11 @@
 
     <div class="modal-body">
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe
+            <youtube-player
                 class="embed-responsive-item"
-                [src]="getEmbedUrl()"
-            ></iframe>
+                [videoId]="getVideoId()"
+                (ready)="startPlayer($event)"
+            ></youtube-player>
         </div>
     </div>
 </ng-template>

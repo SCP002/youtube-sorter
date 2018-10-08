@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Video } from '../../services/youtube/video';
@@ -13,10 +12,10 @@ export class PlayerComponent {
 
     @ViewChild('playerModal') private readonly playerModal: NgbModalRef;
 
-    private modalTitle: string;
-    private embedUrl: SafeResourceUrl;
+    private modalTitle = '';
+    private videoId = '';
 
-    public constructor(private readonly domSanitizer: DomSanitizer, private readonly modalSvc: NgbModal) {
+    public constructor(private readonly modalSvc: NgbModal) {
         //
     }
 
@@ -24,15 +23,13 @@ export class PlayerComponent {
         return this.modalTitle;
     }
 
-    public getEmbedUrl(): SafeResourceUrl {
-        return this.embedUrl;
+    public getVideoId(): string {
+        return this.videoId;
     }
 
     public playVideo(video: Video): void {
         this.modalTitle = video.getTitle();
-
-        const rawUrl: string = 'https://www.youtube.com/embed/' + video.getId() + '?autoplay=1';
-        this.embedUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(rawUrl);
+        this.videoId = video.getId();
 
         const modalOptions: NgbModalOptions = {
             centered: true,
@@ -40,6 +37,10 @@ export class PlayerComponent {
         };
 
         this.modalSvc.open(this.playerModal, modalOptions);
+    }
+
+    public startPlayer(player: YT.Player): void {
+        player.playVideo();
     }
 
 }
