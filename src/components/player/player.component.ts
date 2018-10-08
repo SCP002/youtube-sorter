@@ -12,24 +12,22 @@ export class PlayerComponent {
 
     @ViewChild('playerModal') private readonly playerModal: NgbModalRef;
 
-    private modalTitle = '';
-    private videoId = '';
+    private video: Video;
 
     public constructor(private readonly modalSvc: NgbModal) {
         //
     }
 
     public getModalTitle(): string {
-        return this.modalTitle;
+        return this.video.getTitle();
     }
 
     public getVideoId(): string {
-        return this.videoId;
+        return this.video.getId();
     }
 
     public playVideo(video: Video): void {
-        this.modalTitle = video.getTitle();
-        this.videoId = video.getId();
+        this.video = video;
 
         const modalOptions: NgbModalOptions = {
             centered: true,
