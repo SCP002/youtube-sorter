@@ -22,7 +22,7 @@ Also, this application can:
 * Move liked videos from one playlist to another (no manual actions 
   required).
 * Play liked videos.
-* Change application 'client id' (used by google api).
+* Change application "Client ID" (used by Google API).
 
 ---
 **Warnings**:
@@ -39,12 +39,16 @@ Also, this application can:
 > take.
 > 
 > A reason for that is a google api design (if send a bunch of requests
-> without waiting for previous to finish, server will skip some videos
-> and add them in the wrong order).
+> without waiting for previous to finish, server will skip some videos).
 
 * If you want to use this application on the mobile device - turn on
   lanscape orientation.
-> This application can not be displayed properly on width less than 490px.
+> This application can not be displayed properly on screen width less
+> than 490px.
+
+* This application can not load and display deleted or unavailable videos
+  from your liked playlist.
+> This is what "available" and "total" counters stands for.
 
 ## Why?
 
