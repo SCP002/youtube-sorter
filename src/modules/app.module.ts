@@ -8,14 +8,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ApiConfig } from '../../config/api.config';
-import { environment } from '../../environments/environment';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { HeaderComponent } from '../header/header.component';
-import { LikedComponent } from '../liked/liked.component';
-import { PlayerComponent } from '../player/player.component';
-import { PlaylistComponent } from '../playlist/playlist.component';
-import { AppComponent } from './app.component';
+import { AppComponent } from '../components/app/app.component';
+import { CheckboxComponent } from '../components/checkbox/checkbox.component';
+import { HeaderComponent } from '../components/header/header.component';
+import { LikedComponent } from '../components/liked/liked.component';
+import { PlayerComponent } from '../components/player/player.component';
+import { PlaylistComponent } from '../components/playlist/playlist.component';
+import { ApiConfig } from '../configs/api.config';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [

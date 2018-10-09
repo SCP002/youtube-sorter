@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { ApiConfig } from '../../config/api.config';
+import { ApiConfig } from '../../configs/api.config';
 import { LikedService } from '../../services/liked/liked.service';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskStatus } from '../../services/task/task-status';
