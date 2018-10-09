@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { PlaylistItem } from '../../services/playlist/playlist-item';
@@ -13,9 +15,11 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
     templateUrl: './playlist.component.html',
     styleUrls: ['./playlist.component.css']
 })
-export class PlaylistComponent implements OnInit {
+export class PlaylistComponent implements OnInit, OnDestroy {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
+
+    private readonly subscriptions: Subscription[] = [];
 
     private activeModal: NgbModalRef;
 
@@ -29,9 +33,17 @@ export class PlaylistComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.playlistSvc.getFilterObs().subscribe(() => {
+        const filterSub: Subscription = this.playlistSvc.getFilterObs().subscribe(() => {
             this.runFilter();
         });
+
+        this.subscriptions.push(filterSub);
+    }
+
+    public ngOnDestroy(): void {
+        for (const subscription of this.subscriptions) {
+            subscription.unsubscribe();
+        }
     }
 
     public isCardHidden(): boolean {

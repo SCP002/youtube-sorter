@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { LikedItem } from '../../services/liked/liked-item';
 import { LikedService } from '../../services/liked/liked.service';
@@ -12,22 +14,31 @@ import { PlayerComponent } from '../player/player.component';
     templateUrl: './liked.component.html',
     styleUrls: ['./liked.component.css']
 })
-export class LikedComponent implements OnInit {
+export class LikedComponent implements OnInit, OnDestroy {
 
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
     @ViewChild('selectAllCB') private readonly selectAllCB: CheckboxComponent;
     @ViewChild('showSortedCB') private readonly showSortedCB: CheckboxComponent;
-
     @ViewChild('player') private readonly player: PlayerComponent;
+
+    private readonly subscriptions: Subscription[] = [];
 
     public constructor(private readonly taskSvc: TaskService, private readonly likedSvc: LikedService) {
         //
     }
 
     public ngOnInit(): void {
-        this.likedSvc.getFilterObs().subscribe(() => {
+        const filterSub: Subscription = this.likedSvc.getFilterObs().subscribe(() => {
             this.runFilter();
         });
+
+        this.subscriptions.push(filterSub);
+    }
+
+    public ngOnDestroy(): void {
+        for (const subscription of this.subscriptions) {
+            subscription.unsubscribe();
+        }
     }
 
     public isCardHidden(): boolean {
