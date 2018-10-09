@@ -105,8 +105,6 @@ export class LikedService {
 
         this.runFilter();
 
-        console.log('Loaded ' + this.getAvailableCount() + ' liked items');
-
         return this.likedItems;
     }
 

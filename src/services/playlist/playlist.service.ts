@@ -91,8 +91,6 @@ export class PlaylistService {
 
         this.runFilter();
 
-        console.log('Loaded ' + this.getAvailableCount() + ' playlist items');
-
         return this.playlistItems;
     }
 

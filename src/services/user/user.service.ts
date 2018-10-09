@@ -50,8 +50,6 @@ export class UserService {
     }
 
     private async onSignIn(user: GoogleUser): Promise<void> {
-        console.log('Signed-in with email: ' + user.getBasicProfile().getEmail());
-
         this.signedIn = true;
 
         this.youtubeSvc.setHeaders(user.getAuthResponse().access_token);
