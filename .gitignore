@@ -6,6 +6,7 @@
 !/.gitattributes
 !/.gitignore
 !/angular.json
+!/ngsw-config.json
 !/package-lock.json
 !/package.json
 !/README.md
