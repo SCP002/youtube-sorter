@@ -108,4 +108,10 @@ export class LikedComponent implements OnInit {
         }
     }
 
+    public trackLikedBy(index: number, item: LikedItem): string | number {
+        const videoId: string = item.getVideo().getId();
+
+        return videoId ? videoId : index;
+    }
+
 }

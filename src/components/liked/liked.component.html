@@ -45,7 +45,7 @@
         >
             <li
                 class="list-group-item list-group-item-action my-2 px-2 rounded c-pointer"
-                *ngFor="let likedItem of getLikedItems()"
+                *ngFor="let likedItem of getLikedItems(); trackBy: trackLikedBy"
                 [ngClass]="likedItem.getNgClass()"
                 [hidden]="likedItem.isHidden()"
                 (click)="likedItem.invertSelect()"

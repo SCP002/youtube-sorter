@@ -121,4 +121,10 @@ export class PlaylistComponent implements OnInit {
         this.activeModal = this.modalSvc.open(modal, modalOptions);
     }
 
+    public trackPlaylistBy(index: number, item: PlaylistItem): string | number {
+        const playlistId: string = item.getPlaylist().getId();
+
+        return playlistId ? playlistId : index;
+    }
+
 }
