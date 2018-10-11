@@ -39,28 +39,36 @@
             [hidden]="isCardContentHidden()"
         >
             <li
-                class="list-group-item d-flex justify-content-between my-2 px-2 rounded bg-light"
+                class="list-group-item my-2 px-2 rounded bg-light"
                 *ngFor="let playlistItem of getPlaylistItems(); trackBy: trackPlaylistBy"
                 [hidden]="playlistItem.isHidden()"
             >
-                <button
-                    type="button"
-                    class="btn btn-outline-secondary btn-sm no-glow"
-                    [disabled]="isAddBtnDisabled()"
-                    (click)="addLikedToPlaylist(playlistItem)"
-                >
-                    <i class="fas fa-arrow-right"></i>
-                </button>
+                <div class="row no-gutters">
+                    <div class="col-auto d-flex">
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm no-glow"
+                            [disabled]="isAddBtnDisabled()"
+                            (click)="addLikedToPlaylist(playlistItem)"
+                        >
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
 
-                <span class="mx-1">{{playlistItem.getPlaylist().getTitle()}}</span>
+                    <div class="col d-flex justify-content-center mx-2">
+                        <span>{{playlistItem.getPlaylist().getTitle()}}</span>
+                    </div>
 
-                <button
-                    type="button"
-                    class="btn btn-outline-secondary btn-sm no-glow"
-                    (click)="deletePlaylist(playlistItem)"
-                >
-                    <i class="far fa-trash-alt"></i>
-                </button>
+                    <div class="col-auto d-flex">
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm no-glow"
+                            (click)="deletePlaylist(playlistItem)"
+                        >
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
