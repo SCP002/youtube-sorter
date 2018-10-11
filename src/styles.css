@@ -7,8 +7,9 @@
     outline: none !important;
 }
 
-.word-wrap-break {
-    word-wrap: break-word;
+.text-wrap-break {
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .c-pointer {
