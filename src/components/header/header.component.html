@@ -1,30 +1,40 @@
 <!-- Header card -->
 <div class="card">
-    <div class="card-body d-flex justify-content-center align-items-center">
-        <button
-            type="button"
-            class="btn btn-primary mx-1 no-glow"
-            (click)="signIn()"
-        >{{getSignInBtnText()}}</button>
+    <div class="card-body">
+        <div class="row no-gutters justify-content-center">
+            <div class="col-auto mx-1">
+                <button
+                    type="button"
+                    class="btn btn-primary no-glow"
+                    (click)="signIn()"
+                >{{getSignInBtnText()}}</button>
+            </div>
 
-        <button
-            type="button"
-            class="btn btn-primary mx-1 no-glow"
-            [disabled]="isRefreshBtnDisabled()"
-            (click)="refresh()"
-        >Refresh</button>
+            <div class="col-auto mx-1">
+                <button
+                    type="button"
+                    class="btn btn-primary no-glow"
+                    [disabled]="isRefreshBtnDisabled()"
+                    (click)="refresh()"
+                >Refresh</button>
+            </div>
 
-        <button
-            type="button"
-            class="btn btn-primary mx-1 no-glow"
-            (click)="openModal(clientIdModal)"
-        >Change Client ID</button>
+            <div class="col-auto mx-1">
+                <a
+                    href="https://github.com/SCP002/youtube-sorter/blob/master/README.md#youtube-sorter"
+                    role="button"
+                    class="btn btn-primary no-glow"
+                >About</a>
+            </div>
 
-        <a
-            href="https://github.com/SCP002/youtube-sorter/blob/master/README.md#youtube-sorter"
-            role="button"
-            class="btn btn-primary mx-1 no-glow"
-        >About</a>
+            <div class="col-auto mx-1">
+                <button
+                    type="button"
+                    class="btn btn-primary no-glow"
+                    (click)="openModal(clientIdModal)"
+                >Change Client ID</button>
+            </div>
+        </div>
     </div>
 
     <div class="card-footer text-center h-3-rem">
