@@ -53,7 +53,7 @@
     </div>
 
     <!-- Modal body -->
-    <div class="modal-body text-wrap-break">
+    <div class="modal-body">
         <span>
             If you encounter some problems with quota limit or authorized domains,
             you can create your own project that uses <b>YouTube Data API</b> and change
@@ -70,7 +70,7 @@
             role="alert"
             class="alert alert-info"
         >
-            {{getClientId()}}
+            <span class="text-wrap-break">{{getClientId()}}</span>
         </div>
 
         <p>Discovery docs used in this application:</p>
@@ -80,7 +80,7 @@
         >
             <ul class="mb-0 pl-1">
                 <li *ngFor="let doc of getDiscoveryDocs()">
-                    {{doc}}
+                    <span class="text-wrap-break">{{doc}}</span>
                 </li>
             </ul>
         </div>
@@ -92,7 +92,7 @@
         >
             <ul class="mb-0 pl-1">
                 <li *ngFor="let scope of getAccessScopes()">
-                    {{scope}}
+                    <span class="text-wrap-break">{{scope}}</span>
                 </li>
             </ul>
         </div>
