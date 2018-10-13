@@ -44,7 +44,7 @@ Also, this application can:
 * If you want to use this application on the mobile device - turn on
   lanscape orientation.
 > This application can not be displayed properly on screen width less
-> than 490px.
+> than 571px on desktop and 554px on mobile.
 
 * This application can not load and display deleted or unavailable videos
   from your liked playlist.
