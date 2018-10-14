@@ -26,6 +26,10 @@ export class HeaderComponent {
 
     }
 
+    public isSignInBtnDisabled(): boolean {
+        return !this.userSvc.isReadyToSignIn();
+    }
+
     public isRefreshBtnDisabled(): boolean {
         return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE || this.likedSvc.getLoadStatus() !== TaskStatus.DONE;
     }

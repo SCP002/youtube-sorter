@@ -16,6 +16,7 @@ export class UserService {
 
     private googleAuth: Promise<GoogleAuth>;
     private signedIn = false;
+    private readyToSignIn = false;
 
     private constructor(
         private readonly youtubeSvc: YoutubeService,
@@ -26,6 +27,8 @@ export class UserService {
 
         // Check if signed-in already.
         this.googleAuth.then((auth: GoogleAuth) => {
+            this.readyToSignIn = true;
+
             const user: GoogleUser = auth.currentUser.get();
 
             if (user.isSignedIn()) {
@@ -37,6 +40,10 @@ export class UserService {
 
     public isSignedIn(): boolean {
         return this.signedIn;
+    }
+
+    public isReadyToSignIn(): boolean {
+        return this.readyToSignIn;
     }
 
     public async signIn(): Promise<GoogleUser> {

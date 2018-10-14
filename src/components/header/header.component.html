@@ -6,6 +6,7 @@
                 <button
                     type="button"
                     class="btn btn-primary no-glow"
+                    [disabled]="isSignInBtnDisabled()"
                     (click)="signIn()"
                 >{{getSignInBtnText()}}</button>
             </div>
