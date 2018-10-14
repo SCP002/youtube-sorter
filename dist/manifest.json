@@ -1,6 +1,6 @@
 {
-  "name": "youtube-sorter",
-  "short_name": "youtube-sorter",
+  "name": "YouTube Sorter",
+  "short_name": "YTSorter",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
