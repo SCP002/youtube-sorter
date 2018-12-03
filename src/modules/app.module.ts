@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
         FormsModule,
         GoogleApiModule.forRoot({ provide: NG_GAPI_CONFIG, useValue: ApiConfig.gApiConfig }),
         HttpClientModule,
-        NgbModule.forRoot(),
+        NgbModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
         YoutubePlayerModule
     ],
