@@ -1,4 +1,3 @@
-<!-- Header card -->
 <div class="card">
     <div class="card-body">
         <div class="row no-gutters justify-content-center">
@@ -32,7 +31,7 @@
                 <button
                     type="button"
                     class="btn btn-primary no-glow"
-                    (click)="openModal(clientIdModal)"
+                    (click)="openCidModal()"
                 >Change Client ID</button>
             </div>
         </div>
@@ -42,104 +41,3 @@
         {{getCardFooterText()}}
     </div>
 </div>
-
-
-<!-- Client ID modal -->
-<ng-template
-    #clientIdModal
-    let-close="close('Close click')"
-    let-dismiss="dismiss('Cross click')"
->
-    <!-- Modal header -->
-    <div class="modal-header">
-        <h5 class="modal-title">Change Client ID</h5>
-        <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="dismiss"
-        >
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <!-- Modal body -->
-    <div class="modal-body">
-        <span>
-            If you encounter some problems with quota limit or authorized domains,
-            you can create your own project that uses <b>YouTube Data API</b> and change
-            this application <b>Client ID</b> to your own.
-            <br>
-        </span>
-
-        <a href="https://developers.google.com/youtube/v3/guides/auth/client-side-web-apps">Read the documentation</a>.
-
-        <hr>
-
-        <p>Current Client ID:</p>
-        <div
-            role="alert"
-            class="alert alert-info"
-        >
-            <span class="text-wrap-break">{{getClientId()}}</span>
-        </div>
-
-        <p>Discovery docs used in this application:</p>
-        <div
-            role="alert"
-            class="alert alert-info"
-        >
-            <ul class="mb-0 pl-1">
-                <li *ngFor="let doc of getDiscoveryDocs()">
-                    <span class="text-wrap-break">{{doc}}</span>
-                </li>
-            </ul>
-        </div>
-
-        <p>Access scopes used in this application:</p>
-        <div
-            role="alert"
-            class="alert alert-info"
-        >
-            <ul class="mb-0 pl-1">
-                <li *ngFor="let scope of getAccessScopes()">
-                    <span class="text-wrap-break">{{scope}}</span>
-                </li>
-            </ul>
-        </div>
-
-        <hr>
-
-        <!-- Using keyup to run change update detection in time. -->
-        <input
-            #clientIdInput
-            type="text"
-            class="form-control"
-            placeholder="Paste your Client ID here"
-            (keyup)="true"
-        >
-    </div>
-
-    <!-- Modal footer -->
-    <div class="modal-footer">
-        <button
-            type="button"
-            class="btn btn-primary no-glow"
-            [disabled]="isSetClientIdBtnDisabled(clientIdInput)"
-            (click)="setClientId(clientIdInput)"
-        >Change</button>
-
-        <button
-            type="button"
-            class="btn btn-primary no-glow"
-            [disabled]="isSetDefaultClientIdBtnDisabled()"
-            (click)="setDefaultClientId()"
-        >Set default</button>
-
-        <button
-            type="button"
-            class="btn btn-light no-glow"
-            (click)="close"
-        >Close</button>
-    </div>
-</ng-template>

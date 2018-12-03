@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { ApiConfig } from '../../configs/api.config';
 import { LikedService } from '../../services/liked/liked.service';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskStatus } from '../../services/task/task-status';
 import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
+import { CidModalComponent } from '../cid-modal/cid-modal.component';
 
 @Component({
     selector: 'app-header',
@@ -34,18 +34,6 @@ export class HeaderComponent {
         return this.playlistSvc.getLoadStatus() !== TaskStatus.DONE || this.likedSvc.getLoadStatus() !== TaskStatus.DONE;
     }
 
-    public isSetClientIdBtnDisabled(idInput: HTMLInputElement): boolean {
-        if (!idInput.value || idInput.value === this.getClientId()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public isSetDefaultClientIdBtnDisabled(): boolean {
-        return this.getClientId() === ApiConfig.defaultClientId;
-    }
-
     public getSignInBtnText(): string {
         return this.userSvc.isSignedIn() ? 'Switch User' : 'Sign-in';
     }
@@ -65,26 +53,6 @@ export class HeaderComponent {
         return '';
     }
 
-    public getClientId(): string {
-        return ApiConfig.clientId;
-    }
-
-    public getDiscoveryDocs(): string[] {
-        return ApiConfig.discoveryDocs;
-    }
-
-    public getAccessScopes(): string[] {
-        return ApiConfig.scopes;
-    }
-
-    public setClientId(idInput: HTMLInputElement): void {
-        this.taskSvc.setClientId(idInput.value);
-    }
-
-    public setDefaultClientId(): void {
-        this.taskSvc.setDefaultClientId();
-    }
-
     public signIn(): void {
         this.userSvc.signIn();
     }
@@ -93,7 +61,11 @@ export class HeaderComponent {
         this.taskSvc.loadAll();
     }
 
-    public openModal(modal: NgbModalRef): void {
+    public openCidModal(): void {
+        this.openModal(CidModalComponent);
+    }
+
+    private openModal(modal: NgbModalRef | Function): void {
         const modalOptions: NgbModalOptions = {
             size: 'lg'
         };
