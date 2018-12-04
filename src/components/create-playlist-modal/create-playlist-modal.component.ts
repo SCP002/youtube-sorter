@@ -1,8 +1,7 @@
-import { PlaylistService } from 'src/services/playlist/playlist.service';
-
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { PlaylistService } from '../../services/playlist/playlist.service';
 import { Playlist } from '../../services/youtube/playlist';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 
@@ -13,12 +12,17 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 })
 export class CreatePlaylistModalComponent {
 
+    @ViewChild('playlistNameInput') private readonly playlistNameInputRef: ElementRef<HTMLInputElement>;
+    @ViewChild('isPlaylistPrivateCB') private readonly isPlaylistPrivateCB: CheckboxComponent;
+
     public constructor(private readonly activeModal: NgbActiveModal, private readonly playlistSvc: PlaylistService) {
         //
     }
 
-    public isCreateBtnDisabled(nameInput: HTMLInputElement): boolean {
-        if (!nameInput.value) {
+    public isCreateBtnDisabled(): boolean {
+        const name: string = this.playlistNameInputRef.nativeElement.value;
+
+        if (!name) {
             return true;
         }
 
@@ -29,10 +33,13 @@ export class CreatePlaylistModalComponent {
         return this.activeModal;
     }
 
-    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: CheckboxComponent): Promise<Playlist> {
+    public async createPlaylist(): Promise<Playlist> {
+        const name: string = this.playlistNameInputRef.nativeElement.value;
+        const isPrivate: boolean = this.isPlaylistPrivateCB.isChecked();
+
         this.activeModal.close();
 
-        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.isChecked());
+        const playlist: Playlist = await this.playlistSvc.createPlaylist(name, isPrivate);
 
         return playlist;
     }
