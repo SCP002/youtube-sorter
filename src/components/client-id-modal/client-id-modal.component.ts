@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApiConfig } from '../../configs/api.config';
@@ -11,12 +11,16 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class ClientIdModalComponent {
 
+    @ViewChild('clientIdInput') private readonly clientIdInputRef: ElementRef<HTMLInputElement>;
+
     public constructor(private readonly activeModal: NgbActiveModal, private readonly taskSvc: TaskService) {
         //
     }
 
-    public isSetClientIdBtnDisabled(idInput: HTMLInputElement): boolean {
-        if (!idInput.value || idInput.value === this.getClientId()) {
+    public isSetClientIdBtnDisabled(): boolean {
+        const id: string = this.clientIdInputRef.nativeElement.value;
+
+        if (!id || id === this.getClientId()) {
             return true;
         }
 
@@ -43,8 +47,8 @@ export class ClientIdModalComponent {
         return ApiConfig.scopes;
     }
 
-    public setClientId(idInput: HTMLInputElement): void {
-        this.taskSvc.setClientId(idInput.value);
+    public setClientId(): void {
+        this.taskSvc.setClientId(this.clientIdInputRef.nativeElement.value);
     }
 
     public setDefaultClientId(): void {
