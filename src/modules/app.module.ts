@@ -14,7 +14,7 @@ import { ClientIdModalComponent } from '../components/client-id-modal/client-id-
 import { CreatePlaylistModalComponent } from '../components/create-playlist-modal/create-playlist-modal.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { LikedComponent } from '../components/liked/liked.component';
-import { PlayerComponent } from '../components/player/player.component';
+import { PlayerModalComponent } from '../components/player-modal/player-modal.component';
 import { PlaylistComponent } from '../components/playlist/playlist.component';
 import { ApiConfig } from '../configs/api.config';
 import { environment } from '../environments/environment';
@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
         CreatePlaylistModalComponent,
         HeaderComponent,
         LikedComponent,
-        PlayerComponent,
+        PlayerModalComponent,
         PlaylistComponent
     ],
     imports: [
@@ -47,7 +47,8 @@ import { environment } from '../environments/environment';
     ],
     entryComponents: [
         ClientIdModalComponent,
-        CreatePlaylistModalComponent
+        CreatePlaylistModalComponent,
+        PlayerModalComponent
     ]
 })
 export class AppModule {

@@ -4,11 +4,11 @@ import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstr
 import { Video } from '../../services/youtube/video';
 
 @Component({
-    selector: 'app-player',
-    templateUrl: './player.component.html',
-    styleUrls: ['./player.component.css']
+    selector: 'app-player-modal',
+    templateUrl: './player-modal.component.html',
+    styleUrls: ['./player-modal.component.css']
 })
-export class PlayerComponent {
+export class PlayerModalComponent {
 
     @ViewChild('playerModal') private readonly playerModal: NgbModalRef;
 

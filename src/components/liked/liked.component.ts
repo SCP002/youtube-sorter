@@ -7,7 +7,7 @@ import { LikedService } from '../../services/liked/liked.service';
 import { TaskStatus } from '../../services/task/task-status';
 import { TaskService } from '../../services/task/task.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { PlayerComponent } from '../player/player.component';
+import { PlayerModalComponent } from '../player-modal/player-modal.component';
 
 @Component({
     selector: 'app-liked',
@@ -19,7 +19,7 @@ export class LikedComponent implements OnInit, OnDestroy {
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
     @ViewChild('selectAllCB') private readonly selectAllCB: CheckboxComponent;
     @ViewChild('showSortedCB') private readonly showSortedCB: CheckboxComponent;
-    @ViewChild('player') private readonly player: PlayerComponent;
+    @ViewChild('player') private readonly player: PlayerModalComponent;
 
     private readonly subscriptions: Subscription[] = [];
 
