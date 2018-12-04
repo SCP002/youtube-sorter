@@ -6,7 +6,7 @@ import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskStatus } from '../../services/task/task-status';
 import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
-import { CidModalComponent } from '../cid-modal/cid-modal.component';
+import { ClientIdModalComponent } from '../client-id-modal/client-id-modal.component';
 
 @Component({
     selector: 'app-header',
@@ -61,8 +61,8 @@ export class HeaderComponent {
         this.taskSvc.loadAll();
     }
 
-    public openCidModal(): void {
-        this.openModal(CidModalComponent);
+    public openClientIdModal(): void {
+        this.openModal(ClientIdModalComponent);
     }
 
     private openModal(modal: NgbModalRef | Function): void {

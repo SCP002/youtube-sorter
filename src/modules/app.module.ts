@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from '../components/app/app.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
-import { CidModalComponent } from '../components/cid-modal/cid-modal.component';
+import { ClientIdModalComponent } from '../components/client-id-modal/client-id-modal.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { LikedComponent } from '../components/liked/liked.component';
 import { PlayerComponent } from '../components/player/player.component';
@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
     declarations: [
         AppComponent,
         CheckboxComponent,
-        CidModalComponent,
+        ClientIdModalComponent,
         HeaderComponent,
         LikedComponent,
         PlayerComponent,
@@ -44,7 +44,7 @@ import { environment } from '../environments/environment';
         AppComponent
     ],
     entryComponents: [
-        CidModalComponent
+        ClientIdModalComponent
     ]
 })
 export class AppModule {

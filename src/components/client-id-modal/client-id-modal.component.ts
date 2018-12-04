@@ -5,11 +5,11 @@ import { ApiConfig } from '../../configs/api.config';
 import { TaskService } from '../../services/task/task.service';
 
 @Component({
-    selector: 'app-cid-modal',
-    templateUrl: './cid-modal.component.html',
-    styleUrls: ['./cid-modal.component.css']
+    selector: 'app-client-id-modal',
+    templateUrl: './client-id-modal.component.html',
+    styleUrls: ['./client-id-modal.component.css']
 })
-export class CidModalComponent {
+export class ClientIdModalComponent {
 
     public constructor(private readonly activeModal: NgbActiveModal, private readonly taskSvc: TaskService) {
         //

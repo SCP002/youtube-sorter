@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CidModalComponent } from './cid-modal.component';
+import { ClientIdModalComponent } from './client-id-modal.component';
 
-describe('CidModalComponent', () => {
-    let component: CidModalComponent;
-    let fixture: ComponentFixture<CidModalComponent>;
+describe('ClientIdModalComponent', () => {
+    let component: ClientIdModalComponent;
+    let fixture: ComponentFixture<ClientIdModalComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CidModalComponent]
+            declarations: [ClientIdModalComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CidModalComponent);
+        fixture = TestBed.createComponent(ClientIdModalComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
