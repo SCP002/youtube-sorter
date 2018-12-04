@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from '../components/app/app.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
 import { ClientIdModalComponent } from '../components/client-id-modal/client-id-modal.component';
+import { CreatePlaylistModalComponent } from '../components/create-playlist-modal/create-playlist-modal.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { LikedComponent } from '../components/liked/liked.component';
 import { PlayerComponent } from '../components/player/player.component';
@@ -23,6 +24,7 @@ import { environment } from '../environments/environment';
         AppComponent,
         CheckboxComponent,
         ClientIdModalComponent,
+        CreatePlaylistModalComponent,
         HeaderComponent,
         LikedComponent,
         PlayerComponent,
@@ -44,7 +46,8 @@ import { environment } from '../environments/environment';
         AppComponent
     ],
     entryComponents: [
-        ClientIdModalComponent
+        ClientIdModalComponent,
+        CreatePlaylistModalComponent
     ]
 })
 export class AppModule {

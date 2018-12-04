@@ -7,8 +7,7 @@ import { PlaylistItem } from '../../services/playlist/playlist-item';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { TaskStatus } from '../../services/task/task-status';
 import { TaskService } from '../../services/task/task.service';
-import { Playlist } from '../../services/youtube/playlist';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { CreatePlaylistModalComponent } from '../create-playlist-modal/create-playlist-modal.component';
 
 @Component({
     selector: 'app-playlist',
@@ -20,8 +19,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     @ViewChild('searchInput') private readonly searchInputRef: ElementRef<HTMLInputElement>;
 
     private readonly subscriptions: Subscription[] = [];
-
-    private activeModal: NgbModalRef;
 
     public constructor(
         private readonly modalSvc: NgbModal,
@@ -58,14 +55,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
         return this.taskSvc.getSelectedCount() === 0;
     }
 
-    public isCreateBtnDisabled(nameInput: HTMLInputElement): boolean {
-        if (!nameInput.value) {
-            return true;
-        }
-
-        return false;
-    }
-
     public getCardSubTitle(): string {
         const loadStatus: TaskStatus = this.playlistSvc.getLoadStatus();
 
@@ -88,14 +77,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
 
     public async addLikedToPlaylist(playlistItem: PlaylistItem): Promise<void> {
         await this.taskSvc.addLikedToPlaylist(playlistItem.getPlaylist());
-    }
-
-    public async createPlaylist(nameInput: HTMLInputElement, isPrivateCB: CheckboxComponent): Promise<Playlist> {
-        this.activeModal.close();
-
-        const playlist: Playlist = await this.playlistSvc.createPlaylist(nameInput.value, isPrivateCB.isChecked());
-
-        return playlist;
     }
 
     public async deletePlaylist(playlistItem: PlaylistItem): Promise<void> {
@@ -125,18 +106,22 @@ export class PlaylistComponent implements OnInit, OnDestroy {
         }
     }
 
-    public openModal(modal: NgbModalRef): void {
-        const modalOptions: NgbModalOptions = {
-            size: 'lg'
-        };
-
-        this.activeModal = this.modalSvc.open(modal, modalOptions);
-    }
-
     public trackPlaylistBy(index: number, item: PlaylistItem): string | number {
         const playlistId: string = item.getPlaylist().getId();
 
         return playlistId ? playlistId : index;
+    }
+
+    public openCreatePlaylistModal(): void {
+        this.openModal(CreatePlaylistModalComponent);
+    }
+
+    private openModal(modal: NgbModalRef | Function): void {
+        const modalOptions: NgbModalOptions = {
+            size: 'lg'
+        };
+
+        this.modalSvc.open(modal, modalOptions);
     }
 
 }
