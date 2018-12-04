@@ -22,10 +22,6 @@ export class PlayerComponent {
         return this.video.getTitle();
     }
 
-    public getVideoId(): string {
-        return this.video.getId();
-    }
-
     public playVideo(video: Video): void {
         this.video = video;
 
@@ -38,7 +34,7 @@ export class PlayerComponent {
     }
 
     public startPlayer(player: YT.Player): void {
-        player.playVideo();
+        player.loadVideoById(this.video.getId());
     }
 
 }
