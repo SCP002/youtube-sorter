@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { Video } from '../../services/youtube/video';
+import { Video } from '@app/services/youtube/video';
 
 @Component({
     selector: 'app-player',

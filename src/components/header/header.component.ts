@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { LikedService } from '../../services/liked/liked.service';
-import { PlaylistService } from '../../services/playlist/playlist.service';
-import { TaskStatus } from '../../services/task/task-status';
-import { TaskService } from '../../services/task/task.service';
-import { UserService } from '../../services/user/user.service';
-import { ClientIdModalComponent } from '../client-id-modal/client-id-modal.component';
+import { ClientIdModalComponent } from '@app/components/client-id-modal/client-id-modal.component';
+import { LikedService } from '@app/services/liked/liked.service';
+import { PlaylistService } from '@app/services/playlist/playlist.service';
+import { TaskStatus } from '@app/services/task/task-status';
+import { TaskService } from '@app/services/task/task.service';
+import { UserService } from '@app/services/user/user.service';
 
 @Component({
     selector: 'app-header',

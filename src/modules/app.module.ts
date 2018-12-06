@@ -8,16 +8,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from '../components/app/app.component';
-import { CheckboxComponent } from '../components/checkbox/checkbox.component';
-import { ClientIdModalComponent } from '../components/client-id-modal/client-id-modal.component';
-import { CreatePlaylistModalComponent } from '../components/create-playlist-modal/create-playlist-modal.component';
-import { HeaderComponent } from '../components/header/header.component';
-import { LikedComponent } from '../components/liked/liked.component';
-import { PlayerComponent } from '../components/player/player.component';
-import { PlaylistComponent } from '../components/playlist/playlist.component';
-import { ApiConfig } from '../configs/api.config';
-import { environment } from '../environments/environment';
+import { AppComponent } from '@app/components/app/app.component';
+import { CheckboxComponent } from '@app/components/checkbox/checkbox.component';
+import { ClientIdModalComponent } from '@app/components/client-id-modal/client-id-modal.component';
+import { CreatePlaylistModalComponent } from '@app/components/create-playlist-modal/create-playlist-modal.component';
+import { HeaderComponent } from '@app/components/header/header.component';
+import { LikedComponent } from '@app/components/liked/liked.component';
+import { PlayerComponent } from '@app/components/player/player.component';
+import { PlaylistComponent } from '@app/components/playlist/playlist.component';
+import { ApiConfig } from '@app/configs/api.config';
+import { environment } from '@app/environments/environment';
 
 @NgModule({
     declarations: [

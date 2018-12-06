@@ -2,12 +2,12 @@ import { Subscription } from 'rxjs';
 
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { LikedItem } from '../../services/liked/liked-item';
-import { LikedService } from '../../services/liked/liked.service';
-import { TaskStatus } from '../../services/task/task-status';
-import { TaskService } from '../../services/task/task.service';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { PlayerComponent } from '../player/player.component';
+import { CheckboxComponent } from '@app/components/checkbox/checkbox.component';
+import { PlayerComponent } from '@app/components/player/player.component';
+import { LikedItem } from '@app/services/liked/liked-item';
+import { LikedService } from '@app/services/liked/liked.service';
+import { TaskStatus } from '@app/services/task/task-status';
+import { TaskService } from '@app/services/task/task.service';
 
 @Component({
     selector: 'app-liked',

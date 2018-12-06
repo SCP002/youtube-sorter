@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreatePlaylistModalComponent } from './create-playlist-modal.component';
+import { CreatePlaylistModalComponent } from '@app/components/create-playlist-modal/create-playlist-modal.component';
 
 describe('CreatePlaylistModalComponent', () => {
     let component: CreatePlaylistModalComponent;

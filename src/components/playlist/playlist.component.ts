@@ -3,11 +3,11 @@ import { Subscription } from 'rxjs';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { PlaylistItem } from '../../services/playlist/playlist-item';
-import { PlaylistService } from '../../services/playlist/playlist.service';
-import { TaskStatus } from '../../services/task/task-status';
-import { TaskService } from '../../services/task/task.service';
-import { CreatePlaylistModalComponent } from '../create-playlist-modal/create-playlist-modal.component';
+import { CreatePlaylistModalComponent } from '@app/components/create-playlist-modal/create-playlist-modal.component';
+import { PlaylistItem } from '@app/services/playlist/playlist-item';
+import { PlaylistService } from '@app/services/playlist/playlist.service';
+import { TaskStatus } from '@app/services/task/task-status';
+import { TaskService } from '@app/services/task/task.service';
 
 @Component({
     selector: 'app-playlist',

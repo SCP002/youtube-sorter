@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ApiConfig } from '../../configs/api.config';
-import { TaskService } from '../../services/task/task.service';
+import { ApiConfig } from '@app/configs/api.config';
+import { TaskService } from '@app/services/task/task.service';
 
 @Component({
     selector: 'app-client-id-modal',

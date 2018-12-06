@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { PlaylistService } from '../../services/playlist/playlist.service';
-import { Playlist } from '../../services/youtube/playlist';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { CheckboxComponent } from '@app/components/checkbox/checkbox.component';
+import { PlaylistService } from '@app/services/playlist/playlist.service';
+import { Playlist } from '@app/services/youtube/playlist';
 
 @Component({
     selector: 'app-create-playlist-modal',

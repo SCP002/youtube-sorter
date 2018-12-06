@@ -1,5 +1,5 @@
-import { Playlist } from '../youtube/playlist';
-import { Video } from '../youtube/video';
+import { Playlist } from '@app/services/youtube/playlist';
+import { Video } from '@app/services/youtube/video';
 
 export class LikedItem {
 

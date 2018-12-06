@@ -1,4 +1,4 @@
-import { Video } from './video';
+import { Video } from '@app/services/youtube/video';
 
 export class Playlist {
 

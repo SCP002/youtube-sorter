@@ -2,12 +2,12 @@ import { Observable, Subject } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
-import { PlaylistService } from '../playlist/playlist.service';
-import { TaskStatus } from '../task/task-status';
-import { Playlist } from '../youtube/playlist';
-import { Video } from '../youtube/video';
-import { YoutubeService } from '../youtube/youtube.service';
-import { LikedItem } from './liked-item';
+import { PlaylistService } from '@app/services//playlist/playlist.service';
+import { LikedItem } from '@app/services/liked/liked-item';
+import { TaskStatus } from '@app/services/task/task-status';
+import { Playlist } from '@app/services/youtube/playlist';
+import { Video } from '@app/services/youtube/video';
+import { YoutubeService } from '@app/services/youtube/youtube.service';
 
 @Injectable({
     providedIn: 'root'

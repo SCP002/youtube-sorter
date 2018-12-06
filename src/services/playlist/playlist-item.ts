@@ -1,4 +1,4 @@
-import { Playlist } from '../youtube/playlist';
+import { Playlist } from '@app/services/youtube/playlist';
 
 export class PlaylistItem {
 
