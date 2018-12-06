@@ -65,12 +65,12 @@ export class HeaderComponent {
         this.openModal(ClientIdModalComponent);
     }
 
-    private openModal(modal: NgbModalRef | Function): void {
+    private openModal(modal: NgbModalRef | Function): NgbModalRef {
         const modalOptions: NgbModalOptions = {
             size: 'lg'
         };
 
-        this.modalSvc.open(modal, modalOptions);
+        return this.modalSvc.open(modal, modalOptions);
     }
 
 }
