@@ -9,10 +9,10 @@
       "urls": [
         "https://scp002.github.io/youtube-sorter/dist/favicon.ico",
         "https://scp002.github.io/youtube-sorter/dist/index.html",
-        "https://scp002.github.io/youtube-sorter/dist/main.b322d5ebf7d3ac407300.js",
-        "https://scp002.github.io/youtube-sorter/dist/polyfills.09d3f07b7f2424f80f59.js",
-        "https://scp002.github.io/youtube-sorter/dist/runtime.a66f828dca56eeb90e02.js",
-        "https://scp002.github.io/youtube-sorter/dist/styles.7c54f101dc698e7460ac.css"
+        "https://scp002.github.io/youtube-sorter/dist/main.95826bb91f23aab8b1cb.js",
+        "https://scp002.github.io/youtube-sorter/dist/polyfills.37af9ceb4def0f95c4ca.js",
+        "https://scp002.github.io/youtube-sorter/dist/runtime.ec2944dd8b20ec099bf3.js",
+        "https://scp002.github.io/youtube-sorter/dist/styles.d6f4bbf1ed2bbc5fb7a2.css"
       ],
       "patterns": []
     },
@@ -44,11 +44,11 @@
     "https://scp002.github.io/youtube-sorter/dist/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://scp002.github.io/youtube-sorter/dist/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://scp002.github.io/youtube-sorter/dist/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://scp002.github.io/youtube-sorter/dist/index.html": "54532c330a98d1d61fb2bfdcef9fba4d42a9f28e",
-    "https://scp002.github.io/youtube-sorter/dist/main.b322d5ebf7d3ac407300.js": "21f56e371747a58bb78377ad38af10141284220f",
-    "https://scp002.github.io/youtube-sorter/dist/polyfills.09d3f07b7f2424f80f59.js": "8949bb1b1e302dda246f6ed9c2da703270360b1f",
-    "https://scp002.github.io/youtube-sorter/dist/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
-    "https://scp002.github.io/youtube-sorter/dist/styles.7c54f101dc698e7460ac.css": "e0d60b1d2c5e1c7f55ac6c825fcf1c3fa223f5e0"
+    "https://scp002.github.io/youtube-sorter/dist/index.html": "c69dbd5089de7a664215929644442e5945304403",
+    "https://scp002.github.io/youtube-sorter/dist/main.95826bb91f23aab8b1cb.js": "09bb6a60094f4e00d66ebb18e13db4fb82be36fc",
+    "https://scp002.github.io/youtube-sorter/dist/polyfills.37af9ceb4def0f95c4ca.js": "ce68d153e9b9b6d26b625069c0ee99ae09c6f255",
+    "https://scp002.github.io/youtube-sorter/dist/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "https://scp002.github.io/youtube-sorter/dist/styles.d6f4bbf1ed2bbc5fb7a2.css": "bf00989cc42528dc2a633d8ce642919ac7e376ac"
   },
   "navigationUrls": [
     {
