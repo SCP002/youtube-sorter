@@ -34,10 +34,6 @@ export class TaskService {
         return this.addedCount;
     }
 
-    public getSelectedCount(): number {
-        return this.likedSvc.getSelectedCount();
-    }
-
     public setClientId(id: string): void {
         localStorage.setItem('clientId', id);
         location.reload();

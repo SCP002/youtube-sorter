@@ -4,6 +4,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { CreatePlaylistModalComponent } from '@app/components/create-playlist-modal/create-playlist-modal.component';
+import { LikedService } from '@app/services/liked/liked.service';
 import { PlaylistItem } from '@app/services/playlist/playlist-item';
 import { PlaylistService } from '@app/services/playlist/playlist.service';
 import { TaskStatus } from '@app/services/task/task-status';
@@ -23,7 +24,8 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     public constructor(
         private readonly modalSvc: NgbModal,
         private readonly taskSvc: TaskService,
-        private readonly playlistSvc: PlaylistService) {
+        private readonly playlistSvc: PlaylistService,
+        private readonly likedSvc: LikedService) {
 
         //
 
@@ -52,7 +54,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     }
 
     public isAddBtnDisabled(): boolean {
-        return this.taskSvc.getSelectedCount() === 0;
+        return this.likedSvc.getSelectedCount() === 0;
     }
 
     public getCardSubTitle(): string {
