@@ -2,7 +2,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
-import { PlaylistService } from '@app/services//playlist/playlist.service';
+import { PlaylistService } from '@app/services/playlist/playlist.service';
 import { LikedItem } from '@app/services/liked/liked-item';
 import { TaskStatus } from '@app/services/task/task-status';
 import { Playlist } from '@app/services/youtube/playlist';
